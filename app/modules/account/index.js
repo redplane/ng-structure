@@ -1,6 +1,9 @@
-require('./login/login.controller')(ngModule);
+
 
 module.exports = function(ngModule){
+
+    require('./login/login.controller')(ngModule);
+
     /*
     * Routes configuration.
     * */
