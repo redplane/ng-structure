@@ -8,7 +8,7 @@ var CleanWebpackPlugin  = require('clean-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, 'app'),
     entry: {
-        bundle: './app.js',
+        app: './app.js',
         vendor: ['jquery', 'angular', 'angular-route', '@uirouter/angularjs', 'bootstrap']
     },
     module: {
