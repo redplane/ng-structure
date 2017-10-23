@@ -1,6 +1,6 @@
 'use strict';
 // Css imports.
-require('../node_modules/bootstrap/dist/css/bootstrap.css');
+require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 
 // Import jquery lib.
 require('jquery');
@@ -14,10 +14,13 @@ var angular = require('angular');
 
 // Module declaration.
 var ngModule = angular.module('ngApp', ['ngRoute', 'ui.router']);
+ngModule.config(function($urlRouterProvider){
+    $urlRouterProvider.when('', '/login');
+});
 
 // Directive requirements.
 require('./directives/index')(ngModule);
 
 // Module requirements.
-require('./modules/account')(ngModule);
-require('./modules/dashboard')(ngModule);
+require('./modules/account/index')(ngModule);
+require('./modules/dashboard/index')(ngModule);

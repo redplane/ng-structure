@@ -5,7 +5,7 @@ module.exports = function(ngModule){
     * */
     ngModule.directive('kcdHello', function(){
         return {
-            templateUrl: './directives/kcd-hello/kcd-hello.directive.html',
+            templateUrl: '/app/directives/kcd-hello/kcd-hello.directive.html',
             restrict: 'E',
             scope: {},
             controller: function($scope){

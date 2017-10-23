@@ -6,7 +6,7 @@ var CleanWebpackPlugin  = require('clean-webpack-plugin');
 * Module export.
 * */
 module.exports = {
-    context: path.resolve(__dirname, 'app'),
+    context: path.resolve(__dirname, 'src/app'),
     entry: {
         app: './app.js',
         vendor: ['jquery', 'angular', 'angular-route', '@uirouter/angularjs', 'bootstrap']
@@ -31,7 +31,7 @@ module.exports = {
         ]
     },
     plugins:[
-        new CleanWebpackPlugin(['./app/dist'], {
+        new CleanWebpackPlugin(['./src/dist'], {
             // Absolute path to your webpack root folder (paths appended to this)
             // Default: root of your package
             root: __dirname,
@@ -63,7 +63,7 @@ module.exports = {
         })
     ],
     output: {
-        path: path.resolve(__dirname, 'app/dist'),
+        path: path.resolve(__dirname, 'src/dist'),
         filename: '[name].js'
     }
 };
