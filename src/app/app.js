@@ -18,6 +18,9 @@ ngModule.config(function($urlRouterProvider){
     $urlRouterProvider.when('', '/login');
 });
 
+// Constants import.
+require('./constants/index')(ngModule);
+
 // Directive requirements.
 require('./directives/index')(ngModule);
 

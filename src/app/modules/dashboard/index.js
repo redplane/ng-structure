@@ -1,3 +1,5 @@
+// Load modules templates.
+var ngMainDashboardTemplate = require('./main/main.html');
 
 module.exports = function(ngModule){
     /*
@@ -11,7 +13,7 @@ module.exports = function(ngModule){
     ngModule.config(function($stateProvider){
        $stateProvider.state('main-dashboard', {
            url: '/dashboard/main',
-           templateUrl: '/app/modules/dashboard/main/main.html',
+           template: ngMainDashboardTemplate,
            controller: 'mainDashboardController'
        });
     });
