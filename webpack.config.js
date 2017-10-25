@@ -1,8 +1,8 @@
-let path = require('path');
-let webpack = require('webpack');
-let CleanWebpackPlugin = require('clean-webpack-plugin');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
+var webpack = require('webpack');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /*
 * Module export.
@@ -11,7 +11,7 @@ module.exports = {
     context: path.resolve(__dirname, 'src/app'),
     entry: {
         'vendor': ['jquery', 'angular', 'angular-route', '@uirouter/angularjs', 'bootstrap'],
-        'app': path.resolve(__dirname, 'src/app/app.js'),
+        'app': path.resolve(__dirname, 'src/app/app.js')
     },
     module: {
         rules: [
@@ -68,11 +68,11 @@ module.exports = {
                 to: path.resolve(__dirname, 'src/dist/assets')
             }
         ]),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: Infinity
@@ -81,7 +81,7 @@ module.exports = {
             template: path.resolve(__dirname, 'src/index.html'),
             chunksSortMode: function (a, b) {
                 //let order = ['app','angular-plugins', 'jquery-plugins'];
-                let order = ['vendor', 'app'];
+                var order = ['vendor', 'app'];
                 return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
             }
         }),

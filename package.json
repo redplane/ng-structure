@@ -4,9 +4,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
     "bluebird": "^3.5.1",
     "clean-webpack-plugin": "^0.1.17",
     "concurrently": "^3.5.0",
@@ -21,7 +18,7 @@
     "url-loader": "^0.6.2"
   },
   "scripts": {
-    "start": "concurrently \"http-server -a localhost -p 8000 -c-1 ./src/dist\" \"webpack --watch\""
+    "start": "concurrently \"http-server -a localhost -p 8000 -c-1 ./src\" \"webpack --watch\""
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.10",

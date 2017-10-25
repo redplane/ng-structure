@@ -11,10 +11,10 @@ require('angular-route');
 require('@uirouter/angularjs');
 
 // Module init.
-let angular = require('angular');
+var angular = require('angular');
 
 // Module declaration.
-let ngModule = angular.module('ngApp', ['ngRoute', 'ui.router']);
+var ngModule = angular.module('ngApp', ['ngRoute', 'ui.router']);
 ngModule.config(function($urlRouterProvider){
     $urlRouterProvider.when('', '/login');
 });
