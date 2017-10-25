@@ -1,4 +1,5 @@
 'use strict';
+
 // Css imports.
 require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 
@@ -10,10 +11,10 @@ require('angular-route');
 require('@uirouter/angularjs');
 
 // Module init.
-var angular = require('angular');
+let angular = require('angular');
 
 // Module declaration.
-var ngModule = angular.module('ngApp', ['ngRoute', 'ui.router']);
+let ngModule = angular.module('ngApp', ['ngRoute', 'ui.router']);
 ngModule.config(function($urlRouterProvider){
     $urlRouterProvider.when('', '/login');
 });

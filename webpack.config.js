@@ -1,6 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
-var CleanWebpackPlugin  = require('clean-webpack-plugin');
+let path = require('path');
+let webpack = require('webpack');
+let CleanWebpackPlugin = require('clean-webpack-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /*
 * Module export.
@@ -8,14 +10,14 @@ var CleanWebpackPlugin  = require('clean-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, 'src/app'),
     entry: {
-        app: './app.js',
-        vendor: ['jquery', 'angular', 'angular-route', '@uirouter/angularjs', 'bootstrap']
+        'vendor': ['jquery', 'angular', 'angular-route', '@uirouter/angularjs', 'bootstrap'],
+        'app': path.resolve(__dirname, 'src/app/app.js'),
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
@@ -34,7 +36,7 @@ module.exports = {
             }
         ]
     },
-    plugins:[
+    plugins: [
         new CleanWebpackPlugin(['./src/dist'], {
             // Absolute path to your webpack root folder (paths appended to this)
             // Default: root of your package
@@ -49,7 +51,7 @@ module.exports = {
 
             // If true, remove files on recompile.
             // Default: false
-            watch: true,
+            watch: false,
 
             // Instead of removing whole path recursively,
             // remove all path's content with exclusion of provided immediate children.
@@ -60,7 +62,29 @@ module.exports = {
             // Default: false - don't allow clean folder outside of the webpack root
             allowExternal: false
         }),
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendor', minChunks: Infinity}),
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, 'src/app/assets'),
+                to: path.resolve(__dirname, 'src/dist/assets')
+            }
+        ]),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'src/index.html'),
+            chunksSortMode: function (a, b) {
+                //let order = ['app','angular-plugins', 'jquery-plugins'];
+                let order = ['vendor', 'app'];
+                return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
+            }
+        }),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
