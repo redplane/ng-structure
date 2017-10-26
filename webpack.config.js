@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 /*
 * Module export.
@@ -68,11 +69,15 @@ module.exports = {
                 to: path.resolve(__dirname, 'src/dist/assets')
             }
         ]),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // }),
+        new ngAnnotatePlugin({
+            add: true,
+            // other ng-annotate options here
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: Infinity
