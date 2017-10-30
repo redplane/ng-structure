@@ -34,6 +34,16 @@ module.exports = {
             {
                 test: /\.html$/, // Only .html files
                 loader: 'html-loader' // Run html loader
+            },
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015']
+                    }
+                }
             }
         ]
     },
@@ -70,7 +80,7 @@ module.exports = {
             }
         ]),
         new ngAnnotatePlugin({
-            add: true,
+            add: true
             // other ng-annotate options here
         }),
         new webpack.optimize.UglifyJsPlugin({
