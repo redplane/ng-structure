@@ -7,16 +7,15 @@ require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 require('jquery');
 
 // Angular plugins declaration.
-require('angular-route');
 require('@uirouter/angularjs');
 
 // Module init.
 var angular = require('angular');
 
 // Module declaration.
-var ngModule = angular.module('ngApp', ['ngRoute', 'ui.router']);
-ngModule.config(function($urlRouterProvider){
-    $urlRouterProvider.when('', '/login');
+var ngModule = angular.module('ngApp', ['ui.router']);
+ngModule.config(function($urlRouterProvider, appSettings){
+    $urlRouterProvider.otherwise('login');
 });
 
 // Constants import.

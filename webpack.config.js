@@ -4,15 +4,115 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
+// Import webpack settings.
+var settings = require('./webpack/webpack-setting');
+var options = {
+    clean: require('./webpack/clean-webpack.setting').get(__dirname),
+    copy: require('./webpack/copy-webpack.setting').get(__dirname)
+};
+
+// True if built is set to production mode.
+// False if built is set to development mode.
+var bProductionMode = false;
+
+// Get environment variable.
+var env = process.env.NODE_ENV;
+if (env && 'production' == env.trim().toLowerCase()){
+    bProductionMode = true;
+}
+
+// Build path options.
+var paths = {
+    source: settings.paths.getSource(__dirname),
+    app: settings.paths.getApplication(__dirname),
+    dist: settings.paths.getDist(__dirname)
+};
+
+/*
+* Plugins import.
+* */
+var plugins = [];
+
+/*
+* Enlist plugins which should be run on production mode.
+* */
+if (bProductionMode) {
+    // Clean fields before publishing packages.
+    plugins.push(new CleanWebpackPlugin(options.clean.paths, options.clean.options));
+
+    // Bundle source files.
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {warnings: false}
+    }));
+}
+
+/*
+* Not in production mode
+* */
+if (!bProductionMode){
+    // Require original index file.
+    var browserSyncPlugin = new BrowserSyncPlugin({
+        // browse to http://localhost:3000/ during development,
+        // ./public directory is being served
+        host: 'localhost',
+        port: 8000,
+        files:[
+            path.resolve(paths.source, 'index.html')
+        ],
+        server: {
+            baseDir: [
+                paths.dist
+            ]
+        }
+    });
+
+    // Push plugins into list.
+    plugins.push(browserSyncPlugin);
+}
+
+/*
+* Enlist default plugins.
+* */
+// Copy files.
+plugins.push(new CopyWebpackPlugin(options.copy));
+
+//Automatically add annotation to angularjs modules.
+//Bundling can affect module initialization.
+plugins.push(new ngAnnotatePlugin({add: true}));
+
+//Using this plugin to split source code into chunks
+//This is for improving loading process.
+plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    minChunks: Infinity
+}));
+
+//Automatically inject chunks into html files.
+plugins.push(new HtmlWebpackPlugin({
+    template: path.resolve(paths.source, 'index.html'),
+    chunksSortMode: function (a, b) {
+        //let order = ['app','angular-plugins', 'jquery-plugins'];
+        var order = ['vendor', 'app'];
+        return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
+    }
+}));
+
+//Loading dependant components.
+plugins.push(new webpack.ProvidePlugin({
+    $: "jquery",
+    jQuery: "jquery"
+}));
 
 /*
 * Module export.
 * */
 module.exports = {
-    context: path.resolve(__dirname, 'src/app'),
+    context: settings.paths.getSource(__dirname),
     entry: {
-        'vendor': ['jquery', 'angular', 'angular-route', '@uirouter/angularjs', 'bootstrap'],
-        'app': path.resolve(__dirname, 'src/app/app.js')
+        'vendor': ['jquery', 'bootstrap', 'angular', '@uirouter/angularjs'],
+        'app': path.resolve(paths.app, 'app.js')
     },
     module: {
         rules: [
@@ -34,79 +134,16 @@ module.exports = {
             {
                 test: /\.html$/, // Only .html files
                 loader: 'html-loader' // Run html loader
-            },
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['es2015']
-                    }
-                }
             }
         ]
     },
-    plugins: [
-        new CleanWebpackPlugin(['./src/dist'], {
-            // Absolute path to your webpack root folder (paths appended to this)
-            // Default: root of your package
-            root: __dirname,
-
-            // Write logs to console.
-            verbose: true,
-
-            // Use boolean "true" to test/emulate delete. (will not remove files).
-            // Default: false - remove files
-            dry: false,
-
-            // If true, remove files on recompile.
-            // Default: false
-            watch: false,
-
-            // Instead of removing whole path recursively,
-            // remove all path's content with exclusion of provided immediate children.
-            // Good for not removing shared files from build directories.
-            exclude: null,
-
-            // allow the plugin to clean folders outside of the webpack root.
-            // Default: false - don't allow clean folder outside of the webpack root
-            allowExternal: false
-        }),
-        new CopyWebpackPlugin([
-            {
-                from: path.resolve(__dirname, 'src/app/assets'),
-                to: path.resolve(__dirname, 'src/dist/assets')
-            }
-        ]),
-        new ngAnnotatePlugin({
-            add: true
-            // other ng-annotate options here
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'src/index.html'),
-            chunksSortMode: function (a, b) {
-                //let order = ['app','angular-plugins', 'jquery-plugins'];
-                var order = ['vendor', 'app'];
-                return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
-            }
-        }),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        })
-    ],
+    plugins: plugins,
     output: {
-        path: path.resolve(__dirname, 'src/dist'),
+        path: path.resolve(paths.dist),
         filename: '[name].js'
     }
 };
+
+
+// Return module configurations.
+return module.exports;
