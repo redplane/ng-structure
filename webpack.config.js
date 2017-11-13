@@ -19,7 +19,7 @@ var bProductionMode = false;
 
 // Get environment variable.
 var env = process.env.NODE_ENV;
-if (env && 'production' == env.trim().toLowerCase()){
+if (env && 'production' == env.trim().toLowerCase()) {
     bProductionMode = true;
 }
 
@@ -42,23 +42,27 @@ if (bProductionMode) {
     // Clean fields before publishing packages.
     plugins.push(new CleanWebpackPlugin(options.clean.paths, options.clean.options));
 
+    //Automatically add annotation to angularjs modules.
+    // Bundling can affect module initialization.
+    plugins.push(new ngAnnotatePlugin({add: true}));
+
     // Bundle source files.
     plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {warnings: false}
+        compress: {warnings: true}
     }));
 }
 
 /*
 * Not in production mode
 * */
-if (!bProductionMode){
+if (!bProductionMode) {
     // Require original index file.
     var browserSyncPlugin = new BrowserSyncPlugin({
         // browse to http://localhost:3000/ during development,
         // ./public directory is being served
         host: 'localhost',
         port: 8000,
-        files:[
+        files: [
             path.resolve(paths.source, 'index.html')
         ],
         server: {
@@ -77,10 +81,6 @@ if (!bProductionMode){
 * */
 // Copy files.
 plugins.push(new CopyWebpackPlugin(options.copy));
-
-//Automatically add annotation to angularjs modules.
-//Bundling can affect module initialization.
-plugins.push(new ngAnnotatePlugin({add: true}));
 
 //Using this plugin to split source code into chunks
 //This is for improving loading process.
