@@ -2,5 +2,6 @@ module.exports = function (ngModule) {
     /*
     * Constants declaration.
     * */
-    require('./appSettings.constant')(ngModule);
+    require('./app-settings.constant')(ngModule);
+    require('./url-states.constant')(ngModule);
 };

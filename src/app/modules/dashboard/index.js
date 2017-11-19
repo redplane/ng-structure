@@ -1,20 +1,8 @@
-// Load modules templates.
-var ngMainDashboardTemplate = require('./main/main.html');
-
 module.exports = function(ngModule){
-    /*
-    * Controllers gathering.
-    * */
+
+    // Import controllers.
     require('./main/main.controller')(ngModule);
 
-    /*
-    * Module configuration.
-    * */
-    ngModule.config(function($stateProvider){
-       $stateProvider.state('main-dashboard', {
-           url: '/dashboard/main',
-           template: ngMainDashboardTemplate,
-           controller: 'mainDashboardController'
-       });
-    });
+    // Import routes.
+    require('./main/main.route')(ngModule);
 };

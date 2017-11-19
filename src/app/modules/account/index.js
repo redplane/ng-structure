@@ -3,16 +3,9 @@ var ngLoginHtml = require('./login/login.html');
 
 module.exports = function(ngModule){
 
+    // Load controllers.
     require('./login/login.controller')(ngModule);
 
-    /*
-    * Routes configuration.
-    * */
-    ngModule.config(function($stateProvider){
-       $stateProvider.state('login', {
-           url: '/login',
-           template: ngLoginHtml,
-           controller: 'loginController'
-       })
-    });
+    // Load routes.
+    require('./login/login.route')(ngModule);
 };

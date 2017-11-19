@@ -111,7 +111,7 @@ plugins.push(new webpack.ProvidePlugin({
 module.exports = {
     context: settings.paths.getSource(__dirname),
     entry: {
-        'vendor': ['jquery', 'bootstrap', 'angular', '@uirouter/angularjs'],
+        'vendor': ['jquery', 'bootstrap', 'admin-lte', 'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr'],
         'app': path.resolve(paths.app, 'app.js')
     },
     module: {

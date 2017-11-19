@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--[if lt IE 7]>
-<html lang="en" ng-src="ngApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<html lang="en" ng-app="ngApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>
-<html lang="en" ng-src="ngApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<html lang="en" ng-app="ngApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>
-<html lang="en" ng-src="ngApp" class="no-js lt-ie9"> <![endif]-->
+<html lang="en" ng-app="ngApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html lang="en" ng-app="ngApp" class="no-js"> <!--<![endif]-->
 <head>
@@ -13,30 +13,9 @@
     <title>ng-structure</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="app/app.css">
+    <base href="/">
 </head>
-<body>
-
-<div>
-    <div>Below is a directive</div>
-    <kcd-hello></kcd-hello>
-</div>
-
-<div class="panel panel-primary">
-    <div class="panel-heading">Please select a page</div>
-    <div class="panel-body">
-        <ul>
-            <li>
-                <a href="javascript:void(0);" ui-sref="login" ui-sref-active="active">Login</a>
-            </li>
-            <li>
-                <a href="javascript:void(0)" ui-sref="main-dashboard" ui-sref-active="active">Main dashboard</a>
-            </li>
-        </ul>
-    </div>
-    <div class="panel-body">
-        <div ui-view></div>
-    </div>
-</div>
+<body ui-view-css>
+<ui-view></ui-view>
 </body>
 </html>

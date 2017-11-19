@@ -23,7 +23,7 @@ Online demo can be found [here](http://localhost:8000/#!/):
 
 #### Structure description.
 - ```assets``` : Static files (such as: *.css, *.json, ...) should be stored in this folder.
-- ```constants```: Appliation constant files should be stored in this folder (such as: appSettings.constant.js, urlStates.constant.js, ...). Naming convention: *.constants.js.
+- ```constants```: Appliation constant files should be stored in this folder (such as: app-settings.constant.js, urlStates.constant.js, ...). Naming convention: *.constants.js.
 - ```directives```: Application directives should be stored in this folder (such as: people-picker.directive.js, document-picker.directive.js, ...). Naming convention: *.directive.js.
 - ```modules```: Application main modules should be stored in this folder (such as: account-management.module.js, category-management.module, ...). Naming convention: *.module.js.
 - ```app.css```: Application global style.

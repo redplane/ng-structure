@@ -1,5 +1,11 @@
-module.exports = function(ngModule){
-  ngModule.controller('loginController', function($scope){
-    $scope.message = 'This is login controller';
-  });
+module.exports = function (ngModule) {
+    ngModule.controller('loginController', function ($scope, urlStates) {
+
+        //#region Properties
+
+        // Constants reflection.
+        $scope.urlStates = urlStates;
+
+        //#endregion
+    });
 };
