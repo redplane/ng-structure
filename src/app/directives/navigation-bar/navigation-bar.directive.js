@@ -9,8 +9,14 @@ module.exports = function (ngModule) {
             template: ngModuleHtmlTemplate,
             restrict: 'E',
             scope: null,
-            controller: function(){
+            controller: function($scope, urlStates){
 
+                //#region Properties
+
+                // Constants reflection.
+                $scope.urlStates = urlStates;
+
+                //#endregion
             }
         }
     });
