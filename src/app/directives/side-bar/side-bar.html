@@ -12,12 +12,19 @@
         </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li ui-sref-active="active"
-                ui-sref="{{urlStates.dashboard.name}}"
-                class="treeview">
-                <a href="javascript:void(0);">
+            <li class="treeview"
+                ui-sref-active="active"
+                ui-sref="{{urlStates.dashboard.name}}">
+                <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul>
             </li>
         </ul>
     </section>

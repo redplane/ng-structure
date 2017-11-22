@@ -15,7 +15,7 @@ module.exports = function (ngModule) {
             abstract: true,
             template: ngModuleHtmlTemplate,
             params:{
-                cssClassNames: ['hold-transition', 'skin-black', 'fixed', 'sidebar-mini', 'sidebar-collapse']
+                cssClassNames: ['hold-transition', 'skin-black', 'fixed', 'sidebar-mini']
             }
         });
     });
