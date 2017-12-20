@@ -82,6 +82,12 @@ if (!bProductionMode) {
 // Copy files.
 plugins.push(new CopyWebpackPlugin(options.copy));
 
+// Using bluebird promise instead of native promise.
+plugins.push(new webpack.ProvidePlugin({
+    Promise: 'bluebird'
+}));
+
+
 //Using this plugin to split source code into chunks
 //This is for improving loading process.
 plugins.push(new webpack.optimize.CommonsChunkPlugin({
@@ -105,7 +111,9 @@ plugins.push(new HtmlWebpackPlugin({
 module.exports = {
     context: settings.paths.getSource(__dirname),
     entry: {
-        'vendor': ['jquery', 'bootstrap', 'admin-lte', 'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr'],
+        'vendor': ['jquery', 'bootstrap', 'admin-lte',
+            'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr',
+            'angular-translate', 'angular-translate-loader-static-files', 'bluebird'],
         'app': path.resolve(paths.app, 'app.js')
     },
     module: {
@@ -115,7 +123,7 @@ module.exports = {
                 use: [{
                     loader: 'expose-loader',
                     options: 'jQuery'
-                },{
+                }, {
                     loader: 'expose-loader',
                     options: '$'
                 }]

@@ -15,6 +15,7 @@ require('../../node_modules/angular-block-ui/dist/angular-block-ui.css');
 
 // Import jquery lib.
 require('jquery');
+require('bluebird');
 require('bootstrap');
 require('admin-lte');
 
@@ -28,7 +29,7 @@ require('angular-translate-loader-static-files');
 
 // Module declaration.
 var ngModule = angular.module('ngApp', ['ui.router', 'blockUI', 'toastr', 'pascalprecht.translate']);
-ngModule.config(function($urlRouterProvider, translateProvider, urlStates){
+ngModule.config(function($urlRouterProvider, $translateProvider, $httpProvider, urlStates){
 
     // API interceptor
     $httpProvider.interceptors.push('apiInterceptor');
