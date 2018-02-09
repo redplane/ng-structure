@@ -87,6 +87,9 @@ plugins.push(new webpack.ProvidePlugin({
     Promise: 'bluebird'
 }));
 
+plugins.push(new webpack.ProvidePlugin({
+    moment: 'moment'
+}));
 
 //Using this plugin to split source code into chunks
 //This is for improving loading process.
@@ -111,9 +114,10 @@ plugins.push(new HtmlWebpackPlugin({
 module.exports = {
     context: settings.paths.getSource(__dirname),
     entry: {
-        'vendor': ['jquery', 'bootstrap', 'admin-lte',
+        'vendor': [
+            'jquery', 'bluebird', 'bootstrap', 'admin-lte', 'moment',
             'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr',
-            'angular-translate', 'angular-translate-loader-static-files', 'bluebird'],
+            'angular-translate', 'angular-translate-loader-static-files', 'angular-moment', 'angular-moment-picker'],
         'app': path.resolve(paths.app, 'app.js')
     },
     module: {

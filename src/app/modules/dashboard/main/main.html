@@ -1,5 +1,26 @@
-<div class="panel panel-primary" ng-init="init()">
+<form name="ordinaryForm"
+      class="panel panel-primary"
+      ng-init="init()">
     <div class="panel-body">
-        This is main page.
+
+        <div class="input-group"
+             moment-picker="model.date"
+             format="YYYY-MM-DD">
+            <input class="form-control"
+                   placeholder="Select a date"
+                   ng-model="model.date"
+                   ng-model-options="{ updateOn: 'blur' }"
+                   ng-function-validate="is-valid-date"
+                   ng-function-validate-is-valid-date="validationService.bIsValidDateTime(model.date)">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </span>
+        </div>
+
+        <div class="alert alert-danger" ng-if="ordinaryForm.$invalid">
+            <ul>
+                <li>Validation error.</li>
+            </ul>
+        </div>
     </div>
-</div>
+</form>
