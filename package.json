@@ -11,21 +11,25 @@
     "browser-sync-webpack-plugin": "^1.2.0",
     "clean-webpack-plugin": "^0.1.17",
     "concurrently": "^3.5.0",
-    "copy-webpack-plugin": "^4.2.0",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.7",
-    "file-loader": "^1.1.5",
+    "expose-loader": "^0.7.5",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
     "style-loader": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^0.6.2",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15",
     "webpack-dev-server": "^2.9.4",
     "webpack-merge-and-include-globally": "^1.0.1"
   },
   "scripts": {
-    "start": "webpack --watch",
-    "build": "set NODE_ENV=production && webpack"
+    "start": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.10",
@@ -39,12 +43,9 @@
     "angular-translate-loader-static-files": "^2.16.0",
     "bluebird": "^3.5.1",
     "bootstrap": "^3.3.7",
-    "expose-loader": "^0.7.4",
-    "extract-text-webpack-plugin": "^3.0.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "moment": "^2.20.1",
-    "ng-data-annotation": "^1.0.4",
-    "webpack": "^3.8.1"
+    "ng-data-annotation": "^1.0.4"
   }
 }

@@ -91,22 +91,15 @@ plugins.push(new webpack.ProvidePlugin({
     moment: 'moment'
 }));
 
-//Using this plugin to split source code into chunks
-//This is for improving loading process.
-plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: Infinity
-}));
-
-//Automatically inject chunks into html files.
-plugins.push(new HtmlWebpackPlugin({
-    template: path.resolve(paths.source, 'index.html'),
-    chunksSortMode: function (a, b) {
-        //let order = ['app','angular-plugins', 'jquery-plugins'];
-        var order = ['vendor', 'app'];
-        return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
-    }
-}));
+// //Automatically inject chunks into html files.
+// plugins.push(new HtmlWebpackPlugin({
+//     template: path.resolve(paths.source, 'index.html'),
+//     chunksSortMode: function (a, b) {
+//         //let order = ['app','angular-plugins', 'jquery-plugins'];
+//         var order = ['vendor', 'app'];
+//         return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
+//     }
+// }));
 
 /*
 * Module export.
