@@ -14,10 +14,15 @@ exports = module.exports = {
         var app = settings.paths.getApplication(root);
         var dist = settings.paths.getDist(root);
 
-        return [{
-            from: path.resolve(app, 'assets'),
-            to: path.resolve(dist, 'assets')
-        }]
+        return [
+            {
+                from: path.resolve(app, 'assets'),
+                to: path.resolve(dist, 'assets')
+            },
+            {
+                from: path.resolve(settings.paths.getSource(root), 'index.html'),
+                to: path.resolve(dist, 'index.html')
+            }]
     }
 };
 

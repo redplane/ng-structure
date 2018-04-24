@@ -19,7 +19,7 @@ var bProductionMode = false;
 
 // Get environment variable.
 var env = process.env.NODE_ENV;
-if (env && 'production' == env.trim().toLowerCase()) {
+if (env && 'production' === env.trim().toLowerCase()) {
     bProductionMode = true;
 }
 
@@ -84,22 +84,24 @@ plugins.push(new CopyWebpackPlugin(options.copy));
 
 // Using bluebird promise instead of native promise.
 plugins.push(new webpack.ProvidePlugin({
-    Promise: 'bluebird'
-}));
-
-plugins.push(new webpack.ProvidePlugin({
+    Promise: 'bluebird',
     moment: 'moment'
 }));
 
-// //Automatically inject chunks into html files.
-// plugins.push(new HtmlWebpackPlugin({
-//     template: path.resolve(paths.source, 'index.html'),
-//     chunksSortMode: function (a, b) {
-//         //let order = ['app','angular-plugins', 'jquery-plugins'];
-//         var order = ['vendor', 'app'];
-//         return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
-//     }
-// }));
+
+//Automatically inject chunks into html files.
+plugins.push(new HtmlWebpackPlugin({
+    template: path.resolve(paths.source, 'index.html'),
+    // chunksSortMode: function (a, b) {
+    //     //let order = ['app','angular-plugins', 'jquery-plugins'];
+    //     var order = ['vendor', 'app'];
+    //     return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
+    // }
+    chunksSortMode: 'dependency'
+}));
+
+// Read package.json.
+// var package = require('package');
 
 /*
 * Module export.
@@ -107,11 +109,59 @@ plugins.push(new webpack.ProvidePlugin({
 module.exports = {
     context: settings.paths.getSource(__dirname),
     entry: {
-        'vendor': [
-            'jquery', 'bluebird', 'bootstrap', 'admin-lte', 'moment',
+        'jQueryVendors': ['jquery', 'bluebird', 'bootstrap', 'admin-lte', 'moment'],
+        'angularVendors': [
             'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr',
             'angular-translate', 'angular-translate-loader-static-files', 'angular-moment', 'angular-moment-picker'],
         'app': path.resolve(paths.app, 'app.js')
+    },
+    optimization: {
+        // splitChunks: {
+        //     chunks: "async",
+        //     minSize: 30000,
+        //     minChunks: 1,
+        //     maxAsyncRequests: 5,
+        //     maxInitialRequests: 3,
+        //     name: true,
+        //     cacheGroups: {
+        //         default: {
+        //             minChunks: 2,
+        //             priority: -20,
+        //             reuseExistingChunk: true
+        //         },
+        //         'jQuery-vendors': {
+        //             chunks: 'initial',
+        //             name: 'jQuery-vendors',
+        //             test: /[\\/]node_modules[\\/]/,
+        //             priority: -10
+        //         },
+        //         'angular-vendors':{
+        //             chunks: 'all',
+        //             name: 'jQuery-vendors',
+        //             test: /[\\/]node_modules[\\/]/,
+        //             priority: -11,
+        //             reuseExistingChunk: true
+        //         }
+        //
+        //     }
+        // }
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                default: {
+                    enforce: true,
+                    priority: 1
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 2,
+                    name: 'vendors',
+                    enforce: true,
+                    chunks: 'async'
+                }
+            }
+        }
     },
     module: {
         rules: [
