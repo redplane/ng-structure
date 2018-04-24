@@ -100,6 +100,8 @@ plugins.push(new HtmlWebpackPlugin({
     chunksSortMode: 'dependency'
 }));
 
+var moduleRuleOption = require('./webpack/rule-webpack.setting');
+
 // Read package.json.
 // var package = require('package');
 
@@ -116,35 +118,6 @@ module.exports = {
         'app': path.resolve(paths.app, 'app.js')
     },
     optimization: {
-        // splitChunks: {
-        //     chunks: "async",
-        //     minSize: 30000,
-        //     minChunks: 1,
-        //     maxAsyncRequests: 5,
-        //     maxInitialRequests: 3,
-        //     name: true,
-        //     cacheGroups: {
-        //         default: {
-        //             minChunks: 2,
-        //             priority: -20,
-        //             reuseExistingChunk: true
-        //         },
-        //         'jQuery-vendors': {
-        //             chunks: 'initial',
-        //             name: 'jQuery-vendors',
-        //             test: /[\\/]node_modules[\\/]/,
-        //             priority: -10
-        //         },
-        //         'angular-vendors':{
-        //             chunks: 'all',
-        //             name: 'jQuery-vendors',
-        //             test: /[\\/]node_modules[\\/]/,
-        //             priority: -11,
-        //             reuseExistingChunk: true
-        //         }
-        //
-        //     }
-        // }
         runtimeChunk: 'single',
         splitChunks: {
             chunks: 'all',
@@ -164,37 +137,7 @@ module.exports = {
         }
     },
     module: {
-        rules: [
-            {
-                test: require.resolve('jquery'),
-                use: [{
-                    loader: 'expose-loader',
-                    options: 'jQuery'
-                }, {
-                    loader: 'expose-loader',
-                    options: '$'
-                }]
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.html$/, // Only .html files
-                loader: 'html-loader' // Run html loader
-            }
-        ]
+        rules: moduleRuleOption.get()
     },
     plugins: plugins,
     output: {
