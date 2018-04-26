@@ -3,7 +3,7 @@ module.exports = function (ngModule) {
     //#region Module configs.
 
     // Load module html template.
-    var ngModuleHtmlTemplate = require('./login.html');
+    let ngModuleHtmlTemplate = require('./login.html');
 
     /*
     * Module configuration.

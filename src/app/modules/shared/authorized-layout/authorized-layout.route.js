@@ -1,13 +1,13 @@
 module.exports = function (ngModule) {
 
     // Html template import.
-    var ngModuleHtmlTemplate = require('./authorized-layout.html');
+    let ngModuleHtmlTemplate = require('./authorized-layout.html');
 
     // Route config.
     ngModule.config(function ($stateProvider, urlStates) {
 
         // Constants reflection.
-        var urlAuthorizedLayoutState = urlStates.authorizedLayout;
+        let urlAuthorizedLayoutState = urlStates.authorizedLayout;
 
         // State configuration
         $stateProvider.state(urlAuthorizedLayoutState.name, {

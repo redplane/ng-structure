@@ -6,6 +6,9 @@
   "repository": "https://github.com/angular/angular-seed",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "bluebird": "^3.5.1",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
@@ -20,12 +23,12 @@
     "html-webpack-plugin": "^3.2.0",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
     "style-loader": "^0.19.0",
-    "uglifyjs-webpack-plugin": "^1.0.1",
+    "typescript": "^2.8.3",
     "url-loader": "^0.6.2",
     "webpack": "^4.6.0",
+    "webpack-clean-obsolete-chunks": "^0.4.0",
     "webpack-cli": "^2.0.15",
-    "webpack-dev-server": "^2.9.4",
-    "webpack-merge-and-include-globally": "^1.0.1"
+    "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
     "start": "webpack --watch --mode=development",
@@ -46,6 +49,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "moment": "^2.20.1",
-    "ng-data-annotation": "^1.0.4"
+    "ng-data-annotation": "^1.0.4",
+    "rxjs-compat": "^6.0.0"
   }
 }

@@ -1,8 +1,8 @@
 // Libary import.
-var path = require('path');
+let path = require('path');
 
 // Initiate paths.
-var paths = {};
+let paths = {};
 paths.source = 'src';
 paths.application = paths.source + '/' + 'app';
 paths.dist = paths.source + '/' + 'dist';
@@ -12,21 +12,21 @@ exports = module.exports = {
         /*
         * Get source file directory.
         * */
-        getSource: function(root){
+        getSource: function (root) {
             return path.resolve(root, paths.source);
         },
 
         /*
         * Get directory which contains application.
         * */
-        getApplication: function(root){
+        getApplication: function (root) {
             return path.resolve(root, paths.application);
         },
 
         /*
         * Get distribution folder.
         * */
-        getDist: function(root){
+        getDist: function (root) {
             return path.resolve(root, paths.dist);
         }
     }

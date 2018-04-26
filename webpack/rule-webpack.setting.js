@@ -5,10 +5,32 @@ exports = module.exports = {
     * */
     get: function () {
 
-        var rules = [];
+        let rules = [];
+
+        //#region Ts loader
+        // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+        rules.push({
+            test: /\.tsx?$/,
+            loader: "babel-loader!ts-loader"
+        });
+
+        //#endregion
+
+        //#region Babel loader
+
+        rules.push({
+            test: /\.js$/,
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader'
+            }
+        });
+
+        //#endregion
 
         //#region Import jquery
 
+        // Resolve JQuery.
         rules.push({
             test: require.resolve('jquery'),
             use: [{

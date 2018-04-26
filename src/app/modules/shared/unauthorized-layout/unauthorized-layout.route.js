@@ -1,7 +1,7 @@
 module.exports = function(ngModule){
 
     // Import html template.
-    var ngModuleHtmlTemplate = require('./unauthorized-layout.html');
+    let ngModuleHtmlTemplate = require('./unauthorized-layout.html');
 
     // Route config.
     ngModule.config(function($stateProvider, urlStates){

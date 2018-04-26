@@ -1,9 +1,6 @@
-/*
-* Module exports.
-* */
-module.exports = function(ngModule){
-    ngModule.controller('mainDashboardController', function($scope, toastr, validationService){
 
+module.exports = function (ngModule) {
+    ngModule.controller('mainDashboardController', function ($scope, toastr, validationService) {
         // Service reflection.
         $scope.validationService = validationService;
 
@@ -11,7 +8,7 @@ module.exports = function(ngModule){
             date: null
         };
 
-        $scope.init = function(){
+        $scope.init = function () {
             toastr.success('Main dashboard has been initiated.');
         };
     });

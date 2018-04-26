@@ -1,12 +1,12 @@
 module.exports = function (ngModule) {
 
     // Module html template import.
-    var ngModuleHtmlTemplate = require('./main.html');
+    let ngModuleHtmlTemplate = require('./main.html');
 
     ngModule.config(function ($stateProvider, urlStates) {
 
-        var urlStateDashboard = urlStates.dashboard;
-        var urlStateAuthorizedLayout = urlStates.authorizedLayout;
+        let urlStateDashboard = urlStates.dashboard;
+        let urlStateAuthorizedLayout = urlStates.authorizedLayout;
 
         $stateProvider.state(urlStateDashboard.name, {
             url: urlStateDashboard.url,

@@ -22,9 +22,10 @@ require('bluebird');
 require('bootstrap');
 require('admin-lte');
 require('moment');
+require('@uirouter/angularjs');
 
 // Angular plugins declaration.
-var angular = require('angular');
+let angular = require('angular');
 require('@uirouter/angularjs');
 require('angular-block-ui');
 require('angular-toastr');
@@ -35,7 +36,7 @@ require('angular-moment-picker');
 require('ng-data-annotation');
 
 // Module declaration.
-var ngModule = angular.module('ngApp', [
+let ngModule = angular.module('ngApp', [
     'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
     'angularMoment', 'moment-picker', 'ngDataAnnotations']);
 

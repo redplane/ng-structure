@@ -15,7 +15,7 @@
                     //blockUI.start();
 
                     // Find authentication token from local storage.
-                    var authenticationToken = authenticationService.getAuthenticationToken();
+                    let authenticationToken = authenticationService.getAuthenticationToken();
 
                     // As authentication token is found. Attach it into the request.
                     if (authenticationToken)
@@ -47,21 +47,21 @@
                     // Response is invalid.
                     if (!x)
                         return $q.reject(x);
-                    
-                    var url = x.config.url;
+
+                    let url = x.config.url;
                     if (!url || url.indexOf('/api/') === -1)
                         return $q.reject(x);
 
                     // Find state.
-                    var state = $injector.get('$state');
+                    let state = $injector.get('$state');
 
                     // Find toastr notification from injector.
-                    var toastr = $injector.get('toastr');
+                    let toastr = $injector.get('toastr');
 
                     // Find translate service using injector.
-                    var translate = $injector.get('$translate');
+                    let translate = $injector.get('$translate');
 
-                    var szMessage = '';
+                    let szMessage = '';
                     switch (x.status) {
                         case 400:
                             szMessage = 'Bad request';
