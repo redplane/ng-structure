@@ -22,6 +22,8 @@
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^3.2.0",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
     "style-loader": "^0.19.0",
     "typescript": "^2.8.3",
     "url-loader": "^0.6.2",

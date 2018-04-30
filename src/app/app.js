@@ -16,6 +16,9 @@ require('../../node_modules/angular-block-ui/dist/angular-block-ui.css');
 // Moment picker.
 require('../../node_modules/angular-moment-picker/dist/angular-moment-picker.css');
 
+// Import app style.
+require('./app.scss');
+
 // Import jquery lib.
 require('jquery');
 require('bluebird');

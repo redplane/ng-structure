@@ -8,6 +8,7 @@ exports = module.exports = {
         let rules = [];
 
         //#region Ts loader
+
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
         rules.push({
             test: /\.tsx?$/,
@@ -39,6 +40,21 @@ exports = module.exports = {
             }, {
                 loader: 'expose-loader',
                 options: '$'
+            }]
+        });
+
+        //#endregion
+
+        //#region Sass loader
+
+        rules.push({
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "sass-loader" // compiles Sass to CSS
             }]
         });
 

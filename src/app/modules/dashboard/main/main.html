@@ -17,8 +17,8 @@
             </span>
         </div>
 
-        <div class="alert alert-danger" ng-if="ordinaryForm.$invalid">
-            <ul>
+        <div ng-if="ordinaryForm.$invalid">
+            <ul class="validation-summary">
                 <li>Validation error.</li>
             </ul>
         </div>
