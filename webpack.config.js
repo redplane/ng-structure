@@ -1,4 +1,4 @@
-module.exports = env => {
+module.exports = (env, argv) => {
     let path = require('path');
     let webpack = require('webpack');
     let CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -16,7 +16,7 @@ module.exports = env => {
 
     // True if built is set to production mode.
     // False if built is set to development mode.
-    let bProductionMode = env.production;
+    const bProductionMode = 'production' === argv.mode.toLowerCase();
 
     // Build path options.
     let paths = {
