@@ -33,7 +33,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "start": "webpack --watch --mode=development",
+    "start": "webpack --watch --mode=development --env.production=false",
     "build": "webpack --mode=production --env.production=true"
   },
   "dependencies": {
