@@ -21,7 +21,7 @@ Description:
 |   +-- constants
 |   +-- directives
 |   +-- modules
-|   +-- app.css
+|   +-- app.scss
 |   +-- app.js
 +-- index.html (Index file)
 ```
