@@ -3,9 +3,14 @@
 Description:
 
  * This is a simple structure of an AngularJS application. This project is integrated with Webpack for files bundling & live reload.
- * Language supported : ES2015.
+ * Language supported : 
+    * ES2015, ES6 (using `babel-loader`).
+    * Sass (using `scss-loader`)
+    
+ * Polyfill:
+    * `bluebird` for `Promise`. 
 
-Online demo can be found [here](http://localhost:8000/#!/):
+**Online demo can be found** [here](http://localhost:8000/#!/):
 
 #### Project structure.
 ```
@@ -30,10 +35,10 @@ Online demo can be found [here](http://localhost:8000/#!/):
 - ```app.js```: Application entry script file.
 - ```index.html```: Application entry html file.
 
-### Project commnands.
+### Project commands.
 - `npm run build`: Bundle and publish project files. Files which are generated will be placed inside `dist` folder.
 - `npm run start`: Bundle and start watching project. This is for development stage. Browser will be reloaded automatically when changes are detected.
-- 
+
 ### Bugs report.
 - While using this plugin, if you find any errors, please create issues at [project page](https://github.com/redplane/ng-structure)
 
