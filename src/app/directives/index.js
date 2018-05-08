@@ -1,6 +1,6 @@
-module.exports = function(ngModule){
+module.exports = (ngModule) => {
     // Controllers import.
-    require('./navigation-bar/navigation-bar.directive')(ngModule);
-    require('./side-bar/side-bar.directive')(ngModule);
-    require('./ui-view-css.directive')(ngModule);
+    require('./navigation-bar/navigation-bar')(ngModule);
+    require('./side-bar/side-bar')(ngModule);
+    require('./ui-view-css')(ngModule);
 };

@@ -1,16 +1,18 @@
-module.exports = function(ngModule){
+module.exports = (ngModule) => {
 
-    ngModule.service('uiService', function(){
+    ngModule.service('$ui', () => {
 
-        //#region Methods
+        return {
+            //#region Methods
 
-        /*
-        * Trigger windows resize function.
-        * */
-        this.reloadWindowSize = function(){
-            $(window).resize();
-        };
+            /*
+            * Trigger windows resize function.
+            * */
+            reloadWindowSize: () => {
+                $(window).resize();
+            }
 
         //#endregion
+    }
     });
 };

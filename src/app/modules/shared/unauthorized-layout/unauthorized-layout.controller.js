@@ -1,5 +1,5 @@
-module.exports = function(ngModule){
-  ngModule.controller('unauthorizedLayoutController', function($scope){
+module.exports = (ngModule) => {
+    ngModule.controller('unauthorizedLayoutController', ($scope) => {
 
-  });
+    });
 };

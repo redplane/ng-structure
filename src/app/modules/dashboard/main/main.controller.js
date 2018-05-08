@@ -1,15 +1,20 @@
+module.exports = (ngModule) => {
+    ngModule.controller('mainDashboardController', ($scope, toastr) => {
 
-module.exports = function (ngModule) {
-    ngModule.controller('mainDashboardController', function ($scope, toastr, validationService) {
-        // Service reflection.
-        $scope.validationService = validationService;
+        //#region Properties
 
         $scope.model = {
             date: null
         };
 
+        //#endregion
+
+        //#region Methods
+
         $scope.init = function () {
             toastr.success('Main dashboard has been initiated.');
         };
+
+        //#endregion
     });
 };

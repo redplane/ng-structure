@@ -1,4 +1,4 @@
-module.exports = function (ngModule) {
+module.exports = (ngModule) => {
 
     //#region Module configs.
 
@@ -8,12 +8,12 @@ module.exports = function (ngModule) {
     /*
     * Module configuration.
     * */
-    ngModule.config(function ($stateProvider, urlStates) {
-        $stateProvider.state(urlStates.login.name, {
-            url: urlStates.login.url,
+    ngModule.config(($stateProvider, urlStatesConstant) => {
+        $stateProvider.state(urlStatesConstant.login.name, {
+            url: urlStatesConstant.login.url,
             controller: 'loginController',
             template: ngModuleHtmlTemplate,
-            parent: urlStates.unauthorizedLayout.name
+            parent: urlStatesConstant.unauthorizedLayout.name
         })
     });
 

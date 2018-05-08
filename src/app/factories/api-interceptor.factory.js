@@ -1,39 +1,27 @@
-﻿module.exports = function (ngModule) {
+﻿module.exports = (ngModule) => {
     ngModule.factory('apiInterceptor',
-        function ($injector,
-            $q,
-            authenticationService,
-            appSettings) {
+        ($injector,
+         $q) => {
 
             return {
                 /*
                 * Callback which is fired when request is made.
                 * */
-                request: function (x) {
-
-                    // Turn on loading screen.
-                    //blockUI.start();
-
-                    // Find authentication token from local storage.
-                    let authenticationToken = authenticationService.getAuthenticationToken();
-
-                    // As authentication token is found. Attach it into the request.
-                    if (authenticationToken)
-                        x.headers.Authorization = 'Bearer ' + authenticationToken;
+                request: (x) => {
                     return x;
                 },
 
                 /*
                 * Callback which is fired when request is made failingly.
                 * */
-                requestError: function (config) {
+                requestError: (config) => {
                     return config;
                 },
 
                 /*
                 * Callback which is fired when response is sent back from back-end.
                 * */
-                response: function (x) {
+                response: (x) => {
                     // Stop blockUI.
                     //blockUI.stop();
 
@@ -43,7 +31,7 @@
                 /*
                 * Callback which is fired when response is failed.
                 * */
-                responseError: function (x) {
+                responseError: (x) => {
                     // Response is invalid.
                     if (!x)
                         return $q.reject(x);

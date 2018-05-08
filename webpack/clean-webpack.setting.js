@@ -1,12 +1,12 @@
 // Import library.
-var settings = require('./webpack-setting');
+const settings = require('./webpack-setting');
 
 exports = module.exports = {
     /*
     * Get configuration options.
     * */
     get: function (root) {
-        var setting = {};
+        let setting = {};
         setting.paths = [settings.paths.getDist(root)];
         setting.options = {
             // Absolute path to your webpack root folder (paths appended to this)

@@ -43,13 +43,13 @@ let ngModule = angular.module('ngApp', [
     'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
     'angularMoment', 'moment-picker', 'ngDataAnnotations']);
 
-ngModule.config(function($urlRouterProvider, $translateProvider, $httpProvider, urlStates){
+ngModule.config(($urlRouterProvider, $translateProvider, $httpProvider, urlStatesConstant) => {
 
     // API interceptor
     $httpProvider.interceptors.push('apiInterceptor');
 
     // Url router config.
-    $urlRouterProvider.otherwise(urlStates.dashboard.url);
+    $urlRouterProvider.otherwise(urlStatesConstant.dashboard.url);
 
     // Translation config.
     $translateProvider.useStaticFilesLoader({

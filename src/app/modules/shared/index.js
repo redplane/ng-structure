@@ -1,4 +1,4 @@
-module.exports = function(ngModule){
+module.exports = (ngModule) => {
     // Controllers import.
     require('./authorized-layout/authorized-layout.controller')(ngModule);
     require('./unauthorized-layout/unauthorized-layout.controller')(ngModule);

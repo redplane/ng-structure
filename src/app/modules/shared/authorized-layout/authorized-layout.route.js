@@ -1,20 +1,20 @@
-module.exports = function (ngModule) {
+module.exports = (ngModule) => {
 
     // Html template import.
     let ngModuleHtmlTemplate = require('./authorized-layout.html');
 
     // Route config.
-    ngModule.config(function ($stateProvider, urlStates) {
+    ngModule.config(($stateProvider, urlStatesConstant) => {
 
         // Constants reflection.
-        let urlAuthorizedLayoutState = urlStates.authorizedLayout;
+        let urlAuthorizedLayoutState = urlStatesConstant.authorizedLayout;
 
         // State configuration
         $stateProvider.state(urlAuthorizedLayoutState.name, {
             controller: 'authorizedLayoutController',
             abstract: true,
             template: ngModuleHtmlTemplate,
-            params:{
+            params: {
                 cssClassNames: ['hold-transition', 'skin-black', 'fixed', 'sidebar-mini']
             }
         });

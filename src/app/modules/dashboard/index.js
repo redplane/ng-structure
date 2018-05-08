@@ -1,4 +1,4 @@
-module.exports = function(ngModule){
+module.exports = (ngModule) => {
 
     // Import controllers.
     require('./main/main.controller')(ngModule);

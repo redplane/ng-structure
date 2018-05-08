@@ -1,6 +1,6 @@
-module.exports = function (ngModule) {
+module.exports = (ngModule) => {
     ngModule.controller('authorizedLayoutController',
-        function ($scope, $transitions, uiService) {
+        ($scope, $transitions, $ui) => {
 
             //#region Methods
 
@@ -8,14 +8,14 @@ module.exports = function (ngModule) {
             * Callback which is called when component starts being initiated.
             * */
             $scope.init = function () {
-                uiService.reloadWindowSize();
+                $ui.reloadWindowSize();
             };
 
             /*
             * Hook the transition from state to state.
             * */
             $transitions.onSuccess({}, function (transition) {
-                uiService.reloadWindowSize();
+                $ui.reloadWindowSize();
             });
             //#endregion
         });

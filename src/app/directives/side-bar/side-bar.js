@@ -1,19 +1,19 @@
-module.exports = function(ngModule){
+module.exports = (ngModule) => {
     // Module template import.
-    var ngModuleHtmlTemplate = require('./side-bar.html');
+    let ngModuleHtmlTemplate = require('./side-bar.html');
 
     // Directive declaration.
-    ngModule.directive('sideBar', function () {
+    ngModule.directive('sideBar', () => {
         return {
             template: ngModuleHtmlTemplate,
             restrict: 'E',
             scope: null,
-            controller: function($scope, urlStates){
+            controller: ($scope, urlStatesConstant) => {
 
                 //#region Properties
 
                 // Constants reflection.
-                $scope.urlStates = urlStates;
+                $scope.urlStates = urlStatesConstant;
                 //#endregion
             }
         }

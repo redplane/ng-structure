@@ -1,10 +1,10 @@
-module.exports = function (ngModule) {
+module.exports = (ngModule) => {
 
     /*
     * Application constants declaration.
     * */
-    ngModule.constant('urlStates', {
-        login:{
+    ngModule.constant('urlStatesConstant', {
+        login: {
             url: '/login',
             name: 'login'
         },

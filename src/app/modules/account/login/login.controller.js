@@ -1,10 +1,10 @@
-module.exports = function (ngModule) {
-    ngModule.controller('loginController', function ($scope, urlStates) {
+module.exports = (ngModule) => {
+    ngModule.controller('loginController', ($scope, urlStatesConstant) => {
 
         //#region Properties
 
         // Constants reflection.
-        $scope.urlStates = urlStates;
+        $scope.urlStatesConstant = urlStatesConstant;
 
         //#endregion
     });
