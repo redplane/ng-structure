@@ -34,17 +34,17 @@ exports = module.exports = {
 
         //#region Import jquery
 
-        // Resolve JQuery.
-        rules.push({
-            test: require.resolve('jquery'),
-            use: [{
-                loader: 'expose-loader',
-                options: 'jQuery'
-            }, {
-                loader: 'expose-loader',
-                options: '$'
-            }]
-        });
+        // // Resolve JQuery.
+        // rules.push({
+        //     test: require.resolve('jquery'),
+        //     use: [{
+        //         loader: 'expose-loader',
+        //         options: 'jQuery'
+        //     }, {
+        //         loader: 'expose-loader',
+        //         options: '$'
+        //     }]
+        // });
 
         //#endregion
 

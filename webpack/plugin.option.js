@@ -79,7 +79,10 @@ exports = module.exports = {
         // Using bluebird promise instead of native promise.
         plugins.push(new webpack.ProvidePlugin({
             Promise: 'bluebird',
-            moment: 'moment'
+            moment: 'moment',
+            jQuery: 'jquery',
+            $: 'jquery',
+            Rx: 'rxjs'
         }));
 
         //#region Html plugin

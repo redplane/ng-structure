@@ -55,6 +55,7 @@
     "jquery": "^3.2.1",
     "moment": "^2.20.1",
     "ng-data-annotation": "^1.0.4",
+    "rxjs": "^6.1.0",
     "rxjs-compat": "^6.0.0"
   }
 }

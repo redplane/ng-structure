@@ -1,5 +1,4 @@
 module.exports = (ngModule) => {
-
     // Module template import.
     let ngModuleHtmlTemplate = require('./navigation-bar.html');
 
