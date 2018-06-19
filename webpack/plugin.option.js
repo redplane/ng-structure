@@ -23,7 +23,7 @@ exports = module.exports = {
         const pCleanOption = {
             // Absolute path to your webpack root folder (paths appended to this)
             // Default: root of your package
-            root: null,
+            root: paths.root,
 
             // Write logs to console.
             verbose: true,
@@ -101,7 +101,15 @@ exports = module.exports = {
             // Annotate plugin.
             plugins.push(new ngAnnotatePlugin({add: true}));
 
+            //#region Define plugin
+            plugins.push(new webpack.DefinePlugin(require('./env/production')()));
+            //#endregion
+
         } else {
+
+            //#region Define plugin
+            plugins.push(new webpack.DefinePlugin(require('./env/development')()));
+            //#endregion
 
             //#region Browser sync plugin
 

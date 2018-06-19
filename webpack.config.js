@@ -22,7 +22,7 @@ module.exports = (env, argv) => {
     * Module export.
     * */
     return {
-        context: webpackOption.paths.getSource(__dirname),
+        context: paths.root,
         entry: {
             'jQueryVendors': ['jquery', 'bluebird', 'bootstrap', 'admin-lte', 'moment', 'rxjs'],
             'angularVendors': [
