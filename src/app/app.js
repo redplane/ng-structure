@@ -29,6 +29,7 @@ require('@uirouter/angularjs');
 
 // Angular plugins declaration.
 let angular = require('angular');
+require('oclazyload');
 require('@uirouter/angularjs');
 require('angular-block-ui');
 require('angular-toastr');
@@ -41,26 +42,19 @@ require('ng-data-annotation');
 // Module declaration.
 let ngModule = angular.module('ngApp', [
     'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
+    'oc.lazyLoad',
     'angularMoment', 'moment-picker', 'ngDataAnnotations']);
 
-ngModule.config(($urlRouterProvider, $translateProvider, $httpProvider, urlStatesConstant) => {
-
+ngModule.config(($urlRouterProvider, $httpProvider, urlStatesConstant) => {
     // API interceptor
     $httpProvider.interceptors.push('apiInterceptor');
 
     // Url router config.
     $urlRouterProvider.otherwise(urlStatesConstant.dashboard.url);
-
-    // Translation config.
-    $translateProvider.useStaticFilesLoader({
-        prefix: './assets/dictionary/',
-        suffix: '.json'
-    });
-
-    // en-US is default selection.
-    $translateProvider.use('en-US');
-
 });
+
+// Import oc-lazy load.
+require('./configs')(ngModule);
 
 // Constants import.
 require('./constants/index')(ngModule);

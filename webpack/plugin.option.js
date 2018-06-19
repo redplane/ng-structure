@@ -4,6 +4,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -23,7 +24,7 @@ exports = module.exports = {
         const pCleanOption = {
             // Absolute path to your webpack root folder (paths appended to this)
             // Default: root of your package
-            root: null,
+            root: paths.root,
 
             // Write logs to console.
             verbose: true,
@@ -100,8 +101,16 @@ exports = module.exports = {
         if (bProductionMode){
             // Annotate plugin.
             plugins.push(new ngAnnotatePlugin({add: true}));
+            
+            //#region Define plugin
+            plugins.push(new webpack.DefinePlugin(require('./env/production')()));
+            //#endregion
 
         } else {
+
+            //#region Define plugin
+            plugins.push(new webpack.DefinePlugin(require('./env/development')()));
+            //#endregion
 
             //#region Browser sync plugin
 

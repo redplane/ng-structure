@@ -2,9 +2,6 @@ module.exports = (ngModule) => {
 
     //#region Module configs.
 
-    // Load module html template.
-    let ngModuleHtmlTemplate = require('./login.html');
-
     /*
     * Module configuration.
     * */
@@ -12,8 +9,29 @@ module.exports = (ngModule) => {
         $stateProvider.state(urlStatesConstant.login.name, {
             url: urlStatesConstant.login.url,
             controller: 'loginController',
-            template: ngModuleHtmlTemplate,
-            parent: urlStatesConstant.unauthorizedLayout.name
+            templateProvider: ($q) => {
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => resolve(require('./login.html')));
+                });
+            },
+            parent: urlStatesConstant.unauthorizedLayout.name,
+            resolve: {
+                /*
+                * Load login controller.
+                * */
+                loadLoginController: ($q, $ocLazyLoad) => {
+                    return $q((resolve) => {
+                        require.ensure([], () => {
+                            // load only controller module
+                            let module = angular.module('account.login', []);
+                            require('./login.controller')(module);
+                            $ocLazyLoad.load({name: module.name});
+                            resolve(module.controller);
+                        })
+                    });
+                }
+            }
         })
     });
 

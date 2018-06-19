@@ -1,8 +1,4 @@
 module.exports = (ngModule) => {
-
-    // Module html template import.
-    let ngModuleHtmlTemplate = require('./main.html');
-
     ngModule.config(($stateProvider, urlStatesConstant) => {
 
         let urlStateDashboard = urlStatesConstant.dashboard;
@@ -12,7 +8,25 @@ module.exports = (ngModule) => {
             url: urlStateDashboard.url,
             controller: 'mainDashboardController',
             parent: urlStateAuthorizedLayout.name,
-            template: ngModuleHtmlTemplate
+            templateProvider: ($q) => {
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => resolve(require('./main.html')));
+                });
+            },
+            resolve: {
+                loadMainDashboardController: ($q, $ocLazyLoad) => {
+                    return $q((resolve) => {
+                        require.ensure([], () => {
+                            // load only controller module
+                            let module = angular.module('dashboard.main', []);
+                            require('./main.controller')(module);
+                            $ocLazyLoad.load({name: module.name});
+                            resolve(module.controller);
+                        })
+                    });
+                }
+            }
         });
     });
 };

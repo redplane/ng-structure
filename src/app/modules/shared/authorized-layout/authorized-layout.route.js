@@ -3,6 +3,9 @@ module.exports = (ngModule) => {
     // Html template import.
     let ngModuleHtmlTemplate = require('./authorized-layout.html');
 
+    // Import controller.
+    require('./authorized-layout.controller')(ngModule);
+
     // Route config.
     ngModule.config(($stateProvider, urlStatesConstant) => {
 

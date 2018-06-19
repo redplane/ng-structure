@@ -1,3 +1,5 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = (env, argv) => {
     const path = require('path');
     const moduleRuleOption = require('./webpack/rule.option');
@@ -18,11 +20,32 @@ module.exports = (env, argv) => {
         dist: webpackOption.paths.getDist(__dirname)
     };
 
+    //#region Code minimizer
+
+    let minimizer = [
+        new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            uglifyOptions: {
+                output: {
+                    beautify: false,
+
+                }
+            },
+            sourceMap: true
+        })
+    ];
+
+    if (!bProductionMode)
+        minimizer = null;
+
+    //#endregion
+
     /*
     * Module export.
     * */
     return {
-        context: webpackOption.paths.getSource(__dirname),
+        context: paths.root,
         entry: {
             'jQueryVendors': ['jquery', 'bluebird', 'bootstrap', 'admin-lte', 'moment', 'rxjs'],
             'angularVendors': [
@@ -32,6 +55,7 @@ module.exports = (env, argv) => {
         },
         optimization: {
             runtimeChunk: 'single',
+            minimizer: minimizer,
             splitChunks: {
                 chunks: 'all',
                 cacheGroups: {
