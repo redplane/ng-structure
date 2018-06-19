@@ -92,7 +92,11 @@ exports = module.exports = {
 
         rules.push({
             test: /\.html$/, // Only .html files
-            loader: 'html-loader' // Run html loader
+            loader: 'html-loader', // Run html loader
+            options: {
+                minimize: true,
+                removeComments: true
+            }
         });
 
         //#endregion
