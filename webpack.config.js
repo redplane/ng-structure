@@ -37,7 +37,7 @@ module.exports = (env, argv) => {
     ];
 
     if (!bProductionMode)
-        minimizer = null;
+        minimizer = [];
 
     //#endregion
 
@@ -55,6 +55,7 @@ module.exports = (env, argv) => {
         },
         optimization: {
             runtimeChunk: 'single',
+            minimize: bProductionMode,
             minimizer: minimizer,
             splitChunks: {
                 chunks: 'all',
