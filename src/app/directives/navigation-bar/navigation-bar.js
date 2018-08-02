@@ -1,11 +1,20 @@
 module.exports = (ngModule) => {
-    // Module template import.
-    let ngModuleHtmlTemplate = require('./navigation-bar.html');
-
     // Directive declaration.
-    ngModule.directive('navigationBar', () => {
+    ngModule.directive('navigationBar', ($compile, $q) => {
         return {
-            template: ngModuleHtmlTemplate,
+            compile: () => {
+                let pGetTemplatePromise = $q((resolve) => {
+                    require.ensure([], () => resolve(require('./navigation-bar.html')));
+                });
+
+                return (scope, element) => {
+                    pGetTemplatePromise
+                        .then((htmlTemplate) => {
+                            element.html(htmlTemplate);
+                            $compile(element.contents())(scope)
+                        });
+                };
+            },
             restrict: 'E',
             scope: null,
             controller: ($scope, urlStatesConstant) => {

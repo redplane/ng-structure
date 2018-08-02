@@ -9,12 +9,13 @@ module.exports = (ngModule) => {
         $stateProvider.state(urlStatesConstant.login.name, {
             url: urlStatesConstant.login.url,
             controller: 'loginController',
-            templateProvider: ($q) => {
+            templateProvider: ['$q', ($q) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                 return $q((resolve) => {
                     // lazy load the view
                     require.ensure([], () => resolve(require('./login.html')));
                 });
-            },
+            }],
             parent: urlStatesConstant.unauthorizedLayout.name,
             resolve: {
                 /*

@@ -8,12 +8,13 @@ module.exports = (ngModule) => {
             url: urlStateDashboard.url,
             controller: 'mainDashboardController',
             parent: urlStateAuthorizedLayout.name,
-            templateProvider: ($q) => {
+            templateProvider: ['$q', ($q) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                 return $q((resolve) => {
                     // lazy load the view
                     require.ensure([], () => resolve(require('./main.html')));
                 });
-            },
+            }],
             resolve: {
                 loadMainDashboardController: ($q, $ocLazyLoad) => {
                     return $q((resolve) => {

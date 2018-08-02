@@ -21,7 +21,6 @@ require('./app.scss');
 
 // Import jquery lib.
 require('jquery');
-require('bluebird');
 require('bootstrap');
 require('admin-lte');
 require('moment');
@@ -38,12 +37,13 @@ require('angular-translate-loader-static-files');
 require('angular-moment');
 require('angular-moment-picker');
 require('ng-data-annotation');
+require('angular-sanitize');
 
 // Module declaration.
 let ngModule = angular.module('ngApp', [
     'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
     'oc.lazyLoad',
-    'angularMoment', 'moment-picker', 'ngDataAnnotations']);
+    'angularMoment', 'moment-picker', 'ngDataAnnotations', 'ngSanitize']);
 
 ngModule.config(($urlRouterProvider, $httpProvider, urlStatesConstant) => {
     // API interceptor
