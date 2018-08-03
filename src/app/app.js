@@ -39,34 +39,50 @@ require('angular-moment-picker');
 require('ng-data-annotation');
 require('angular-sanitize');
 
-// Module declaration.
-let ngModule = angular.module('ngApp', [
-    'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
-    'oc.lazyLoad',
-    'angularMoment', 'moment-picker', 'ngDataAnnotations', 'ngSanitize']);
+$.ajax({
+    url: '/assets/app-settings.json',
+    contentType: 'application/json',
+    method: 'GET',
+    cache: false,
+    crossDomain: false,
+    success: (loadAppSettings) => {
 
-ngModule.config(($urlRouterProvider, $httpProvider, urlStatesConstant) => {
-    // API interceptor
-    $httpProvider.interceptors.push('apiInterceptor');
+        // Configuration will be save in window.<APP_NAME> object.
+        window[APP_NAME] = loadAppSettings;
 
-    // Url router config.
-    $urlRouterProvider.otherwise(urlStatesConstant.dashboard.url);
+        // Module declaration.
+        let ngModule = angular.module(APP_NAME, [
+            'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
+            'oc.lazyLoad',
+            'angularMoment', 'moment-picker', 'ngDataAnnotations', 'ngSanitize']);
+
+        ngModule.config(($urlRouterProvider, $httpProvider, urlStatesConstant) => {
+            // API interceptor
+            $httpProvider.interceptors.push('apiInterceptor');
+
+            // Url router config.
+            $urlRouterProvider.otherwise(urlStatesConstant.dashboard.url);
+        });
+
+        // Import oc-lazy load.
+        require('./configs')(ngModule);
+
+        // Constants import.
+        require('./constants/index')(ngModule);
+
+        // Factories import.
+        require('./factories/index')(ngModule);
+
+        // Services import.
+        require('./services/index')(ngModule);
+
+        // Directive requirements.
+        require('./directives/index')(ngModule);
+
+        // Module requirements.
+        require('./modules/index')(ngModule);
+
+        angular.bootstrap(document, [APP_NAME]);
+    }
 });
 
-// Import oc-lazy load.
-require('./configs')(ngModule);
-
-// Constants import.
-require('./constants/index')(ngModule);
-
-// Factories import.
-require('./factories/index')(ngModule);
-
-// Services import.
-require('./services/index')(ngModule);
-
-// Directive requirements.
-require('./directives/index')(ngModule);
-
-// Module requirements.
-require('./modules/index')(ngModule);
