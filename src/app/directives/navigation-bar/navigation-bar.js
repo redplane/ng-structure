@@ -17,12 +17,12 @@ module.exports = (ngModule) => {
             },
             restrict: 'E',
             scope: null,
-            controller: ($scope, urlStatesConstant) => {
+            controller: ($scope) => {
 
                 //#region Properties
 
                 // Constants reflection.
-                $scope.urlStatesConstant = urlStatesConstant;
+                $scope.urlStatesConstant = require('../../constants/url-states.constant.ts').UrlStatesConstant;
 
                 //#endregion
             }

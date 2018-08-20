@@ -1,22 +1,37 @@
 module.exports = (ngModule) => {
-
-    // Html template import.
-    let ngModuleHtmlTemplate = require('./authorized-layout.html');
-
-    // Import controller.
-    require('./authorized-layout.controller')(ngModule);
-
     // Route config.
-    ngModule.config(($stateProvider, urlStatesConstant) => {
+    ngModule.config(($stateProvider) => {
 
         // Constants reflection.
-        let urlAuthorizedLayoutState = urlStatesConstant.authorizedLayout;
+        const UrlStatesConstant = require('../../../constants/url-states.constant.ts').UrlStatesConstant;
 
         // State configuration
-        $stateProvider.state(urlAuthorizedLayoutState.name, {
+        $stateProvider.state(UrlStatesConstant.authorizedLayoutModuleName, {
             controller: 'authorizedLayoutController',
             abstract: true,
-            template: ngModuleHtmlTemplate,
+            templateProvider: ['$q', ($q) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => resolve(require('./authorized-layout.html')));
+                });
+            }],
+            resolve: {
+                /*
+                * Load login controller.
+                * */
+                loadAuthorizedLayoutController: ($q, $ocLazyLoad) => {
+                    return $q((resolve) => {
+                        require.ensure([], () => {
+                            // load only controller module
+                            let module = angular.module('shared.authorize-layout', []);
+                            require('./authorized-layout.controller')(module);
+                            $ocLazyLoad.load({name: module.name});
+                            resolve(module.controller);
+                        })
+                    });
+                }
+            },
             params: {
                 cssClassNames: ['hold-transition', 'skin-black', 'fixed', 'sidebar-mini']
             }

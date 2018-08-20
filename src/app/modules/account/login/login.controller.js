@@ -1,11 +1,17 @@
 module.exports = (ngModule) => {
-    return ngModule.controller('loginController', ($scope, $timeout,
-                                                   urlStatesConstant) => {
+    return ngModule.controller('loginController', ($scope, $timeout) => {
+
+        const {LoginViewModel} = require('../../../view-models/login.view-model.ts');
 
         //#region Properties
 
         // Constants reflection.
-        $scope.urlStatesConstant = urlStatesConstant;
+        $scope.urlStatesConstant = require('../../../constants/url-states.constant.ts').UrlStatesConstant;
+
+        /*
+        * Model which contains information for signing into system.
+        * */
+        $scope.loginModel = new LoginViewModel();
 
         //#endregion
 

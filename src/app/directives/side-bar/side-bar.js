@@ -17,12 +17,12 @@ module.exports = (ngModule) => {
                         });
                 };
             },
-            controller: ($scope, urlStatesConstant) => {
+            controller: ($scope) => {
 
                 //#region Properties
 
                 // Constants reflection.
-                $scope.urlStates = urlStatesConstant;
+                $scope.urlStates = require('../../constants/url-states.constant.ts').UrlStatesConstant;
 
                 $scope.message = 'Hello world';
                 //#endregion

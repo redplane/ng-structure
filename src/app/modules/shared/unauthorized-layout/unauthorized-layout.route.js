@@ -1,17 +1,36 @@
 module.exports = (ngModule) => {
-
-    // Import html template.
-    let ngModuleHtmlTemplate = require('./unauthorized-layout.html');
-
-    // Import controller.
-    require('./unauthorized-layout.controller')(ngModule);
-
     // Route config.
-    ngModule.config( ($stateProvider, urlStatesConstant) => {
-        $stateProvider.state(urlStatesConstant.unauthorizedLayout.name, {
+    ngModule.config( ($stateProvider) => {
+
+        // Import constants.
+        const UrlStatesConstant = require('../../../constants/url-states.constant.ts').UrlStatesConstant;
+
+        $stateProvider.state(UrlStatesConstant.unauthorizedLayoutModuleName, {
             controller: 'unauthorizedLayoutController',
             abstract: true,
-            template: ngModuleHtmlTemplate,
+            templateProvider: ['$q', ($q) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => resolve(require('./unauthorized-layout.html')));
+                });
+            }],
+            resolve: {
+                /*
+                * Load login controller.
+                * */
+                loadAuthorizedLayoutController: ($q, $ocLazyLoad) => {
+                    return $q((resolve) => {
+                        require.ensure([], () => {
+                            // load only controller module
+                            let module = angular.module('shared.unauthorized-layout', []);
+                            require('./unauthorized-layout.controller')(module);
+                            $ocLazyLoad.load({name: module.name});
+                            resolve(module.controller);
+                        })
+                    });
+                }
+            },
             params: {
                 cssClassNames: ['hold-transition', 'login-page']
             }

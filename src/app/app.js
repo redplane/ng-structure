@@ -39,6 +39,9 @@ require('angular-moment-picker');
 require('ng-data-annotation');
 require('angular-sanitize');
 
+// Import constants.
+const UrlStatesConstant = require('./constants/url-states.constant.ts').UrlStatesConstant;
+
 $.ajax({
     url: '/assets/app-settings.json',
     contentType: 'application/json',
@@ -56,19 +59,16 @@ $.ajax({
             'oc.lazyLoad',
             'angularMoment', 'moment-picker', 'ngDataAnnotations', 'ngSanitize']);
 
-        ngModule.config(($urlRouterProvider, $httpProvider, urlStatesConstant) => {
+        ngModule.config(($urlRouterProvider, $httpProvider) => {
             // API interceptor
             $httpProvider.interceptors.push('apiInterceptor');
 
             // Url router config.
-            $urlRouterProvider.otherwise(urlStatesConstant.dashboard.url);
+            $urlRouterProvider.otherwise(UrlStatesConstant.dashboardModuleUrl);
         });
 
         // Import oc-lazy load.
         require('./configs')(ngModule);
-
-        // Constants import.
-        require('./constants/index')(ngModule);
 
         // Factories import.
         require('./factories/index')(ngModule);
@@ -80,7 +80,7 @@ $.ajax({
         require('./directives/index')(ngModule);
 
         // Module requirements.
-        require('./modules/index')(ngModule);
+        require('./modules')(ngModule);
 
         angular.bootstrap(document, [APP_NAME]);
     }

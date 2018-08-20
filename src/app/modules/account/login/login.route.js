@@ -5,9 +5,13 @@ module.exports = (ngModule) => {
     /*
     * Module configuration.
     * */
-    ngModule.config(($stateProvider, urlStatesConstant) => {
-        $stateProvider.state(urlStatesConstant.login.name, {
-            url: urlStatesConstant.login.url,
+    ngModule.config(($stateProvider) => {
+
+        // Import url state constant..
+        const UrlStatesConstant = require('../../../constants/url-states.constant.ts').UrlStatesConstant;
+
+        $stateProvider.state(UrlStatesConstant.loginModuleName, {
+            url: UrlStatesConstant.loginModuleUrl,
             controller: 'loginController',
             templateProvider: ['$q', ($q) => {
                 // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
@@ -16,7 +20,7 @@ module.exports = (ngModule) => {
                     require.ensure([], () => resolve(require('./login.html')));
                 });
             }],
-            parent: urlStatesConstant.unauthorizedLayout.name,
+            parent: UrlStatesConstant.unauthorizedLayoutModuleName,
             resolve: {
                 /*
                 * Load login controller.
