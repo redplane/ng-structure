@@ -82,6 +82,7 @@ $.ajax({
         // Module requirements.
         require('./modules/index')(ngModule);
 
+        // Manually bootstrap application.
         angular.bootstrap(document, [APP_NAME]);
     }
 });

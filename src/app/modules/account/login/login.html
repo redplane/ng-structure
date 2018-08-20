@@ -1,4 +1,4 @@
-<div class="login-box">
+<div class="login-box" ng-init="ngOnInit()">
     <div class="login-logo">
         <a href="javascript:void(0);"><b>Admin</b>LTE</a>
     </div>
@@ -8,18 +8,19 @@
 
         <div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" class="form-control" placeholder="Email" ng-model="email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="Password" ng-model="loginModel.password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <button ui-sref="{{urlStatesConstant.dashboard.name}}" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button class="btn btn-primary btn-block btn-flat"
+                            ng-click="clickLogin()"
+                            ng-disabled="hasEmail()">Sign In</button>
                 </div>
-                <!-- /.col -->
             </div>
         </div>
 

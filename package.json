@@ -6,6 +6,7 @@
   "repository": "https://github.com/angular/angular-seed",
   "license": "MIT",
   "devDependencies": {
+    "@types/webpack-env": "^1.13.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
@@ -25,6 +26,7 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.19.1",
+    "ts-loader": "^4.5.0",
     "typescript": "^2.9.2",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^0.6.2",
@@ -40,6 +42,7 @@
     "build": "webpack --mode=production"
   },
   "dependencies": {
+    "@types/angular": "^1.6.50",
     "@uirouter/angularjs": "^1.0.19",
     "admin-lte": "^2.4.8",
     "angular": "^1.7.2",

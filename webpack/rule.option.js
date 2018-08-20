@@ -10,9 +10,14 @@ exports = module.exports = {
         //#region Ts loader
 
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+        // rules.push({
+        //     test: /\.tsx?$/,
+        //     loader: "babel-loader!ts-loader"
+        // });
+
         rules.push({
             test: /\.tsx?$/,
-            loader: "babel-loader!ts-loader"
+            loader: "ts-loader"
         });
 
         //#endregion

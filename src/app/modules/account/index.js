@@ -1,5 +1,6 @@
 // Load module html templates.
 module.exports = (ngModule) => {
     // Load routes.
-    require('./login/login.route')(ngModule);
+    let login = require('./login');
+    ngModule.config(($stateProvider) => login.LoginModule($stateProvider));
 };
