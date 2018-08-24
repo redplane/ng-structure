@@ -1,3 +1,3 @@
-module.exports = function (ngModule) {
+module.exports = (ngModule) => {
     require('./ui.service')(ngModule);
 };
