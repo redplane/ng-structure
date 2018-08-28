@@ -1,4 +1,8 @@
 module.exports = (ngModule) => {
+
+    // Import constants.
+    const UrlStatesConstant = require('../../constants/url-states.constant').UrlStatesConstant;
+
     // Directive declaration.
     ngModule.directive('sideBar', ($compile, $q) => {
         return {
@@ -17,14 +21,15 @@ module.exports = (ngModule) => {
                         });
                 };
             },
-            controller: ($scope, urlStatesConstant) => {
+            controller: ($scope) => {
 
                 //#region Properties
 
                 // Constants reflection.
-                $scope.urlStates = urlStatesConstant;
+                $scope.urlStates = UrlStatesConstant;
 
                 $scope.message = 'Hello world';
+
                 //#endregion
             },
             link: (scope, element, attrs) => {

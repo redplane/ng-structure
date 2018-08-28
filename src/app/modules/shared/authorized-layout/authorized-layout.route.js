@@ -1,24 +1,35 @@
 module.exports = (ngModule) => {
-
-    // Html template import.
-    let ngModuleHtmlTemplate = require('./authorized-layout.html');
-
-    // Import controller.
-    require('./authorized-layout.controller')(ngModule);
-
     // Route config.
-    ngModule.config(($stateProvider, urlStatesConstant) => {
+    ngModule.config(($stateProvider) => {
 
-        // Constants reflection.
-        let urlAuthorizedLayoutState = urlStatesConstant.authorizedLayout;
+        // Import constants
+        const UrlStatesConstant = require('../../../constants/url-states.constant').UrlStatesConstant;
 
         // State configuration
-        $stateProvider.state(urlAuthorizedLayoutState.name, {
+        $stateProvider.state(UrlStatesConstant.authorizeLayoutModuleName, {
+            templateProvider: ['$q', ($q) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => resolve(require('./authorized-layout.html')));
+                });
+            }],
             controller: 'authorizedLayoutController',
             abstract: true,
-            template: ngModuleHtmlTemplate,
-            params: {
-                cssClassNames: ['hold-transition', 'skin-black', 'fixed', 'sidebar-mini']
+            resolve:{
+
+                // Load authorized layout controller
+                loadAuthorizedLayoutController: ['$q', '$ocLazyLoad', ($q, $ocLazyLoad) => {
+                    return $q((resolve) => {
+                        require.ensure([], () => {
+                            // load only controller module
+                            let module = angular.module('shared.authorized-layout', []);
+                            require('./authorized-layout.controller')(module);
+                            $ocLazyLoad.load({name: module.name});
+                            resolve(module.controller);
+                        })
+                    });
+                }]
             }
         });
     });

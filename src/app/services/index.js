@@ -1,3 +1,4 @@
-module.exports = function (ngModule) {
-    require('./ui.service')(ngModule);
+module.exports = (ngModule) => {
+    const {UiService} = require("./ui.service");
+    ngModule.service('$ui', UiService);
 };

@@ -56,12 +56,16 @@ $.ajax({
             'oc.lazyLoad',
             'angularMoment', 'moment-picker', 'ngDataAnnotations', 'ngSanitize']);
 
-        ngModule.config(($urlRouterProvider, $httpProvider, urlStatesConstant) => {
+        ngModule.config(($urlRouterProvider, $httpProvider) => {
             // API interceptor
             $httpProvider.interceptors.push('apiInterceptor');
 
             // Url router config.
-            $urlRouterProvider.otherwise(urlStatesConstant.dashboard.url);
+            $urlRouterProvider.otherwise(($injector) => {
+               const $state = $injector.get('$state');
+               const UrlStatesConstant = require('./constants/url-states.constant.ts').UrlStatesConstant;
+               $state.go(UrlStatesConstant.dashboardModuleName);
+            });
         });
 
         // Import oc-lazy load.

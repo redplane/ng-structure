@@ -16,9 +16,14 @@ export interface ILoginScope extends ng.IScope {
     /*
     * Called when login is clicked.
     * */
-    clickLogin: Function;
+    clickLogin: () => void;
 
+    /*
+    * Called to check whether admin has email or not.
+    * */
     hasEmail: () => boolean;
+
+    getMessages: () => string;
 
     //#endregion
 }

@@ -1,13 +1,9 @@
 import {ILoginScope} from "./login.scope";
 import {LoginViewModel} from "../../../view-models/user/login.view-model";
+import {IController} from "angular";
 
-export class LoginController implements ng.IController{
-
-    //#region Properties
-
-    public email: string = '123456';
-
-    //#endregion
+/* @ngInject */
+export class LoginController implements IController{
 
     //#region Constructor
 
@@ -15,9 +11,13 @@ export class LoginController implements ng.IController{
     * Initialize controller with injectors.
     * */
     public constructor(public $scope: ILoginScope){
-        this.$scope.loginModel = new LoginViewModel();
-        this.$scope.loginModel.email = '123'
-        this.$scope.hasEmail = this.hasEmail;
+        $scope.clickLogin = this.clickLogin;
+        $scope.getMessages = this.getMessages;
+
+        let loginModel = new LoginViewModel();
+        loginModel.email = 'This is email';
+        loginModel.password = 'This is password';
+        $scope.loginModel = loginModel;
     }
 
     //#endregion
@@ -28,16 +28,16 @@ export class LoginController implements ng.IController{
 
     //#region Events
 
-    public clickLogin(): void {
-        console.log('Hello world');
-    }
+    public clickLogin = (): void => {
+        console.log(this.$scope);
+    };
 
-    public hasEmail(): boolean{
-        let loginModel = this.$scope.loginModel;
-        if (!loginModel || !loginModel.email)
-            return false;
+    public getMessages = (): string => {
+        return this.print();
+    };
 
-        return true;
+    public print = (): string => {
+        return 'printf';
     }
 
     //#endregion

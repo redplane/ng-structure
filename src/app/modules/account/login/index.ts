@@ -9,8 +9,8 @@ export class LoginModule {
 
     public constructor(private $stateProvider: StateProvider) {
         $stateProvider
-            .state(UrlStatesConstant.LoginStateName, {
-                url: UrlStatesConstant.LoginStateUrl,
+            .state(UrlStatesConstant.loginModuleName, {
+                url: UrlStatesConstant.loginModuleUrl,
                 controller: 'loginController',
                 templateProvider: ['$q', ($q) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
@@ -19,25 +19,24 @@ export class LoginModule {
                         require.ensure([], () => resolve(require('./login.html')));
                     });
                 }],
-                parent: UrlStatesConstant.AuthorizeLayoutName,
+                parent: UrlStatesConstant.authorizeLayoutModuleName,
                 resolve: {
                     /*
                     * Load login controller.
                     * */
-                    loadLoginController: ($q, $ocLazyLoad) => {
+                    loadLoginController:  ['$q', '$ocLazyLoad', ($q, $ocLazyLoad) => {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
                                 // load only controller module
                                 let ngModule = module('account.login', []);
-
+                                const {LoginController} = require('./login.controller.ts');
                                 // Import controller file.
-                                const {LoginController} = require("./login.controller");
                                 ngModule.controller('loginController', LoginController);
                                 $ocLazyLoad.load({name: ngModule.name});
                                 resolve(ngModule.controller);
                             })
                         });
-                    }
+                    }]
                 }
             });
 

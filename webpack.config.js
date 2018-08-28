@@ -47,12 +47,7 @@ module.exports = (env, argv) => {
     return {
         context: paths.root,
         entry: {
-            'jQueryVendors': ['jquery', 'babel-polyfill', 'bootstrap', 'admin-lte', 'moment', 'rxjs'],
-            'angularVendors': [
-                'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr',
-                'angular-translate', 'angular-translate-loader-static-files', 'angular-moment', 'angular-moment-picker',
-                'angular-sanitize'],
-            'app': path.resolve(paths.app, 'app.js')
+            'app': ['babel-polyfill', path.resolve(paths.app, 'app.js')]
         },
         optimization: {
             runtimeChunk: 'single',

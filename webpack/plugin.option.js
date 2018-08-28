@@ -1,9 +1,9 @@
 const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');
-const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 const webpack = require('webpack');
 const path = require('path');
@@ -24,7 +24,7 @@ exports = module.exports = {
         const pCleanOption = {
             // Absolute path to your webpack root folder (paths appended to this)
             // Default: root of your package
-            root: paths.root,
+            root: paths.source,
 
             // Write logs to console.
             verbose: true,
@@ -44,7 +44,7 @@ exports = module.exports = {
 
             // allow the plugin to clean folders outside of the webpack root.
             // Default: false - don't allow clean folder outside of the webpack root
-            allowExternal: false
+            allowExternal: true
         };
 
         if (oCleanedItems.length > 0)
@@ -75,17 +75,6 @@ exports = module.exports = {
 
         //#endregion
 
-        //#region Provide plugin
-
-        // Using bluebird promise instead of native promise.
-        plugins.push(new webpack.ProvidePlugin({
-            Promise: 'bluebird',
-            moment: 'moment',
-            jQuery: 'jquery',
-            $: 'jquery',
-            Rx: 'rxjs'
-        }));
-
         //#region Html plugin
 
         //Automatically inject chunks into html files.
@@ -96,15 +85,17 @@ exports = module.exports = {
 
         //#endregion
 
-        //#endregion
-
         if (bProductionMode){
-            // Annotate plugin.
-            plugins.push(new ngAnnotatePlugin({add: true}));
-            
             //#region Define plugin
+
             plugins.push(new webpack.DefinePlugin(require('./env/production')()));
+
             //#endregion
+
+            plugins.push(new ngAnnotatePlugin({
+                add: true,
+                // other ng-annotate options here
+            }))
 
         } else {
 

@@ -8,7 +8,7 @@
 
         <div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email" ng-model="email">
+                <input type="email" class="form-control" placeholder="Email" ng-model=" loginModel.email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -16,10 +16,10 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
+                {{getMessages()}}
                 <div class="col-xs-12">
                     <button class="btn btn-primary btn-block btn-flat"
-                            ng-click="clickLogin()"
-                            ng-disabled="hasEmail()">Sign In</button>
+                            ng-click="clickLogin()">Sign In</button>
                 </div>
             </div>
         </div>

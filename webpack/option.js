@@ -12,21 +12,21 @@ exports = module.exports = {
         /*
         * Get source file directory.
         * */
-        getSource: function (root) {
+        getSource: (root) => {
             return path.resolve(root, paths.source);
         },
 
         /*
         * Get directory which contains application.
         * */
-        getApplication: function (root) {
+        getApplication: (root) => {
             return path.resolve(root, paths.application);
         },
 
         /*
         * Get distribution folder.
         * */
-        getDist: function (root) {
+        getDist: (root) => {
             return path.resolve(root, paths.dist);
         }
     }

@@ -10,14 +10,9 @@ exports = module.exports = {
         //#region Ts loader
 
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-        // rules.push({
-        //     test: /\.tsx?$/,
-        //     loader: "babel-loader!ts-loader"
-        // });
-
         rules.push({
             test: /\.tsx?$/,
-            loader: "ts-loader"
+            loader: "babel-loader!ts-loader"
         });
 
         //#endregion
@@ -30,7 +25,8 @@ exports = module.exports = {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: [['env', {"modules": false}]]
+                    presets: [['env', {"modules": false}]],
+                    plugins: ['angularjs-annotate']
                 }
             }
         });
@@ -39,17 +35,25 @@ exports = module.exports = {
 
         //#region Import jquery
 
-        // // Resolve JQuery.
-        // rules.push({
-        //     test: require.resolve('jquery'),
-        //     use: [{
-        //         loader: 'expose-loader',
-        //         options: 'jQuery'
-        //     }, {
-        //         loader: 'expose-loader',
-        //         options: '$'
-        //     }]
-        // });
+        // JQuery
+        rules.push({
+            test: require.resolve('jquery'),
+            use: [{
+                loader: 'expose-loader',
+                options: 'jQuery'
+            }, {
+                loader: 'expose-loader',
+                options: '$'
+            }]
+        });
+
+        rules.push({
+            test: require.resolve('moment'),
+            use: [{
+                loader: 'expose-loader',
+                options: 'moment'
+            }]
+        });
 
         //#endregion
 

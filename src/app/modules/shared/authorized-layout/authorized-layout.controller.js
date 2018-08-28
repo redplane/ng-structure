@@ -8,15 +8,9 @@ module.exports = (ngModule) => {
             * Callback which is called when component starts being initiated.
             * */
             $scope.init = function () {
-                $ui.reloadWindowSize();
+                $ui.alert('Init');
             };
 
-            /*
-            * Hook the transition from state to state.
-            * */
-            $transitions.onSuccess({}, function (transition) {
-                $ui.reloadWindowSize();
-            });
             //#endregion
         });
 };

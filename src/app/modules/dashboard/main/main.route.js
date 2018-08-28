@@ -1,13 +1,13 @@
 module.exports = (ngModule) => {
-    ngModule.config(($stateProvider, urlStatesConstant) => {
+    ngModule.config(($stateProvider) => {
 
-        let urlStateDashboard = urlStatesConstant.dashboard;
-        let urlStateAuthorizedLayout = urlStatesConstant.authorizedLayout;
+        // Import constants.
+        const UrlStatesConstant = require('../../../constants/url-states.constant').UrlStatesConstant;
 
-        $stateProvider.state(urlStateDashboard.name, {
-            url: urlStateDashboard.url,
+        $stateProvider.state(UrlStatesConstant.dashboardModuleName, {
+            url: UrlStatesConstant.dashboardModuleUrl,
             controller: 'mainDashboardController',
-            parent: urlStateAuthorizedLayout.name,
+            parent: UrlStatesConstant.authorizeLayoutModuleName,
             templateProvider: ['$q', ($q) => {
                 // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                 return $q((resolve) => {
