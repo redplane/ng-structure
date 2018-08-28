@@ -15,7 +15,7 @@ export class UiService implements IUiService{
 
     // Display alert message.
     public alert(message: string): void {
-        this.$window.alert(message);
+        // this.$window.alert(message);
     };
 
 

@@ -17,7 +17,7 @@ require('../../node_modules/angular-block-ui/dist/angular-block-ui.css');
 require('../../node_modules/angular-moment-picker/dist/angular-moment-picker.css');
 
 // Import app style.
-require('./app.scss');
+require('./styles/app.scss');
 
 // Import jquery lib.
 require('jquery');
@@ -72,19 +72,19 @@ $.ajax({
         require('./configs')(ngModule);
 
         // Constants import.
-        require('./constants/index')(ngModule);
+        require('./constants')(ngModule);
 
         // Factories import.
-        require('./factories/index')(ngModule);
+        require('./factories')(ngModule);
 
         // Services import.
-        require('./services/index')(ngModule);
+        require('./services')(ngModule);
 
         // Directive requirements.
-        require('./directives/index')(ngModule);
+        require('./directives')(ngModule);
 
         // Module requirements.
-        require('./modules/index')(ngModule);
+        require('./modules')(ngModule);
 
         // Manually bootstrap application.
         angular.bootstrap(document, [APP_NAME]);
