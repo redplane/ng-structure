@@ -1,37 +1,37 @@
 import {StateProvider} from "@uirouter/angularjs";
-import {UrlStatesConstant} from "../../../constants/url-states.constant";
+import {UrlStatesConstant} from "../../constants/url-states.constant";
 import {module} from 'angular';
 
-
-export class LoginModule {
+/* @ngInject */
+export class DashboardModule {
 
     //#region Constructors
 
     public constructor(private $stateProvider: StateProvider) {
         $stateProvider
-            .state(UrlStatesConstant.loginModuleName, {
-                url: UrlStatesConstant.loginModuleUrl,
-                controller: 'loginController',
+            .state(UrlStatesConstant.dashboardModuleName, {
+                url: UrlStatesConstant.dashboardModuleUrl,
+                controller: 'dashboardController',
                 templateProvider: ['$q', ($q) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./login.html')));
+                        require.ensure([], () => resolve(require('./dashboard.html')));
                     });
                 }],
-                parent: UrlStatesConstant.unauthorizedLayoutModuleName,
+                parent: UrlStatesConstant.authorizeLayoutModuleName,
                 resolve: {
                     /*
                     * Load login controller.
                     * */
-                    loadLoginController:  ['$q', '$ocLazyLoad', ($q, $ocLazyLoad) => {
+                    loadDashboardController:  ['$q', '$ocLazyLoad', ($q, $ocLazyLoad) => {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
                                 // load only controller module
                                 let ngModule = module('account.login', []);
-                                const {LoginController} = require('./login.controller.ts');
+                                const {DashboardController} = require('./dashboard.controller.ts');
                                 // Import controller file.
-                                ngModule.controller('loginController', LoginController);
+                                ngModule.controller('dashboardController', DashboardController);
                                 $ocLazyLoad.load({name: ngModule.name});
                                 resolve(ngModule.controller);
                             })

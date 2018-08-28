@@ -2,7 +2,7 @@ module.exports = (ngModule) => {
     ngModule.config(($stateProvider) => {
 
         // Import constants.
-        const UrlStatesConstant = require('../../../constants/url-states.constant').UrlStatesConstant;
+        const UrlStatesConstant = require('../../constants/url-states.constant').UrlStatesConstant;
 
         $stateProvider.state(UrlStatesConstant.dashboardModuleName, {
             url: UrlStatesConstant.dashboardModuleUrl,
@@ -12,7 +12,7 @@ module.exports = (ngModule) => {
                 // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                 return $q((resolve) => {
                     // lazy load the view
-                    require.ensure([], () => resolve(require('./main.html')));
+                    require.ensure([], () => resolve(require('./dashboard.html')));
                 });
             }],
             resolve: {
@@ -21,7 +21,7 @@ module.exports = (ngModule) => {
                         require.ensure([], () => {
                             // load only controller module
                             let module = angular.module('dashboard.main', []);
-                            require('./main.controller')(module);
+                            require('./main/main.controller')(module);
                             $ocLazyLoad.load({name: module.name});
                             resolve(module.controller);
                         })

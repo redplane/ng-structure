@@ -1,16 +1,25 @@
 module.exports = (ngModule) => {
-    ngModule.controller('authorizedLayoutController',
-        ($scope, $transitions, $ui) => {
 
-            //#region Methods
+    // Import constants.
+    const UrlStatesConstant = require('../../../constants/url-states.constant').UrlStatesConstant;
+    ngModule.controller('authorizedLayoutController', (
+        $state,
+        $ui,
+        $scope) => {
 
-            /*
-            * Callback which is called when component starts being initiated.
-            * */
-            $scope.init = function () {
-                $ui.alert('Init');
-            };
+        //#region Properties
 
-            //#endregion
-        });
+        //#endregion
+
+        //#region Methods
+
+        /*
+        * Called when sign out is clicked.
+        * */
+        $scope._ngOnSignOutClicked = () => {
+            $state.go(UrlStatesConstant.loginModuleName);
+        }
+
+        //#endregion
+    });
 };

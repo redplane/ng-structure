@@ -1,7 +1,6 @@
-<div ng-init="init()">
-
+<div>
     <!--Navigation bar rendering-->
-    <navigation-bar></navigation-bar>
+    <navigation-bar ng-on-sign-out-clicked="_ngOnSignOutClicked()"></navigation-bar>
 
     <ui-view></ui-view>
 </div>

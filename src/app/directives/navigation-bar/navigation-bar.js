@@ -20,13 +20,31 @@ module.exports = (ngModule) => {
                 };
             },
             restrict: 'E',
-            scope: null,
+            scope: {
+
+                // Raised when sign out is clicked.
+                ngOnSignOutClicked: '&?'
+            },
             controller: ($scope) => {
 
                 //#region Properties
 
                 // Constants reflection.
                 $scope.urlStatesConstant = UrlStatesConstants;
+
+                //#endregion
+
+                //#region Methods
+
+                /*
+                * Called when sign out is clicked.
+                * */
+                $scope._ngSignOutClicked = () => {
+                    if (!$scope.ngOnSignOutClicked)
+                        return;
+
+                    $scope.ngOnSignOutClicked();
+                }
 
                 //#endregion
             }

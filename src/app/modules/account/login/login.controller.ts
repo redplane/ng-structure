@@ -1,6 +1,8 @@
 import {ILoginScope} from "./login.scope";
 import {LoginViewModel} from "../../../view-models/user/login.view-model";
 import {IController} from "angular";
+import {StateService} from "../../../../../node_modules/@uirouter/core";
+import {UrlStatesConstant} from "../../../constants/url-states.constant";
 
 /* @ngInject */
 export class LoginController implements IController{
@@ -10,7 +12,8 @@ export class LoginController implements IController{
     /*
     * Initialize controller with injectors.
     * */
-    public constructor(public $scope: ILoginScope){
+    public constructor(public $state: StateService,
+                       public $scope: ILoginScope){
         $scope.clickLogin = this.clickLogin;
         $scope.getMessages = this.getMessages;
 
@@ -29,7 +32,7 @@ export class LoginController implements IController{
     //#region Events
 
     public clickLogin = (): void => {
-        console.log(this.$scope);
+        this.$state.go(UrlStatesConstant.dashboardModuleName);
     };
 
     public getMessages = (): string => {
