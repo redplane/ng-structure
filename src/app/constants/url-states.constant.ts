@@ -8,7 +8,7 @@ export class UrlStatesConstant {
 
     public static dashboardModuleName: string = 'dashboard';
 
-    public static authorizeLayoutModuleName: string = 'authorized-layout';
+    public static authorizeLayoutModuleName: string = 'master-layout';
 
     public static unauthorizedLayoutModuleName: string = 'unauthorized-layout';
 }

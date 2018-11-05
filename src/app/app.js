@@ -68,23 +68,20 @@ $.ajax({
             });
         });
 
-        // Import oc-lazy load.
-        require('./configs')(ngModule);
-
-        // Constants import.
-        require('./constants')(ngModule);
+        // Module configurations.
+        const {ConfigModule} = require('./configs/index.ts');
+        new ConfigModule(ngModule);
 
         // Factories import.
-        require('./factories')(ngModule);
+        const {FactoryModule} = require('./factories/index.ts');
+        new FactoryModule(ngModule);
 
         // Services import.
-        require('./services')(ngModule);
+        const {ServiceModule} = require('./services/index.ts');
+        new ServiceModule(ngModule);
 
-        // Directive requirements.
-        require('./directives')(ngModule);
-
-        // Module requirements.
-        require('./modules')(ngModule);
+        const {PageModule} = require('./modules/index.ts');
+        new PageModule(ngModule);
 
         // Manually bootstrap application.
         angular.bootstrap(document, [APP_NAME]);

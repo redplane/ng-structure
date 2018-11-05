@@ -1,6 +1,7 @@
 import {StateProvider} from "@uirouter/angularjs";
 import {UrlStatesConstant} from "../../constants/url-states.constant";
-import {module} from 'angular';
+import {IQService, module} from 'angular';
+import {ILazyLoad} from "oclazyload";
 
 /* @ngInject */
 export class DashboardModule {
@@ -12,7 +13,7 @@ export class DashboardModule {
             .state(UrlStatesConstant.dashboardModuleName, {
                 url: UrlStatesConstant.dashboardModuleUrl,
                 controller: 'dashboardController',
-                templateProvider: ['$q', ($q) => {
+                templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
                         // lazy load the view
@@ -24,7 +25,7 @@ export class DashboardModule {
                     /*
                     * Load login controller.
                     * */
-                    loadDashboardController:  ['$q', '$ocLazyLoad', ($q, $ocLazyLoad) => {
+                    loadDashboardController:  ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
                                 // load only controller module
@@ -32,7 +33,7 @@ export class DashboardModule {
                                 const {DashboardController} = require('./dashboard.controller.ts');
                                 // Import controller file.
                                 ngModule.controller('dashboardController', DashboardController);
-                                $ocLazyLoad.load({name: ngModule.name});
+                                $ocLazyLoad.load( ngModule.name);
                                 resolve(ngModule.controller);
                             })
                         });

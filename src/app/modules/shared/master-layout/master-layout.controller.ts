@@ -1,10 +1,10 @@
 import {IController} from "angular";
-import {IAuthorizedLayoutScope} from "./authorized-layout.scope";
+import {IAuthorizedLayoutScope} from "./master-layoutscope";
 import {UrlStatesConstant} from "../../../constants/url-states.constant";
 import {StateService} from "@uirouter/core";
 
 /* @ngInject */
-export class AuthorizedLayoutController implements IController {
+export class MasterLayoutController implements IController {
 
     //#region Constructor
 
