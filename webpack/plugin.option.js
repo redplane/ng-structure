@@ -3,7 +3,6 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 const webpack = require('webpack');
 const path = require('path');
@@ -61,13 +60,17 @@ exports = module.exports = {
         //#region Copy plugin
 
         // Items list.
-        const oSourceItems = ['assets'];
+        const ngOptions = require('../angular');
+        const assets = ngOptions.assets;
+
         let oCopiedItems = [];
-        for (let item of oSourceItems){
-            oCopiedItems.push({
-                from: path.resolve(paths.app, item),
-                to: path.resolve(paths.dist, item)
-            });
+        if (assets && assets.length){
+            for (let item of assets){
+                oCopiedItems.push({
+                    from: path.resolve(paths.app, item),
+                    to: path.resolve(paths.dist, item)
+                });
+            }
         }
 
         if (oCopiedItems.length > 0)
@@ -92,10 +95,6 @@ exports = module.exports = {
 
             //#endregion
 
-            plugins.push(new ngAnnotatePlugin({
-                add: true,
-                // other ng-annotate options here
-            }))
 
         } else {
 

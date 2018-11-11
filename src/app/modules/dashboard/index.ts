@@ -20,7 +20,7 @@ export class DashboardModule {
                         require.ensure([], () => resolve(require('./dashboard.html')));
                     });
                 }],
-                parent: UrlStatesConstant.authorizeLayoutModuleName,
+                parent: UrlStatesConstant.masterLayout,
                 resolve: {
                     /*
                     * Load login controller.
@@ -29,11 +29,11 @@ export class DashboardModule {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
                                 // load only controller module
-                                let ngModule = module('account.login', []);
+                                let ngModule = module('app.dashboard', []);
                                 const {DashboardController} = require('./dashboard.controller.ts');
                                 // Import controller file.
                                 ngModule.controller('dashboardController', DashboardController);
-                                $ocLazyLoad.load( ngModule.name);
+                                $ocLazyLoad.inject( ngModule.name);
                                 resolve(ngModule.controller);
                             })
                         });

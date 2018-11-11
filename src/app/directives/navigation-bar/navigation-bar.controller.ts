@@ -2,6 +2,7 @@ import {IController} from "angular";
 import {INavigationBarScope} from "../../interfaces/scopes/navigation-bar-scope.interface";
 import {StateService} from "@uirouter/core";
 
+/* @ngInject */
 export class NavigationBarController implements IController {
 
     //#region Constructor

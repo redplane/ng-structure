@@ -22,13 +22,7 @@ exports = module.exports = {
         rules.push({
             test: /\.js$/,
             exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: [['env', {"modules": false}]],
-                    plugins: ['angularjs-annotate']
-                }
-            }
+            loader: 'babel-loader'
         });
 
         //#endregion

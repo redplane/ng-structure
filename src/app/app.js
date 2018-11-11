@@ -13,9 +13,6 @@ require('../../node_modules/angular-toastr/dist/angular-toastr.css');
 require('../../node_modules/font-awesome/css/font-awesome.css');
 require('../../node_modules/angular-block-ui/dist/angular-block-ui.css');
 
-// Moment picker.
-require('../../node_modules/angular-moment-picker/dist/angular-moment-picker.css');
-
 // Import app style.
 require('./styles/app.scss');
 
@@ -34,9 +31,6 @@ require('angular-block-ui');
 require('angular-toastr');
 require('angular-translate');
 require('angular-translate-loader-static-files');
-require('angular-moment');
-require('angular-moment-picker');
-require('ng-data-annotation');
 require('angular-sanitize');
 
 $.ajax({
@@ -53,8 +47,7 @@ $.ajax({
         // Module declaration.
         let ngModule = angular.module(APP_NAME, [
             'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
-            'oc.lazyLoad',
-            'angularMoment', 'moment-picker', 'ngDataAnnotations', 'ngSanitize']);
+            'oc.lazyLoad', 'ngSanitize']);
 
         ngModule.config(($urlRouterProvider, $httpProvider) => {
             // API interceptor

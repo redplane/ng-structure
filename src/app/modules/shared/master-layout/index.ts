@@ -10,9 +10,9 @@ export class MasterLayoutModule {
 
     public constructor(private $stateProvider: StateProvider) {
         $stateProvider
-            .state(UrlStatesConstant.authorizeLayoutModuleName, {
+            .state(UrlStatesConstant.masterLayout, {
                 abstract: true,
-                controller: 'authorizedLayoutController',
+                controller: 'masterLayoutController',
                 templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
@@ -20,20 +20,19 @@ export class MasterLayoutModule {
                         require.ensure([], () => resolve(require('./master-layout.html')));
                     });
                 }],
-                parent: UrlStatesConstant.unauthorizedLayoutModuleName,
                 resolve: {
                     /*
                     * Load login controller.
                     * */
-                    loadLoginController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+                    loadController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
                                 // load only controller module
                                 let ngModule = module('shared.master-layout', []);
-                                const {MasterLayoutController} = require('./master-layout.controller.ts');
+                                const {MasterLayoutController} = require('./master-layout.controller');
                                 // Import controller file.
-                                ngModule.controller('authorizedLayoutController', MasterLayoutController);
-                                $ocLazyLoad.load(ngModule.name);
+                                ngModule.controller('masterLayoutController', MasterLayoutController);
+                                $ocLazyLoad.inject(ngModule.name);
                                 resolve(ngModule.controller);
                             });
                         });

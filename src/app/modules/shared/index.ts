@@ -1,13 +1,13 @@
+import {StateProvider} from "@uirouter/angularjs";
 import {MasterLayoutModule} from "./master-layout";
-import {IModule} from "angular";
 
+/* @ngInject */
 export class SharedModule {
 
     //#region Constructor
 
-    public constructor(ngModule: IModule) {
-        ngModule
-            .config(($stateProvider) => new MasterLayoutModule($stateProvider));
+    public constructor($stateProvider: StateProvider) {
+        new MasterLayoutModule($stateProvider);
     }
 
 
