@@ -9,7 +9,7 @@ environment:
 
 install:
  # install netlify
- - npm install netlify-cli@next -g\
+ - npm install netlify-cli@next -g
  
  # install modules
  - npm install
