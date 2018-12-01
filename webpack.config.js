@@ -1,3 +1,5 @@
+
+
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
@@ -47,12 +49,7 @@ module.exports = (env, argv) => {
     return {
         context: paths.root,
         entry: {
-            'jQueryVendors': ['jquery', 'babel-polyfill', 'bootstrap', 'admin-lte', 'moment', 'rxjs'],
-            'angularVendors': [
-                'angular', '@uirouter/angularjs', 'angular-block-ui', 'angular-toastr',
-                'angular-translate', 'angular-translate-loader-static-files', 'angular-moment', 'angular-moment-picker',
-                'angular-sanitize'],
-            'app': path.resolve(paths.app, 'app.js')
+            'app': [path.resolve(paths.app, 'app.ts')]
         },
         optimization: {
             runtimeChunk: 'single',
@@ -76,7 +73,7 @@ module.exports = (env, argv) => {
             }
         },
         module: {
-            rules: moduleRuleOption.get()
+            rules: moduleRuleOption.loadRules()
         },
         plugins: modulePluginOption.get(bProductionMode, paths),
         output: {

@@ -1,5 +1,4 @@
 const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');
-const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -24,7 +23,7 @@ exports = module.exports = {
         const pCleanOption = {
             // Absolute path to your webpack root folder (paths appended to this)
             // Default: root of your package
-            root: paths.root,
+            root: paths.source,
 
             // Write logs to console.
             verbose: true,
@@ -44,7 +43,7 @@ exports = module.exports = {
 
             // allow the plugin to clean folders outside of the webpack root.
             // Default: false - don't allow clean folder outside of the webpack root
-            allowExternal: false
+            allowExternal: true
         };
 
         if (oCleanedItems.length > 0)
@@ -61,30 +60,23 @@ exports = module.exports = {
         //#region Copy plugin
 
         // Items list.
-        const oSourceItems = ['assets'];
+        const ngOptions = require('../angular');
+        const assets = ngOptions.assets;
+
         let oCopiedItems = [];
-        for (let item of oSourceItems){
-            oCopiedItems.push({
-                from: path.resolve(paths.app, item),
-                to: path.resolve(paths.dist, item)
-            });
+        if (assets && assets.length){
+            for (let item of assets){
+                oCopiedItems.push({
+                    from: path.resolve(paths.app, item),
+                    to: path.resolve(paths.dist, item)
+                });
+            }
         }
 
         if (oCopiedItems.length > 0)
             plugins.push(new CopyWebpackPlugin(oCopiedItems));
 
         //#endregion
-
-        //#region Provide plugin
-
-        // Using bluebird promise instead of native promise.
-        plugins.push(new webpack.ProvidePlugin({
-            Promise: 'bluebird',
-            moment: 'moment',
-            jQuery: 'jquery',
-            $: 'jquery',
-            Rx: 'rxjs'
-        }));
 
         //#region Html plugin
 
@@ -96,15 +88,13 @@ exports = module.exports = {
 
         //#endregion
 
-        //#endregion
-
         if (bProductionMode){
-            // Annotate plugin.
-            plugins.push(new ngAnnotatePlugin({add: true}));
-            
             //#region Define plugin
+
             plugins.push(new webpack.DefinePlugin(require('./env/production')()));
+
             //#endregion
+
 
         } else {
 
@@ -116,8 +106,6 @@ exports = module.exports = {
 
             // Require original index file.
             let browserSyncPlugin = new BrowserSyncPlugin({
-                // browse to http://localhost:3000/ during development,
-                // ./public directory is being served
                 host: 'localhost',
                 port: 8000,
                 files: [

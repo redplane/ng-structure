@@ -1,0 +1,31 @@
+environment:
+ nodejs_version: "10.13.0"
+ 
+ NETLIFY_SITE_ID:
+  secure: BqC1zmmUwxx8c+dh+M9UJiarBp3OkYWKwtid3z19q9PfcFw9Wo0U+RHwCjKstdWx
+ 
+ NETLIFY_AUTH_TOKEN:
+  secure: Z0ebmrbMv4UoWG+jb/iqm1rNXYjkfdLtKpPn1SnYbJVMHpi7f4e9V7Jv4crlbHZ1Le4JKEQT/wOY8Q87rNm9WNmOJ/iiC/T+bOClY4ikGRY=
+
+install:
+ # install netlify
+ - npm install netlify-cli@next -g\
+ 
+ # install modules
+ - npm install
+ 
+build_script: 
+ - ng build --prod
+
+after_build:
+ - set NETLIFY_SITE_ID=%NETLIFY_SITE_ID%
+ - set NETLIFY_AUTH_TOKEN=%NETLIFY_AUTH_TOKEN%
+ - netlify deploy --prod --dir=./dist
+ 
+notifications:
+  - provider: Email
+    to:
+      - redplane_dt@yahoo.com.vn
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true

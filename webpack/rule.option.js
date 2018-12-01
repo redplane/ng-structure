@@ -3,14 +3,14 @@ exports = module.exports = {
     /*
     * Get configuration options.
     * */
-    get: function () {
+    loadRules: () => {
 
-        let rules = [];
+        let moduleRules = [];
 
         //#region Ts loader
 
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-        rules.push({
+        moduleRules.push({
             test: /\.tsx?$/,
             loader: "babel-loader!ts-loader"
         });
@@ -19,38 +19,41 @@ exports = module.exports = {
 
         //#region Babel loader
 
-        rules.push({
+        moduleRules.push({
             test: /\.js$/,
             exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: [['env', {"modules": false}]]
-                }
-            }
+            loader: 'babel-loader'
         });
 
         //#endregion
 
         //#region Import jquery
 
-        // // Resolve JQuery.
-        // rules.push({
-        //     test: require.resolve('jquery'),
-        //     use: [{
-        //         loader: 'expose-loader',
-        //         options: 'jQuery'
-        //     }, {
-        //         loader: 'expose-loader',
-        //         options: '$'
-        //     }]
-        // });
+        // JQuery
+        moduleRules.push({
+            test: require.resolve('jquery'),
+            use: [{
+                loader: 'expose-loader',
+                options: 'jQuery'
+            }, {
+                loader: 'expose-loader',
+                options: '$'
+            }]
+        });
+
+        moduleRules.push({
+            test: require.resolve('moment'),
+            use: [{
+                loader: 'expose-loader',
+                options: 'moment'
+            }]
+        });
 
         //#endregion
 
         //#region Sass loader
 
-        rules.push({
+        moduleRules.push({
             test: /\.scss$/,
             use: [{
                 loader: "style-loader" // creates style nodes from JS strings
@@ -65,7 +68,7 @@ exports = module.exports = {
 
         //#region Css
 
-        rules.push({
+        moduleRules.push({
             test: /\.css$/,
             use: ['style-loader', 'css-loader']
         });
@@ -74,7 +77,7 @@ exports = module.exports = {
 
         //#region Assets
 
-        rules.push({
+        moduleRules.push({
             test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
             use: [
                 {
@@ -90,7 +93,7 @@ exports = module.exports = {
 
         //#region Html
 
-        rules.push({
+        moduleRules.push({
             test: /\.html$/, // Only .html files
             loader: 'html-loader', // Run html loader
             options: {
@@ -101,6 +104,6 @@ exports = module.exports = {
 
         //#endregion
 
-        return rules;
+        return moduleRules;
     }
 };
