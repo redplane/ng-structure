@@ -12,7 +12,7 @@ export interface INavigationBarScope extends IScope {
     //#region Methods
 
     // Called when sign out button is clicked.
-    ngClickedSignOut: () => void;
+    ngClickedSignOut: ($event: Event) => void;
 
     //#endregion
 }

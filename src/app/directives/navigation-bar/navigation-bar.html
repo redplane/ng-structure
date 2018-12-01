@@ -1,28 +1,66 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href>Brand</a>
-        </div>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#"
+       class="logo"
+       ng-click="$event.preventDefault();">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>A</b>LT</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Admin</b>LTE</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Linh nguyen <span class="caret"></span></a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="https://via.placeholder.com/160x160" class="user-image" alt="User Image">
+                        <span class="hidden-xs">Nguyen Duy Linh</span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li ng-click="ngClickedSignOut()">
-                            <a href>Sign out</a>
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="https://via.placeholder.com/160x160" class="img-circle" alt="User Image">
+
+                            <p>
+                                Nguyen Duy Linh - Web Developer
+                                <small>Member since Nov. 2012</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">{{'TITLE_FOLLOWERS' | translate}}</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">{{'TITLE_SALES' | translate}}</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">{{'TITLE_FRIENDS' | translate}}</a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">{{'TITLE_PROFILE' | translate}}</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#"
+                                   class="btn btn-default btn-flat"
+                                   ng-click="ngClickedSignOut($event)">{{'TITLE_SIGN_OUT' | translate}}</a>
+                            </div>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>

@@ -1,3 +1,12 @@
 {
-  "Main Navigation": "Main Navigation"
+  "Main Navigation": "Main Navigation",
+  "TITLE_PROFILE": "Profile",
+  "TITLE_SIGN_OUT": "Sign out",
+  "TITLE_ONLINE": "Online",
+  "TITLE_FOLLOWERS": "Followers",
+  "TITLE_SALES": "Sales",
+  "TITLE_FRIENDS": "Friends",
+  "TITLE_LOGIN": "Login",
+  "TITLE_USERNAME": "Username",
+  "TITLE_PASSWORD": "Password"
 }

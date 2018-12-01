@@ -1,10 +1,12 @@
 export class UrlStatesConstant {
 
-    public static loginModuleName: string = 'login';
+    public static loginModuleUrl = '/login';
 
-    public static dashboardModuleUrl: string = '/dashboard';
+    public static loginModuleName = 'login';
 
-    public static dashboardModuleName: string = 'dashboard';
+    public static dashboardModuleUrl = '/dashboard';
 
-    public static masterLayout: string = 'master-layout';
+    public static dashboardModuleName = 'dashboard';
+
+    public static masterLayout = 'master-layout';
 }

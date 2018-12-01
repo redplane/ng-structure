@@ -1,4 +1,11 @@
+// Babel polyfill for browser compatibility.
 import '@babel/polyfill';
+
+// Import css file.
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../../node_modules/admin-lte/dist/css/AdminLTE.css';
+import '../../node_modules/admin-lte/dist/css/skins/skin-black-light.css'
+import '../../node_modules/font-awesome/css/font-awesome.css';
 
 import {UrlStatesConstant} from './constants/url-states.constant';
 import {AppOptionsModel} from "./models/app-options.model";

@@ -8,7 +8,7 @@ export class LoginViewModel{
     public email: string;
 
     /*
-    * Password of account.
+    * Password of user.
     * */
     public password: string;
 

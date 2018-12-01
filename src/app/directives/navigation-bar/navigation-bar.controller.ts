@@ -19,7 +19,12 @@ export class NavigationBarController implements IController {
     //#region Methods
 
     // Called when login is clicked.
-    private _clickedSignOut = (): void => {
+    private _clickedSignOut = ($event: Event): void => {
+
+        if ($event) {
+            $event.preventDefault();
+        }
+        
         if (!this.$scope.ngOnSignOutClicked)
             return;
 

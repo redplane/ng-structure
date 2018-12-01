@@ -1,23 +1,27 @@
 import {StateProvider} from "@uirouter/angularjs";
 import {UrlStatesConstant} from "../../../constants/url-states.constant";
-import {ICompileService, IQService, module} from 'angular';
+import {IQService, module} from 'angular';
 import {ILazyLoad} from "oclazyload";
 
 /* @ngInject */
-export class MasterLayoutModule {
+export class LoginModule {
 
     //#region Constructors
 
     public constructor(private $stateProvider: StateProvider) {
         $stateProvider
-            .state(UrlStatesConstant.masterLayout, {
-                abstract: true,
-                controller: 'masterLayoutController',
+            .state(UrlStatesConstant.loginModuleName, {
+                url: UrlStatesConstant.loginModuleUrl,
+                controller: 'loginController',
                 templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
+
+                        // Load view style.
+                        require('./login.scss');
+
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./master-layout.html')));
+                        require.ensure([], () => resolve(require('./login.html')));
                     });
                 }],
                 resolve: {
@@ -28,22 +32,13 @@ export class MasterLayoutModule {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
                                 // load only controller module
-                                let ngModule = module('shared.master-layout', []);
+                                let ngModule = module('user.login', []);
 
-                                // Lazy load navigation bar.
-                                const {NavigationBarDirective} = require('../../../directives/navigation-bar');
-                                ngModule = ngModule.directive('navigationBar',
-                                    ($q: IQService, $compile: ICompileService) => new NavigationBarDirective($q, $compile));
-
-                                // Lazy load sidebar.
-                                const {SidebarDirective} = require('../../../directives/side-bar');
-                                ngModule = ngModule.directive('sideBar',
-                                    ($q: IQService, $compile: ICompileService) => new SidebarDirective($q, $compile));
-
-                                const {MasterLayoutController} = require('./master-layout.controller');
+                                // Lazy load login controller
+                                const {LoginController} = require('./login.controller');
 
                                 // Import controller file.
-                                ngModule.controller('masterLayoutController', MasterLayoutController);
+                                ngModule.controller('loginController', LoginController);
                                 $ocLazyLoad.inject(ngModule.name);
                                 resolve(ngModule.controller);
                             });
