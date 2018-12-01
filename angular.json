@@ -1,5 +1,7 @@
 {
   "assets": [
-    "assets"
+    "assets",
+    "netlify.toml",
+    "Web.config"
   ]
 }

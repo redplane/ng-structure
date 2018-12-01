@@ -12,8 +12,7 @@ import {AppOptionsModel} from "./models/app-options.model";
 import {map, window} from "rxjs/operators";
 
 // Import bootstrap module.
-import * as jquery from 'jquery';
-window['jQuery'] = window['$'] = jquery;
+import '../../node_modules/jquery/dist/jquery';
 import 'bootstrap/dist/js/bootstrap';
 import 'admin-lte/dist/js/adminlte';
 import {ajax, AjaxResponse} from "rxjs/ajax";

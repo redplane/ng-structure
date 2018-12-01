@@ -10,7 +10,7 @@ Description:
  * Polyfill:
     * `bluebird` for `Promise`. 
 
-**Online demo can be found** [here](http://localhost:8000/#!/):
+**Online demo can be found** [here](https://ng-structure-wp4.netlify.com):
 
 #### Project structure.
 ```

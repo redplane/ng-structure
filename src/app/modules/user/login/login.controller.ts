@@ -3,7 +3,7 @@ import {ILoginScope} from "../../../interfaces/scopes/login-scope.interface";
 import {StateService} from "@uirouter/core";
 import {UrlStatesConstant} from "../../../constants/url-states.constant";
 
-/*ngInject*/
+/* @ngInject */
 export class LoginController implements IController {
 
     //#region Constructor
