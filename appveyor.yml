@@ -20,7 +20,7 @@ build_script:
 after_build:
  - set NETLIFY_SITE_ID=%NETLIFY_SITE_ID%
  - set NETLIFY_AUTH_TOKEN=%NETLIFY_AUTH_TOKEN%
- - netlify deploy --prod --dir=./dist
+ - netlify deploy --prod --dir=./src/dist
  
 notifications:
   - provider: Email
