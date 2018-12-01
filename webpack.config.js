@@ -1,9 +1,10 @@
+
+
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
     const path = require('path');
-    const {RuleOption} = require('./webpack/rule.option.ts');
-    const moduleRuleOption = new RuleOption().getAvailableRules();
+    const moduleRuleOption = require('./webpack/rule.option');
     const modulePluginOption = require('./webpack/plugin.option');
 
     // Import webpack settings.
@@ -72,7 +73,7 @@ module.exports = (env, argv) => {
             }
         },
         module: {
-            rules: moduleRuleOption
+            rules: moduleRuleOption.loadRules()
         },
         plugins: modulePluginOption.get(bProductionMode, paths),
         output: {
