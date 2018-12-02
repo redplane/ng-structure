@@ -75,13 +75,12 @@ module.exports = (env, argv) => {
         module: {
             rules: moduleRuleOption.loadRules()
         },
-        plugins: modulePluginOption.get(bProductionMode, paths),
+        plugins: modulePluginOption.get(argv, bProductionMode, paths),
         output: {
             path: path.resolve(paths.dist),
             filename: '[name].[hash].js'
         },
         resolve: {
-            // Add `.ts` and `.tsx` as a resolvable extension.
             extensions: [".ts", ".tsx", ".js"]
         },
 

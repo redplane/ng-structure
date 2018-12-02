@@ -11,13 +11,12 @@ exports = module.exports = {
 
     //#region Methods
 
-    get: (bProductionMode, paths) => {
+    get: (argv, bProductionMode, paths) => {
 
         // Plugins list.
         let plugins = [];
 
-        //#region Clean plugin
-
+        // Clean plugin
         // List of directories to be cleaned.
         const oCleanedItems = [paths.dist];
         const pCleanOption = {
@@ -49,17 +48,10 @@ exports = module.exports = {
         if (oCleanedItems.length > 0)
             plugins.push(new CleanWebpackPlugin(oCleanedItems, pCleanOption));
 
-        //#endregion
-
-        //#region Clean obsolete chunks
-
+        // Clean obsolete chunks
         plugins.push(new CleanObsoleteChunks({verbose: true}));
 
-        //#endregion
-
-        //#region Copy plugin
-
-        // Items list.
+        // Copy plugin
         const ngOptions = require('../angular');
         const assets = ngOptions.assets;
 
@@ -72,42 +64,43 @@ exports = module.exports = {
                 });
             }
         }
-
         if (oCopiedItems.length > 0)
             plugins.push(new CopyWebpackPlugin(oCopiedItems));
 
-        //#endregion
-
-        //#region Html plugin
-
+        // Html plugin
         //Automatically inject chunks into html files.
         plugins.push(new HtmlWebpackPlugin({
             template: path.resolve(paths.source, 'index.html'),
             chunksSortMode: 'dependency'
         }));
 
-        //#endregion
+        // Get environment configuration.
+        const environment = ngOptions.environment;
+        const defaultEnvironment = environment.default || {};
 
         if (bProductionMode){
-            //#region Define plugin
-
-            plugins.push(new webpack.DefinePlugin(require('./env/production')()));
-
-            //#endregion
-
-
+            const productionEnvironment = Object.assign({}, defaultEnvironment, environment.production);
+            plugins.push(new webpack.DefinePlugin(productionEnvironment));
         } else {
+            const developmentEnvironment = Object.assign({}, defaultEnvironment, environment.development);
+            plugins.push(new webpack.DefinePlugin(developmentEnvironment));
 
-            //#region Define plugin
-            plugins.push(new webpack.DefinePlugin(require('./env/development')()));
-            //#endregion
+            // Browser sync plugin
+            let host = argv.host;
+            if (!host || !host.length) {
+                host = 'localhost';
+            }
 
-            //#region Browser sync plugin
+            let port = parseInt(argv.port);
+            console.log(argv);
+            if (!port || port < 1024) {
+                port = 8000;
+            }
 
             // Require original index file.
             let browserSyncPlugin = new BrowserSyncPlugin({
-                host: 'localhost',
-                port: 8000,
+                host: host,
+                port: port,
                 files: [
                     path.resolve(paths.source, 'index.html')
                 ],
@@ -120,8 +113,6 @@ exports = module.exports = {
 
             // Push plugins into list.
             plugins.push(browserSyncPlugin);
-
-            //#endregion
         }
 
         return plugins;

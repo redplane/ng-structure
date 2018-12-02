@@ -3,5 +3,16 @@
     "assets",
     "netlify.toml",
     "Web.config"
-  ]
+  ],
+  "environment": {
+    "default": {
+      "APP_NAME": "'ngApp-production'"
+    },
+    "development": {
+      "IS_DEVELOPMENT": true
+    },
+    "production": {
+      "IS_DEVELOPMENT": false
+    }
+  }
 }
