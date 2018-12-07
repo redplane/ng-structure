@@ -1,5 +1,3 @@
-
-
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
@@ -13,9 +11,7 @@ module.exports = (env, argv) => {
     // True if built is set to production mode.
     // False if built is set to development mode.
     const bProductionMode = 'production' === argv.mode.toLowerCase();
-
-    // Get source map configuration.
-    const bSourceMap = argv['source-map'] || false;
+    const bSourceMap = (argv['source-map'] === true || bProductionMode === false);
 
     // Build path options.
     let paths = {
@@ -32,12 +28,13 @@ module.exports = (env, argv) => {
             cache: true,
             parallel: true,
             uglifyOptions: {
+                mangle: false,
                 output: {
                     beautify: false,
 
                 }
             },
-            sourceMap: (bSourceMap || !bProductionMode)
+            sourceMap: bSourceMap
         })
     ];
 
@@ -51,6 +48,7 @@ module.exports = (env, argv) => {
     * */
     return {
         context: paths.root,
+        devtool: bSourceMap ? 'source-map' : false,
         entry: {
             'app': [path.resolve(paths.app, 'app.ts')]
         },

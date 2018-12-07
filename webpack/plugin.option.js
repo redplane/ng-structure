@@ -56,8 +56,8 @@ exports = module.exports = {
         const assets = ngOptions.assets;
 
         let oCopiedItems = [];
-        if (assets && assets.length){
-            for (let item of assets){
+        if (assets && assets.length) {
+            for (let item of assets) {
                 oCopiedItems.push({
                     from: path.resolve(paths.app, item),
                     to: path.resolve(paths.dist, item)
@@ -78,7 +78,7 @@ exports = module.exports = {
         const environment = ngOptions.environment;
         const defaultEnvironment = environment.default || {};
 
-        if (bProductionMode){
+        if (bProductionMode) {
             const productionEnvironment = Object.assign({}, defaultEnvironment, environment.production);
             plugins.push(new webpack.DefinePlugin(productionEnvironment));
         } else {
@@ -91,15 +91,26 @@ exports = module.exports = {
                 host = 'localhost';
             }
 
+            // Get port number from argv.
             let port = parseInt(argv.port);
             if (!port || port < 1024) {
                 port = 8000;
             }
 
+            // BrowserSync options can be found here: https://browsersync.io/docs/options
+
+            // Whether https protocol enabled or not.
+            const https = argv.https !== undefined;
+
+            // Whether browser should be opened or not.
+            const bOpenBrowser = argv.open !== undefined;
+
             // Require original index file.
             let browserSyncPlugin = new BrowserSyncPlugin({
+                https: https,
                 host: host,
                 port: port,
+                open: bOpenBrowser,
                 files: [
                     path.resolve(paths.source, 'index.html')
                 ],
@@ -107,7 +118,8 @@ exports = module.exports = {
                     baseDir: [
                         paths.dist
                     ]
-                }
+                },
+                ghostMode: false
             });
 
             // Push plugins into list.
