@@ -14,6 +14,9 @@ module.exports = (env, argv) => {
     // False if built is set to development mode.
     const bProductionMode = 'production' === argv.mode.toLowerCase();
 
+    // Get source map configuration.
+    const bSourceMap = argv['source-map'] || false;
+
     // Build path options.
     let paths = {
         root: __dirname,
@@ -34,7 +37,7 @@ module.exports = (env, argv) => {
 
                 }
             },
-            sourceMap: true
+            sourceMap: (bSourceMap || !bProductionMode)
         })
     ];
 

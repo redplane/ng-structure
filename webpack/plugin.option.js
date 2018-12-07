@@ -92,7 +92,6 @@ exports = module.exports = {
             }
 
             let port = parseInt(argv.port);
-            console.log(argv);
             if (!port || port < 1024) {
                 port = 8000;
             }
