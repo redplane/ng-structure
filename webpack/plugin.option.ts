@@ -1,52 +1,43 @@
+import {CleanWebpackPlugin, Options} from "clean-webpack-plugin";
+import * as path from "path";
+import * as webpack from 'webpack';
+
 const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-const webpack = require('webpack');
-const path = require('path');
-
-exports = module.exports = {
+export class PluginOption {
 
     //#region Methods
 
-    get: (argv, bProductionMode, paths) => {
+    public loadOptions(argv: { [key: string]: any }, bProductionMode: boolean, paths: { [key: string]: string }): any {
 
         // Plugins list.
         let plugins = [];
-
-        // Clean plugin
-        // List of directories to be cleaned.
-        const oCleanedItems = [paths.dist];
-        const pCleanOption = {
-            // Absolute path to your webpack root folder (paths appended to this)
-            // Default: root of your package
-            root: paths.source,
-
-            // Write logs to console.
-            verbose: true,
-
-            // Use boolean "true" to test/emulate delete. (will not remove files).
-            // Default: false - remove files
-            dry: false,
-
-            // If true, remove files on recompile.
-            // Default: false
-            watch: false,
-
-            // Instead of removing whole path recursively,
-            // remove all path's content with exclusion of provided immediate children.
-            // Good for not removing shared files from build directories.
-            exclude: null,
-
-            // allow the plugin to clean folders outside of the webpack root.
-            // Default: false - don't allow clean folder outside of the webpack root
-            allowExternal: true
-        };
-
-        if (oCleanedItems.length > 0)
-            plugins.push(new CleanWebpackPlugin(oCleanedItems, pCleanOption));
+        //
+        // // Clean plugin
+        // // List of directories to be cleaned.
+        // const pCleanOption: Options = {
+        //     // Absolute path to your webpack root folder (paths appended to this)
+        //
+        //     // Write logs to console.
+        //     verbose: true,
+        //
+        //     // Use boolean "true" to test/emulate delete. (will not remove files).
+        //     // Default: false - remove files
+        //     dry: false,
+        //
+        //     cleanOnceBeforeBuildPatterns: [],
+        //
+        //     protectWebpackAssets: true,
+        //
+        //     // allow the plugin to clean folders outside of the webpack root.
+        //     // Default: false - don't allow clean folder outside of the webpack root
+        //     dangerouslyAllowCleanPatternsOutsideProject: true
+        // };
+        //
+        // plugins.push(new CleanWebpackPlugin(pCleanOption));
 
         // Clean obsolete chunks
         plugins.push(new CleanObsoleteChunks({verbose: true}));
@@ -131,4 +122,5 @@ exports = module.exports = {
     }
 
     //#endregion
-};
+
+}

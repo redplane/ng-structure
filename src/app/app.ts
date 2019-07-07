@@ -3,9 +3,8 @@ import '@babel/polyfill';
 
 // Import css file.
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import '../../node_modules/admin-lte/dist/css/AdminLTE.css';
-import '../../node_modules/admin-lte/dist/css/skins/skin-black-light.css'
-import '../../node_modules/font-awesome/css/font-awesome.css';
+import '../../node_modules/font-awesome/scss/font-awesome.scss';
+import './styles/style.scss';
 
 import {UrlStatesConstant} from './constants/url-states.constant';
 import {AppOptionsModel} from "./models/app-options.model";
@@ -14,7 +13,7 @@ import {map, window} from "rxjs/operators";
 // Import bootstrap module.
 import '../../node_modules/jquery/dist/jquery';
 import 'bootstrap/dist/js/bootstrap';
-import 'admin-lte/dist/js/adminlte';
+import 'popper.js';
 import {ajax, AjaxResponse} from "rxjs/ajax";
 import {UrlRulesApi} from "@uirouter/angularjs";
 import {module, bootstrap, IHttpProvider} from 'angular';

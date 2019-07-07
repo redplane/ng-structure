@@ -1,9 +1,8 @@
-// Import library.
-exports = module.exports = {
-    /*
-    * Get configuration options.
-    * */
-    loadRules: () => {
+export class RuleOption {
+
+    //#region Methods
+
+    public loadRules(): { [key: string]: any }[] {
 
         let moduleRules = [];
 
@@ -22,7 +21,13 @@ exports = module.exports = {
         moduleRules.push({
             test: /\.js$/,
             exclude: /(node_modules)/,
-            loader: 'babel-loader'
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env'],
+                    plugins: ['@babel/plugin-proposal-object-rest-spread']
+                }
+            }
         });
 
         //#endregion
@@ -106,4 +111,6 @@ exports = module.exports = {
 
         return moduleRules;
     }
-};
+
+    //#endregion
+}

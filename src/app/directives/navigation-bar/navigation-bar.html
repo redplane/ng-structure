@@ -1,66 +1,95 @@
-<header class="main-header">
-    <!-- Logo -->
-    <a href="#"
-       class="logo"
-       ng-click="$event.preventDefault();">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
+<header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+        <img class="navbar-brand-full" ng-src="'img/brand/logo.svg'" width="89" height="25" alt="CoreUI Logo">
+        <img class="navbar-brand-minimized" ng-src="'img/brand/sygnet.svg'" width="30" height="30" alt="CoreUI Logo">
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <span class="sr-only">Toggle navigation</span>
-        </a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav navbar-nav d-md-down-none">
+        <li class="nav-item px-3">
+            <a class="nav-link" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href="#">Settings</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item d-md-down-none">
+            <a class="nav-link" href="#">
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-danger">5</span>
+            </a>
+        </li>
+        <li class="nav-item d-md-down-none">
+            <a class="nav-link" href="#">
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+        <li class="nav-item d-md-down-none">
+            <a class="nav-link" href="#">
+                <i class="fa fa-map-marker"></i>
+            </a>
+        </li>
 
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="https://via.placeholder.com/160x160" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Nguyen Duy Linh</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src="https://via.placeholder.com/160x160" class="img-circle" alt="User Image">
-
-                            <p>
-                                Nguyen Duy Linh - Web Developer
-                                <small>Member since Nov. 2012</small>
-                            </p>
-                        </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">{{'TITLE_FOLLOWERS' | translate}}</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">{{'TITLE_SALES' | translate}}</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">{{'TITLE_FRIENDS' | translate}}</a>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">{{'TITLE_PROFILE' | translate}}</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="#"
-                                   class="btn btn-default btn-flat"
-                                   ng-click="ngClickedSignOut($event)">{{'TITLE_SIGN_OUT' | translate}}</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <img class="img-avatar" ng-src="'img/avatars/6.jpg'" alt="admin@bootstrapmaster.com">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header text-center">
+                    <strong>Account</strong>
+                </div>
+                <a class="dropdown-item" href="#">
+                    <i class="far fa-bell"></i> Updates
+                    <span class="badge badge-info">42</span>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-envelope-o"></i> Messages
+                    <span class="badge badge-success">42</span>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-tasks"></i> Tasks
+                    <span class="badge badge-danger">42</span>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-comments"></i> Comments
+                    <span class="badge badge-warning">42</span>
+                </a>
+                <div class="dropdown-header text-center">
+                    <strong>Settings</strong>
+                </div>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-user"></i> Profile</a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-wrench"></i> Settings</a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-usd"></i> Payments
+                    <span class="badge badge-secondary">42</span>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-file"></i> Projects
+                    <span class="badge badge-primary">42</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-shield"></i> Lock Account</a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 </header>
