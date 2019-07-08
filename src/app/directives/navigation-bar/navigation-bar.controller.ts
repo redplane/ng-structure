@@ -1,5 +1,5 @@
 import {IController} from "angular";
-import {INavigationBarScope} from "../../interfaces/scopes/navigation-bar-scope.interface";
+import {INavigationBarScope} from "./navigation-bar.scope";
 import {StateService} from "@uirouter/core";
 
 /* @ngInject */
@@ -10,8 +10,9 @@ export class NavigationBarController implements IController {
     /*
     * Initialize controller with injectors.
     * */
-    public constructor(public $scope: INavigationBarScope, public $state: StateService) {
-        this.$scope.ngClickedSignOut = this._clickedSignOut;
+    public constructor(public $scope: INavigationBarScope,
+                       public $state: StateService) {
+        this.$scope.clickSignOut = this._clickedSignOut;
     }
 
     //#endregion

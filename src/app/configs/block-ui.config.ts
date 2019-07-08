@@ -7,6 +7,7 @@ export class BlockUiConfig {
     public constructor(ngModule: IModule){
         ngModule.config((blockUIConfig: angular.blockUI.BlockUIConfig) => {
             blockUIConfig.autoInjectBodyBlock = false;
+            blockUIConfig.template = '<pre><code>{{ state | json }}</code></pre>';
         });
     }
 

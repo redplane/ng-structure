@@ -1,0 +1,80 @@
+<div class="card" ng-init="ngOnFaqMasterPageLoaded()">
+    <div class="card-header">
+        <h3 class="card-title">{{'TITLE_FAQ_FILTER' | translate}}</h3>
+    </div>
+    <div class="card-body">
+
+    </div>
+    <div class="card-footer">
+        <div class="text-right">
+            <button class="btn btn-outline-primary">
+                {{'TITLE_RELOAD' | translate}}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{'TITLE_QUESTION' | translate}}</th>
+                        <th class="text-center">{{'TITLE_ANSWER' | translate}}</th>
+                        <th class="text-center">{{'TITLE_CATEGORY' | translate}}</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="shouldFaqsDisplayed()"
+                        ng-repeat="item in loadFaqsResult.items">
+                        <td class="text-center"
+                            ng-switch="item.isHtmlQuestion">
+                            <div ng-switch-when="true" ng-bind-html="item.question"></div>
+                            <div ng-switch-default="">
+                                {{item.question}}
+                            </div>
+                        </td>
+                        <td class="text-center"
+                            ng-switch="item.isHtmlAnswer">
+                            <div ng-switch-when="true" ng-bind-html="item.answer"></div>
+                            <div ng-switch-default="">
+                                {{item.answer}}
+                            </div>
+                        </td>
+                        <td class="text-center">{{item.category}}</td>
+                        <td class="text-center">
+                            <div class="form-group">
+                                <button class="btn btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-outline-info">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="!shouldFaqsDisplayed()">
+                        <td class="text-center"
+                            colspan="4">
+                            <b class="text-danger">{{'MSG_NO_FAQS_AVAILABLE' | translate}}</b>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="text-right">
+            <button class="btn btn-primary">
+                {{'TITLE_ADD' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

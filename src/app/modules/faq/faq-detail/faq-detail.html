@@ -1,0 +1,154 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{{'TITLE_ADD_FAQ' | translate}}</h3>
+    </div>
+    <div class="card-body">
+
+        <!--Tabs-->
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               ng-class="{'active': editorTab == FaqDetailEditorTabsEnum.editor}"
+                               href="javascript:void(0);"
+                               ng-click="selectEditorTab(FaqDetailEditorTabsEnum.editor)">
+                                {{'TITLE_EDITOR' | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="javascript:void(0);"
+                               ng-class="{'active': editorTab == FaqDetailEditorTabsEnum.preview}"
+                               ng-click="selectEditorTab(FaqDetailEditorTabsEnum.preview)">
+                                {{'TITLE_PREVIEW' | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--Current tab: Editor-->
+        <div ng-if="editorTab == FaqDetailEditorTabsEnum.editor">
+            <!--Category-->
+            <div class="row">
+                <div class="col-12">
+                    <b>{{'TITLE_CATEGORY' | translate}}</b>
+                    <div class="form-group">
+                        <input class="form-control"
+                               ng-model="addEditFaqModel.category">
+                    </div>
+                </div>
+            </div>
+
+            <!--Question-->
+            <div class="row">
+                <div class="col-12">
+                    <b>{{'TITLE_QUESTION' | translate}}</b>
+                    <div class="form-group"
+                         ng-switch="addEditFaqModel.isHtmlQuestion">
+
+                        <!--Question HTML editor-->
+                        <textarea ui-tinymce="tinymceOptions"
+                                  ng-model="addEditFaqModel.question"
+                                  ng-switch-when="true"></textarea>
+
+                        <!--Question plain editor-->
+                        <textarea class="form-control"
+                                  ng-model="addEditFaqModel.question"
+                                  rows="3"
+                                  ng-switch-default=""></textarea>
+
+                    </div>
+
+                    <!--Is html question-->
+                    <div class="form-group">
+                        <input id="isHtmlQuestion" type="checkbox"
+                               ng-model="addEditFaqModel.isHtmlQuestion"> <label for="isHtmlQuestion">{{'TITLE_IS_HTML' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--Question-->
+            <div class="row">
+                <div class="col-12">
+                    <b>{{'TITLE_ANSWER' | translate}}</b>
+                    <div class="form-group"
+                         ng-switch="addEditFaqModel.isHtmlAnswer">
+
+                        <!--Question HTML editor-->
+                        <textarea ui-tinymce="tinymceOptions"
+                                  ng-model="addEditFaqModel.answer"
+                                  ng-switch-when="true"></textarea>
+
+                        <!--Question plain editor-->
+                        <textarea class="form-control"
+                                  ng-model="addEditFaqModel.answer"
+                                  rows="3"
+                                  ng-switch-default=""></textarea>
+
+                    </div>
+
+                    <!--Is html question-->
+                    <div class="form-group">
+                        <input id="isHtmlAnswer"
+                               type="checkbox"
+                               ng-model="addEditFaqModel.isHtmlAnswer"> <label for="isHtmlAnswer">{{'TITLE_IS_HTML' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Current tab: Preview-->
+        <div ng-if="editorTab == FaqDetailEditorTabsEnum.preview">
+            <div class="row">
+                <div class="col-12">
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th style="width: 120px">{{'TITLE_CATEGORY' | translate}}</th>
+                            <td>{{addEditFaqModel.category}}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 120px">{{'TITLE_QUESTION' | translate}}</th>
+                            <td ng-switch="addEditFaqModel.isHtmlQuestion">
+                                <div ng-switch-when="true"
+                                     ng-bind-html="addEditFaqModel.question">
+                                </div>
+
+                                <div ng-switch-default="">
+                                    {{addEditFaqModel.question}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 120px">{{'TITLE_ANSWER' | translate}}</th>
+                            <td ng-switch="addEditFaqModel.isHtmlAnswer">
+                                <div ng-switch-when="true"
+                                     ng-bind-html="addEditFaqModel.answer">
+                                </div>
+
+                                <div ng-switch-default="">
+                                    {{addEditFaqModel.answer}}
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-outline-primary">
+                    {{'TITLE_ADD' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

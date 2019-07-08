@@ -7,8 +7,7 @@ import '../../node_modules/font-awesome/scss/font-awesome.scss';
 import './styles/style.scss';
 
 import {UrlStatesConstant} from './constants/url-states.constant';
-import {AppOptionsModel} from "./models/app-options.model";
-import {map, window} from "rxjs/operators";
+import {map} from "rxjs/operators";
 
 // Import bootstrap module.
 import '../../node_modules/jquery/dist/jquery';
@@ -17,8 +16,9 @@ import 'popper.js';
 import {ajax, AjaxResponse} from "rxjs/ajax";
 import {UrlRulesApi} from "@uirouter/angularjs";
 import {module, bootstrap, IHttpProvider} from 'angular';
+import {IAppSettings} from "./interfaces/app-setting.interface";
 
-
+import 'angular-localforage';
 // App name which will be resolved by webpack ProvidePlugin.
 declare var APP_NAME: string;
 
@@ -32,7 +32,7 @@ export class AppModule {
 
     // Load angular app option asynchronously.
     // noinspection TypeScriptUnresolvedFunction
-    protected loadAngularAppOptionsAsync = (): Promise<AppOptionsModel> => {
+    protected loadAngularAppOptionsAsync = (): Promise<IAppSettings> => {
         const ajaxRequestSource = ajax({
             url: '/assets/app-settings.json',
             responseType: 'json',
@@ -45,9 +45,9 @@ export class AppModule {
             }
         });
 
-        return <Promise<AppOptionsModel>>ajaxRequestSource
+        return <Promise<IAppSettings>>ajaxRequestSource
             .pipe(map((ajaxResponse: AjaxResponse) => {
-                return <AppOptionsModel>ajaxResponse.response;
+                return <IAppSettings>ajaxResponse.response;
             }))
             .toPromise();
     };
@@ -55,32 +55,41 @@ export class AppModule {
     // Bootstrap angular app.
     public loadAngularApp = (): Promise<void> => {
 
+        // App settings that have been loaded from external configuration file.
+        let appSettings: IAppSettings = {};
+
         // Load app options first.
         const loadAppOptionsPromise = this.loadAngularAppOptionsAsync();
         return loadAppOptionsPromise
-            .then((options: AppOptionsModel) => {
-                window[APP_NAME] = options;
+            .then((options: IAppSettings) => {
+                appSettings = options;
 
-                const pLoadLibraryPromises = [];
-                pLoadLibraryPromises.push(import('oclazyload'));
-                pLoadLibraryPromises.push(import('@uirouter/angularjs'));
-                pLoadLibraryPromises.push(import('angular-block-ui'));
-                pLoadLibraryPromises.push(import('angular-toastr'));
-                pLoadLibraryPromises.push(import('angular-translate'));
-                pLoadLibraryPromises.push(import('angular-translate-loader-static-files'));
-                pLoadLibraryPromises.push(import('angular-sanitize'));
+                const loadLibraryPromises = [];
+
+                loadLibraryPromises.push(import('oclazyload'));
+                loadLibraryPromises.push(import('@uirouter/angularjs'));
+                loadLibraryPromises.push(import('angular-block-ui'));
+                loadLibraryPromises.push(import('angular-toastr'));
+                loadLibraryPromises.push(import('angular-translate'));
+                loadLibraryPromises.push(import('angular-translate-loader-static-files'));
+                loadLibraryPromises.push(import('angular-sanitize'));
+                loadLibraryPromises.push(import('angular-sanitize'));
 
                 return Promise
-                    .all(pLoadLibraryPromises);
+                    .all(loadLibraryPromises);
 
             })
             .then(() => {
                 // Module declaration.
                 let ngModule = module(APP_NAME, [
                     'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
-                    'oc.lazyLoad', 'ngSanitize']);
+                    'oc.lazyLoad', 'ngSanitize', 'LocalForageModule']);
 
-                ngModule.config(($urlRouterProvider: UrlRulesApi, $httpProvider: IHttpProvider) => {
+                // Register app settings that have been loaded from external configuration file.
+                ngModule.constant('appSettings', appSettings);
+
+                ngModule
+                    .config(($urlRouterProvider: UrlRulesApi, $httpProvider: IHttpProvider) => {
                     // API interceptor
                     $httpProvider.interceptors.push('apiInterceptor');
 

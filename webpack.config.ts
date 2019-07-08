@@ -27,7 +27,6 @@ const config = (): webpack.Configuration => {
     };
 
     //#region Code minimizer
-
     let minimizer = [
         new UglifyJsPlugin({
             cache: true,
@@ -36,8 +35,8 @@ const config = (): webpack.Configuration => {
                 mangle: false,
                 output: {
                     beautify: false,
-
-                }
+                },
+                extractComments: true
             },
             sourceMap: bSourceMap
         })

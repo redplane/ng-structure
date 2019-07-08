@@ -15,29 +15,32 @@ export class PluginOption {
 
         // Plugins list.
         let plugins = [];
-        //
-        // // Clean plugin
-        // // List of directories to be cleaned.
-        // const pCleanOption: Options = {
-        //     // Absolute path to your webpack root folder (paths appended to this)
-        //
-        //     // Write logs to console.
-        //     verbose: true,
-        //
-        //     // Use boolean "true" to test/emulate delete. (will not remove files).
-        //     // Default: false - remove files
-        //     dry: false,
-        //
-        //     cleanOnceBeforeBuildPatterns: [],
-        //
-        //     protectWebpackAssets: true,
-        //
-        //     // allow the plugin to clean folders outside of the webpack root.
-        //     // Default: false - don't allow clean folder outside of the webpack root
-        //     dangerouslyAllowCleanPatternsOutsideProject: true
-        // };
-        //
-        // plugins.push(new CleanWebpackPlugin(pCleanOption));
+
+        if (bProductionMode) {
+            // Clean plugin
+            // List of directories to be cleaned.
+            const pCleanOption: Options = {
+                // Absolute path to your webpack root folder (paths appended to this)
+
+                // Write logs to console.
+                verbose: true,
+
+                // Use boolean "true" to test/emulate delete. (will not remove files).
+                // Default: false - remove files
+                dry: false,
+
+                cleanOnceBeforeBuildPatterns: [],
+
+                protectWebpackAssets: true,
+
+                // allow the plugin to clean folders outside of the webpack root.
+                // Default: false - don't allow clean folder outside of the webpack root
+                dangerouslyAllowCleanPatternsOutsideProject: true
+            };
+
+
+            plugins.push(new CleanWebpackPlugin(pCleanOption));
+        }
 
         // Clean obsolete chunks
         plugins.push(new CleanObsoleteChunks({verbose: true}));

@@ -8,5 +8,16 @@ export class UrlStatesConstant {
 
     public static dashboardModuleName = 'dashboard';
 
-    public static masterLayout = 'master-layout';
+    public static authenticatedLayoutModuleName = 'authenticated-layout';
+
+    public static unauthenticatedLayoutModuleName = 'unauthenticated-layout';
+
+    public static addFaqModuleUrl = '/add-faq';
+
+    public static addFaqModuleName = 'add-faq';
+
+    public static faqMasterPageModuleUrl = '/faq';
+
+    public static faqMasterPageModuleName = 'faq-master-page'
+
 }

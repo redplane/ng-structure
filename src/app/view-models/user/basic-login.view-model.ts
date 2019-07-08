@@ -1,11 +1,11 @@
-export class LoginViewModel{
+export class BasicLoginViewModel{
 
     //#region Properties
 
     /*
     * Email address.
     * */
-    public email: string;
+    public username: string;
 
     /*
     * Password of user.

@@ -26,7 +26,8 @@ export class NavigationBarDirective implements IDirective {
 
     // Directive isolate scope.
     scope = {
-        ngOnSignOutClicked: '&?'
+        ngOnSignOutClicked: '&?',
+        profile: '<?'
     };
 
     // Directive controller

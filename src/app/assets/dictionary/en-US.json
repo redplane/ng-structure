@@ -8,5 +8,21 @@
   "TITLE_FRIENDS": "Friends",
   "TITLE_LOGIN": "Login",
   "TITLE_USERNAME": "Username",
-  "TITLE_PASSWORD": "Password"
+  "TITLE_PASSWORD": "Password",
+  "TITLE_ADD_FAQ": "Add FAQ",
+  "TITLE_TITLE": "Title",
+  "TITLE_QUESTION": "Question",
+  "TITLE_ANSWER": "Answer",
+  "TITLE_CATEGORY": "Category",
+  "TITLE_IS_HTML": "Is HTML",
+  "TITLE_EDITOR": "Editor",
+  "TITLE_PREVIEW": "Preview",
+  "TITLE_FAQ": "Faq",
+  "TITLE_ADD": "Add",
+  "TITLE_FAQ_FILTER": "FAQ filter",
+  "TITLE_RELOAD": "Reload",
+  "TITLE_LOGOUT": "Logout",
+
+  "MSG_NO_FAQS_AVAILABLE": "No FAQ available"
+
 }

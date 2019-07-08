@@ -1,5 +1,6 @@
 import {StateProvider} from "@uirouter/angularjs";
-import {MasterLayoutModule} from "./master-layout";
+import {AuthenticatedLayoutModule} from "./authenticated-layout";
+import {UnauthenticatedLayoutModule} from "./unauthenticated-layout";
 
 /* @ngInject */
 export class SharedModule {
@@ -7,10 +8,9 @@ export class SharedModule {
     //#region Constructor
 
     public constructor($stateProvider: StateProvider) {
-        new MasterLayoutModule($stateProvider);
+        new AuthenticatedLayoutModule($stateProvider);
+        new UnauthenticatedLayoutModule($stateProvider);
     }
 
-
     //#endregion
-
 }
