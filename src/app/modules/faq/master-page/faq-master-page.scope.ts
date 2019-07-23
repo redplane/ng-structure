@@ -16,6 +16,9 @@ export interface IFaqMasterPageScope {
     * */
     loadingFaqs: boolean;
 
+    /*
+    * Condition to load faq items.
+    * */
     loadFaqsConditions: LoadFaqsViewModel;
 
     //#endregion
@@ -36,6 +39,21 @@ export interface IFaqMasterPageScope {
     * Called when faq master page is loaded.
     * */
     ngOnFaqMasterPageLoaded: () => void;
+
+    /*
+    * Add faq.
+    * */
+    clickAddFaq: () => void;
+
+    /*
+    * Delete faq
+    * */
+    clickDeleteFaq: (faqId: string) => void;
+
+    /*
+    * Raised when edit faq is clicked.
+    * */
+    clickEditFaq: (faq: FaqViewModel) => void;
 
     //#endregion
 }

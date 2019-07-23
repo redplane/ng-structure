@@ -18,6 +18,10 @@ export class UrlStatesConstant {
 
     public static faqMasterPageModuleUrl = '/faq';
 
-    public static faqMasterPageModuleName = 'faq-master-page'
+    public static faqMasterPageModuleName = 'faq-master-page';
+
+    public static stateMasterPageModuleUrl = '/state';
+
+    public static stateMasterPageModuleName = 'state-master-page';
 
 }

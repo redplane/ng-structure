@@ -3,7 +3,9 @@ import '@babel/polyfill';
 
 // Import css file.
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../../node_modules/ui-bootstrap4/dist/ui-bootstrap-csp.css';
 import '../../node_modules/font-awesome/scss/font-awesome.scss';
+
 import './styles/style.scss';
 
 import {UrlStatesConstant} from './constants/url-states.constant';
@@ -13,6 +15,8 @@ import {map} from "rxjs/operators";
 import '../../node_modules/jquery/dist/jquery';
 import 'bootstrap/dist/js/bootstrap';
 import 'popper.js';
+
+
 import {ajax, AjaxResponse} from "rxjs/ajax";
 import {UrlRulesApi} from "@uirouter/angularjs";
 import {module, bootstrap, IHttpProvider} from 'angular';
@@ -66,14 +70,14 @@ export class AppModule {
 
                 const loadLibraryPromises = [];
 
-                loadLibraryPromises.push(import('oclazyload'));
+                loadLibraryPromises.push(import('oclazyload/dist/ocLazyLoad.js'));
                 loadLibraryPromises.push(import('@uirouter/angularjs'));
-                loadLibraryPromises.push(import('angular-block-ui'));
-                loadLibraryPromises.push(import('angular-toastr'));
                 loadLibraryPromises.push(import('angular-translate'));
                 loadLibraryPromises.push(import('angular-translate-loader-static-files'));
                 loadLibraryPromises.push(import('angular-sanitize'));
                 loadLibraryPromises.push(import('angular-sanitize'));
+                loadLibraryPromises.push(import('ui-bootstrap4/dist/ui-bootstrap-tpls'));
+                loadLibraryPromises.push(import('angular-moment'));
 
                 return Promise
                     .all(loadLibraryPromises);
@@ -82,8 +86,8 @@ export class AppModule {
             .then(() => {
                 // Module declaration.
                 let ngModule = module(APP_NAME, [
-                    'ui.router', 'blockUI', 'toastr', 'pascalprecht.translate',
-                    'oc.lazyLoad', 'ngSanitize', 'LocalForageModule']);
+                    'ui.router', 'pascalprecht.translate',
+                    'oc.lazyLoad', 'ngSanitize', 'LocalForageModule', 'ui.bootstrap', 'angularMoment']);
 
                 // Register app settings that have been loaded from external configuration file.
                 ngModule.constant('appSettings', appSettings);
@@ -96,7 +100,7 @@ export class AppModule {
                     // Url router config.
                     $urlRouterProvider.otherwise(($injector) => {
                         const $state = $injector.get('$state');
-                        $state.go(UrlStatesConstant.dashboardModuleName);
+                        $state.go(UrlStatesConstant.faqMasterPageModuleName);
                     });
                 });
 

@@ -7,6 +7,8 @@ export interface IAuthenticatedLayoutScope extends IScope {
 
     profile: ProfileViewModel;
 
+    hasLoaderDisplayed: boolean;
+
     //#endregion
 
     //#region Methods

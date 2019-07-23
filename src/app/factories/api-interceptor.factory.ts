@@ -1,5 +1,8 @@
-import {IHttpInterceptor, IPromise, IQService, IRequestConfig} from "angular";
+import {IHttpInterceptor, IHttpResponse, IPromise, IQService, IRequestConfig} from "angular";
 import {StorageKeyNameConstant} from "../constants/storage-key-name.constant";
+import {StateService} from "@uirouter/core";
+import {UrlStatesConstant} from "../constants/url-states.constant";
+import {StateProvider} from "@uirouter/angularjs";
 
 export class ApiInterceptorFactory implements IHttpInterceptor {
 
@@ -18,12 +21,27 @@ export class ApiInterceptorFactory implements IHttpInterceptor {
                 };
                 return requestConfig;
             })
-            .catch(() => {
+            .catch((httpResponse: IHttpResponse<any>) => {
                 return requestConfig;
             })
 
     };
 
+    responseError = (rejection: any): IPromise<IHttpResponse<any>> | IHttpResponse<any> => {
+
+        // Get state service.
+        if (rejection.status === 401) {
+
+            const $state: StateService = this.$injector.get('$state');
+            if ($state.current.name === UrlStatesConstant.loginModuleName) {
+                return rejection;
+            }
+
+            $state.go(UrlStatesConstant.loginModuleName);
+        }
+
+        return rejection;
+    };
 
     //#endregion
 

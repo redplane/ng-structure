@@ -1,7 +1,6 @@
 import {IModule} from "angular";
 import {OcLazyLoadConfig} from './oc-lazy-load.config';
 import {AngularTranslateConfig} from "./angular-translate.config";
-import {BlockUiConfig} from "./block-ui.config";
 import {LocalForageConfig} from "./local-forage.config";
 
 export class ConfigModule {
@@ -15,9 +14,6 @@ export class ConfigModule {
 
         // Add angular-translate configuration.
         new AngularTranslateConfig(ngModule);
-
-        // Add block-ui configuration.
-        new BlockUiConfig(ngModule);
 
         // Local forage
         new LocalForageConfig(ngModule);

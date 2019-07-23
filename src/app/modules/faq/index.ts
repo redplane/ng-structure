@@ -1,7 +1,8 @@
 import {StateProvider} from "@uirouter/angularjs";
 import {UrlStatesConstant} from "../../constants/url-states.constant";
-import {IQService, module} from 'angular';
+import {ICompileService, IQService, module} from 'angular';
 import {ILazyLoad} from "oclazyload";
+import {ControllerNamesConstant} from "../../constants/controller-names.constant";
 
 /* @ngInject */
 export class FaqModule {
@@ -10,12 +11,10 @@ export class FaqModule {
 
     public constructor(private $stateProvider: StateProvider) {
 
-        const faqMasterPageControllerName = 'faqMasterPageController';
-
         $stateProvider
             .state(UrlStatesConstant.faqMasterPageModuleName, {
                 url: UrlStatesConstant.faqMasterPageModuleUrl,
-                controller: faqMasterPageControllerName,
+                controller: ControllerNamesConstant.faqMasterPageControllerName,
                 templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
@@ -25,11 +24,11 @@ export class FaqModule {
                 }],
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
                 resolve: {
-
                     /*
                     * Load FAQ detail controller asynchronously.
                     * */
-                    loadFaqDetailController:  ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+                    loadFaqMasterPageController:  ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+
                         return $q((resolve) => {
                             require.ensure([], (require) => {
 
@@ -40,32 +39,18 @@ export class FaqModule {
                                 require('tinymce/skins/ui/oxide/skin.css');
 
                                 // load only controller module
-                                let ngModule = module('app.faq-detail', ['ui.tinymce']);
-                                const {FaqDetailController} = require('./faq-detail/faq-detail.controller.ts');
-
-                                // Import controller file.
-                                ngModule.controller('faqDetailController', FaqDetailController);
-                                $ocLazyLoad.inject( ngModule.name);
-                                resolve(ngModule.controller);
-                            })
-                        });
-                    }],
-
-                    /*
-                    * Load FAQ detail controller asynchronously.
-                    * */
-                    loadFaqMasterPageController:  ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
-
-
-
-                        return $q((resolve) => {
-                            require.ensure([], (require) => {
-                                // load only controller module
-                                let ngModule = module('app.faq-master-page', []);
+                                let ngModule = module('app.faq-master-page', ['ui.tinymce']);
                                 const {FaqMasterPageController} = require('./master-page/faq-master-page.controller.ts');
 
+                                // // Lazy load faq detail.
+                                const {FaqDetailDirective} = require('./faq-detail');
+                                const {FaqDetailController} = require('./faq-detail/faq-detail.controller');
+                                ngModule = ngModule.directive('faqDetail',
+                                    ($q: IQService, $compile: ICompileService) => new FaqDetailDirective($q, $compile));
+
                                 // Import controller file.
-                                ngModule.controller(faqMasterPageControllerName, FaqMasterPageController);
+                                ngModule.controller(ControllerNamesConstant.faqMasterPageControllerName, FaqMasterPageController);
+                                ngModule.controller(ControllerNamesConstant.faqDetailControllerName, FaqDetailController);
                                 $ocLazyLoad.inject( ngModule.name);
                                 resolve(ngModule.controller);
                             })

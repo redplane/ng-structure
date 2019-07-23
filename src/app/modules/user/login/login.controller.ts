@@ -14,8 +14,7 @@ export class LoginController implements IController {
 
     public constructor(protected $scope: ILoginScope,
                        protected $state: StateService,
-                       protected $user: IUserService,
-                       protected blockUI: angular.blockUI.BlockUIService,
+                       protected $users: IUserService,
                        protected $localForage: angular.localForage.ILocalForageService) {
 
         // Property initialize.
@@ -41,7 +40,7 @@ export class LoginController implements IController {
         // Disable all controls.
         this.$scope.shouldControlsAvailable = false;
 
-        this.$user
+        this.$users
             .basicLoginAsync(loginModel.username, loginModel.password)
             .then((basicLoginResult: LoginResultViewModel) => {
                 const addAccessTokenToStoragePromise = this.$localForage.setItem(StorageKeyNameConstant.accessToken, basicLoginResult.accessToken);

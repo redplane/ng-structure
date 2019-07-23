@@ -1,4 +1,4 @@
-export class AddEditFaqViewModel {
+export class AddFaqViewModel {
 
     //#region Properties
 

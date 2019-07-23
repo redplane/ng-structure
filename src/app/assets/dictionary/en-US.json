@@ -18,11 +18,25 @@
   "TITLE_EDITOR": "Editor",
   "TITLE_PREVIEW": "Preview",
   "TITLE_FAQ": "Faq",
+  "TITLE_STATE": "State",
   "TITLE_ADD": "Add",
   "TITLE_FAQ_FILTER": "FAQ filter",
+  "TITLE_STATE_FILTER": "States filter",
   "TITLE_RELOAD": "Reload",
   "TITLE_LOGOUT": "Logout",
+  "TITLE_OK": "Ok",
+  "TITLE_CANCEL": "Cancel",
+  "TITLE_NAME": "Name",
+  "TITLE_STATE_NAME": "State name",
+  "TITLE_DELIVERY_FEE": "Delivery fee",
+  "TITLE_CREATED_TIME": "Created time",
+  "TITLE_EDIT_STATE": "Edit {{name}}",
+  "TITLE_ADD_STATE": "Add state",
+  "TITLE_LAST_MODIFIED_TIME": "Last modified time",
 
-  "MSG_NO_FAQS_AVAILABLE": "No FAQ available"
+  "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
+  "MSG_NO_STATE_AVAILABLE": "No state available",
+  "MSG_ADDED_FAQ_SUCCESSFULLY": "FAQ has been added successfully.",
+  "MSG_ADDED_STATE_SUCCESSFULLY": "State has been added successfully."
 
 }

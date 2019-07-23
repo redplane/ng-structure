@@ -40,7 +40,7 @@ export class AuthenticatedLayoutModule {
                                     ($q: IQService, $compile: ICompileService) => new NavigationBarDirective($q, $compile));
 
                                 // Lazy load sidebar.
-                                const {SidebarDirective} = require('../../../directives/side-bar');
+                                const {SidebarDirective} = require('../../../directives/sidebar');
                                 ngModule = ngModule.directive('sideBar',
                                     ($q: IQService, $compile: ICompileService) => new SidebarDirective($q, $compile));
 
@@ -54,8 +54,8 @@ export class AuthenticatedLayoutModule {
                         });
                     }],
 
-                    profile: ['$user', ($user: IUserService) => {
-                        return $user.loadProfileAsync();
+                    profile: ['$users', ($users: IUserService) => {
+                        return $users.loadProfileAsync();
                     }]
                 }
             });

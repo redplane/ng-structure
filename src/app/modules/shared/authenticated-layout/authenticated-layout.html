@@ -2,6 +2,24 @@
 <navigation-bar profile="profile"
                 ng-on-sign-out-clicked="ngOnSignOutClicked()"></navigation-bar>
 
+<div class="block-ui" ng-if="hasLoaderDisplayed">
+    <div class="background-loader"><div></div><div></div><div></div></div>
+</div>
+
+<!--<div style="width: 300px; height: 100vh; position: fixed; z-index: 1030; right: 0">-->
+<!--    <div class="toast fade show">-->
+<!--        <div class="toast-header">-->
+<!--            <strong class="mr-auto"><i class="fa fa-globe"></i> Hello, world!</strong>-->
+<!--            <small class="text-muted">just now</small>-->
+<!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>-->
+<!--        </div>-->
+<!--        <div class="toast-body">-->
+<!--            This is a basic toast message.-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
 <div class="app-body">
     <!-- Left side column. contains the logo and sidebar -->
     <side-bar></side-bar>

@@ -9,7 +9,7 @@ export class OcLazyLoadConfig {
         ngModule.config(($ocLazyLoadProvider: ILazyLoadProvider) => {
             $ocLazyLoadProvider
                 .config({
-                    debug: true
+                    debug: false
                 });
         });
     }

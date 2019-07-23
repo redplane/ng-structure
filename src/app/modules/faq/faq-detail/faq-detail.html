@@ -1,4 +1,6 @@
-<div class="card">
+<form class="card"
+      novalidate
+      name="faqForm">
     <div class="card-header">
         <h3 class="card-title">{{'TITLE_ADD_FAQ' | translate}}</h3>
     </div>
@@ -37,8 +39,13 @@
                 <div class="col-12">
                     <b>{{'TITLE_CATEGORY' | translate}}</b>
                     <div class="form-group">
-                        <input class="form-control"
-                               ng-model="addEditFaqModel.category">
+
+                        <!--In add mode-->
+                        <input name="category"
+                               class="form-control"
+                               ng-model="faqModel.category"
+                               ng-required="true">
+
                     </div>
                 </div>
             </div>
@@ -48,54 +55,67 @@
                 <div class="col-12">
                     <b>{{'TITLE_QUESTION' | translate}}</b>
                     <div class="form-group"
-                         ng-switch="addEditFaqModel.isHtmlQuestion">
+                         ng-switch="faqModel.isHtmlQuestion">
 
                         <!--Question HTML editor-->
-                        <textarea ui-tinymce="tinymceOptions"
-                                  ng-model="addEditFaqModel.question"
-                                  ng-switch-when="true"></textarea>
+                        <textarea name="question"
+                                  ui-tinymce="tinymceOptions"
+                                  ng-model="faqModel.question"
+                                  ng-switch-when="true"
+                                  ng-required="true"></textarea>
 
                         <!--Question plain editor-->
-                        <textarea class="form-control"
-                                  ng-model="addEditFaqModel.question"
+                        <textarea name="question"
+                                  class="form-control"
+                                  ng-model="faqModel.question"
                                   rows="3"
-                                  ng-switch-default=""></textarea>
+                                  ng-switch-default=""
+                                  ng-required="true"></textarea>
 
                     </div>
 
                     <!--Is html question-->
                     <div class="form-group">
-                        <input id="isHtmlQuestion" type="checkbox"
-                               ng-model="addEditFaqModel.isHtmlQuestion"> <label for="isHtmlQuestion">{{'TITLE_IS_HTML' | translate}}</label>
+                        <input id="isHtmlQuestion"
+                               name="isHtmlQuestion"
+                               type="checkbox"
+                               ng-model="faqModel.isHtmlQuestion" ng-true-value="true"> <label for="isHtmlQuestion">{{'TITLE_IS_HTML'
+                        | translate}}</label>
                     </div>
                 </div>
             </div>
 
-            <!--Question-->
+            <!--Answer-->
             <div class="row">
                 <div class="col-12">
                     <b>{{'TITLE_ANSWER' | translate}}</b>
-                    <div class="form-group"
-                         ng-switch="addEditFaqModel.isHtmlAnswer">
+                    <div class="form-group">
 
                         <!--Question HTML editor-->
-                        <textarea ui-tinymce="tinymceOptions"
-                                  ng-model="addEditFaqModel.answer"
-                                  ng-switch-when="true"></textarea>
+                        <textarea name="answer"
+                                  ng-if="faqModel.isHtmlAnswer"
+                                  ui-tinymce="tinymceOptions"
+                                  ng-model="faqModel.answer"
+                                  ng-required="true"></textarea>
 
                         <!--Question plain editor-->
-                        <textarea class="form-control"
-                                  ng-model="addEditFaqModel.answer"
+                        <textarea name="answer"
+                                  ng-if="!faqModel.isHtmlAnswer"
+                                  class="form-control"
+                                  ng-model="faqModel.answer"
                                   rows="3"
-                                  ng-switch-default=""></textarea>
+                                  ng-required="true"></textarea>
 
                     </div>
 
-                    <!--Is html question-->
+                    <!--Is html answer-->
                     <div class="form-group">
                         <input id="isHtmlAnswer"
+                               name="isHtmlAnswer"
                                type="checkbox"
-                               ng-model="addEditFaqModel.isHtmlAnswer"> <label for="isHtmlAnswer">{{'TITLE_IS_HTML' | translate}}</label>
+                               ng-model="faqModel.isHtmlAnswer"
+                               ng-true-value="true"> <label for="isHtmlAnswer">{{'TITLE_IS_HTML' |
+                        translate}}</label>
                     </div>
                 </div>
             </div>
@@ -110,29 +130,29 @@
                         <tbody>
                         <tr>
                             <th style="width: 120px">{{'TITLE_CATEGORY' | translate}}</th>
-                            <td>{{addEditFaqModel.category}}</td>
+                            <td>{{faqModel.category}}</td>
                         </tr>
                         <tr>
                             <th style="width: 120px">{{'TITLE_QUESTION' | translate}}</th>
-                            <td ng-switch="addEditFaqModel.isHtmlQuestion">
+                            <td ng-switch="faqModel.isHtmlQuestion">
                                 <div ng-switch-when="true"
-                                     ng-bind-html="addEditFaqModel.question">
+                                     ng-bind-html="faqModel.question">
                                 </div>
 
                                 <div ng-switch-default="">
-                                    {{addEditFaqModel.question}}
+                                    {{faqModel.question}}
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <th style="width: 120px">{{'TITLE_ANSWER' | translate}}</th>
-                            <td ng-switch="addEditFaqModel.isHtmlAnswer">
+                            <td ng-switch="faqModel.isHtmlAnswer">
                                 <div ng-switch-when="true"
-                                     ng-bind-html="addEditFaqModel.answer">
+                                     ng-bind-html="faqModel.answer">
                                 </div>
 
                                 <div ng-switch-default="">
-                                    {{addEditFaqModel.answer}}
+                                    {{faqModel.answer}}
                                 </div>
                             </td>
                         </tr>
@@ -145,10 +165,17 @@
     <div class="card-footer">
         <div class="row">
             <div class="col-12 text-center">
-                <button class="btn btn-outline-primary">
+                <button class="btn btn-outline-primary"
+                        ng-click="clickOk(faqForm)"
+                        ng-disabled="faqForm.$invalid || !faqForm.$dirty">
                     {{'TITLE_ADD' | translate}}
+                </button>
+
+                <button class="btn btn-outline-secondary"
+                        ng-click="clickCancel()">
+                    {{'TITLE_CANCEL' | translate}}
                 </button>
             </div>
         </div>
     </div>
-</div>
+</form>

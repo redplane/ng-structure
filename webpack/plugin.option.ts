@@ -16,31 +16,30 @@ export class PluginOption {
         // Plugins list.
         let plugins = [];
 
-        if (bProductionMode) {
-            // Clean plugin
-            // List of directories to be cleaned.
-            const pCleanOption: Options = {
-                // Absolute path to your webpack root folder (paths appended to this)
+        // Clean plugin
+        // List of directories to be cleaned.
+        const pCleanOption: Options = {
+            // Absolute path to your webpack root folder (paths appended to this)
 
-                // Write logs to console.
-                verbose: true,
+            // Write logs to console.
+            verbose: true,
 
-                // Use boolean "true" to test/emulate delete. (will not remove files).
-                // Default: false - remove files
-                dry: false,
+            // Use boolean "true" to test/emulate delete. (will not remove files).
+            // Default: false - remove files
+            dry: false,
 
-                cleanOnceBeforeBuildPatterns: [],
+            cleanOnceBeforeBuildPatterns: [],
 
-                protectWebpackAssets: true,
+            cleanStaleWebpackAssets: false,
+            protectWebpackAssets: true,
 
-                // allow the plugin to clean folders outside of the webpack root.
-                // Default: false - don't allow clean folder outside of the webpack root
-                dangerouslyAllowCleanPatternsOutsideProject: true
-            };
+            // allow the plugin to clean folders outside of the webpack root.
+            // Default: false - don't allow clean folder outside of the webpack root
+            dangerouslyAllowCleanPatternsOutsideProject: true
+        };
 
 
-            plugins.push(new CleanWebpackPlugin(pCleanOption));
-        }
+        plugins.push(new CleanWebpackPlugin(pCleanOption));
 
         // Clean obsolete chunks
         plugins.push(new CleanObsoleteChunks({verbose: true}));

@@ -1,0 +1,103 @@
+<div class="card" ng-init="ngOnStateMasterPageLoaded()">
+    <div class="card-header">
+        <h3 class="card-title">{{'TITLE_STATE_FILTER' | translate}}</h3>
+    </div>
+    <div class="card-body">
+
+    </div>
+    <div class="card-footer">
+        <div class="text-right">
+            <button class="btn btn-outline-primary"
+                    ng-click="ngOnStateMasterPageLoaded()">
+                {{'TITLE_RELOAD' | translate}}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{'TITLE_NAME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_DELIVERY_FEE' | translate}}</th>
+                        <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="shouldStatesDisplayed()"
+                        ng-repeat="item in loadStatesResult.items"
+                        class="text-middle text-center">
+                        <td ng-switch="item.availability == masterItemAvailabilities.available">
+                            <b ng-switch-when="true">
+                                {{item.name}}
+                            </b>
+                            <del ng-switch-default>
+                                {{item.name}}
+                            </del>
+                        </td>
+                        <td>
+                            {{item.deliveryFee}}
+                        </td>
+                        <td>
+                            <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td>
+                            <i>{{item.lastModifiedTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td class="text-center"
+                            ng-switch="item.availability == masterItemAvailabilities.available">
+
+                            <div ng-switch-when="true">
+                                <div class="form-group">
+                                    <button class="btn btn-outline-danger"
+                                            ng-click="clickDeleteState(item.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-outline-info"
+                                            ng-click="clickEditState(item)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr ng-if="!shouldStatesDisplayed()">
+                        <td class="text-center"
+                            colspan="5">
+                            <b class="text-danger">{{'MSG_NO_STATE_AVAILABLE' | translate}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="d-flex justify-content-center">
+                                <ul uib-pagination
+                                    items-per-page="loadFaqsConditions.pager.records"
+                                    total-items="loadFaqsResult.pager.totalRecords"
+                                    ng-model="loadFaqsConditions.pager.page"
+                                    ng-change="ngOnFaqMasterPageLoaded()"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="text-right">
+            <button class="btn btn-primary" ng-click="clickAddState()">
+                {{'TITLE_ADD' | translate}}
+            </button>
+        </div>
+    </div>
+</div>
