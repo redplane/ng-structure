@@ -8,17 +8,17 @@ export interface IStateMasterPageScope {
     //#region Properties
 
     /*
-    * Result of loading faqs.
+    * Result of loading states.
     * */
     loadStatesResult: SearchResultViewModel<StateViewModel>;
 
     /*
-    * Whether faqs are being loaded or not.
+    * Whether states are being loaded or not.
     * */
     loadStates: boolean;
 
     /*
-    * Condition to load faq items.
+    * Condition to load state items.
     * */
     loadStatesConditions: LoadStatesViewModel;
 
@@ -32,7 +32,7 @@ export interface IStateMasterPageScope {
     //#region Methods
 
     /*
-    * Should faqs list be displayed or not.
+    * Should states list be displayed or not.
     * */
     shouldStatesDisplayed: () => boolean;
 
@@ -42,22 +42,22 @@ export interface IStateMasterPageScope {
     shouldControlsAvailable: () => boolean;
 
     /*
-    * Called when faq master page is loaded.
+    * Called when state master page is loaded.
     * */
     ngOnStateMasterPageLoaded: () => void;
 
     /*
-    * Add faq.
+    * Add state.
     * */
     clickAddState: () => void;
 
     /*
-    * Delete faq
+    * Delete state
     * */
     clickDeleteState: (stateId: string) => void;
 
     /*
-    * Raised when edit faq is clicked.
+    * Raised when edit state is clicked.
     * */
     clickEditState: (state: StateViewModel) => void;
 

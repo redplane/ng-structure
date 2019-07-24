@@ -74,3 +74,19 @@ tr.text-center td,
 tr.text-center th {
   text-align: center;
 }
+
+.toolbar {
+  position: fixed;
+}
+
+.toolbar.right {
+  right: 50px;
+}
+
+.toolbar.bottom {
+  bottom: 50px;
+}
+
+.ng-hide {
+  display: none !important;
+}

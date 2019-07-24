@@ -1,0 +1,60 @@
+<form class="card"
+      novalidate
+      name="addEditCityForm">
+    <div class="card-header"
+         ng-switch="cityModel.id !== null">
+        <h3 class="card-title">
+            <span ng-switch-when="true">{{'TITLE_EDIT_CITY' | translate:{ name: originalCityModel.name} }}</span>
+            <span ng-switch-default>{{'TITLE_ADD_CITY' | translate}}</span>
+        </h3>
+    </div>
+    <div class="card-body">
+
+        <!--State-->
+        <div class="row">
+            <div class="col-12">
+                <b>{{'TITLE_STATE_NAME' | translate}}</b>
+                <div class="form-group">
+
+                    <select ng-model="cityModel.stateId"
+                            ng-options="state.id as state.name for state in availableStates"
+                            class="form-control">
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Name-->
+        <div class="row">
+            <div class="col-12">
+                <b>{{'TITLE_CITY_NAME' | translate}}</b>
+                <div class="form-group">
+
+                    <input name="name"
+                           class="form-control"
+                           ng-model="cityModel.name"
+                           ng-required="true">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-outline-primary"
+                        ng-click="clickOk(addEditCityForm)"
+                        ng-disabled="addEditCityForm.$invalid || !addEditCityForm.$dirty">
+                    {{'TITLE_OK' | translate}}
+                </button>
+
+                <button class="btn btn-outline-secondary"
+                        ng-click="clickCancel()">
+                    {{'TITLE_CANCEL' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

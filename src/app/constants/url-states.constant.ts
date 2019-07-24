@@ -24,4 +24,8 @@ export class UrlStatesConstant {
 
     public static stateMasterPageModuleName = 'state-master-page';
 
+    public static cityMasterPageModuleName = 'city-master-page';
+
+    public static cityMasterPageModuleUrl = '/city';
+
 }

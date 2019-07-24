@@ -32,14 +32,8 @@ export class StateModule {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
 
-                                // Import angular-sanitize & textAngular module.
-                                require('tinymce/tinymce');
-                                require('tinymce/themes/silver');
-                                require('angular-ui-tinymce/dist/tinymce.min');
-                                require('tinymce/skins/ui/oxide/skin.css');
-
                                 // load only controller module
-                                let ngModule = module('app.state-master-page', ['ui.tinymce']);
+                                let ngModule = module('app.state-master-page', []);
                                 const {StateMasterPageController} = require('./master-page/state-master-page.controller.ts');
 
                                 // // Lazy load faq detail.

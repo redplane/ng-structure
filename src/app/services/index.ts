@@ -4,6 +4,7 @@ import {UserService} from "./implementations/user.service";
 import {FaqService} from "./implementations/faq.service";
 import {NgRxMessageBusService} from "./implementations/ngrx-message-bus.service";
 import {StateService} from "./implementations/state.service";
+import {CityService} from "./implementations/city.service";
 
 /* @ngInject */
 export class ServiceModule {
@@ -15,6 +16,7 @@ export class ServiceModule {
         ngModule.service('$users', UserService);
         ngModule.service('$faqs', FaqService);
         ngModule.service('$states', StateService);
+        ngModule.service('$cities', CityService);
         ngModule.service('$messageBus', () => new NgRxMessageBusService(null));
     }
 

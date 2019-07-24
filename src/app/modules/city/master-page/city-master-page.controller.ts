@@ -7,16 +7,18 @@ import {UiService} from "../../../services/implementations/ui.service";
 import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-bus-service.interface";
 import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
 import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
-import {IStateMasterPageScope} from "./state-master-page.scope";
 import {LoadStatesViewModel} from "../../../view-models/state/load-states.view-model";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
 import {IStateService} from "../../../services/interfaces/state-service.interface";
-import {AddStateViewModel} from "../../../view-models/state/add-state.view-model";
 import {EditStateViewModel} from "../../../view-models/state/edit-state.view-model";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
+import {ICityMasterPageScope} from "./city-master-page.scope";
+import {CityViewModel} from "../../../view-models/city/city.view-model";
+import {ICityService} from "../../../services/interfaces/city-service.interface";
+import {AddCityViewModel} from "../../../view-models/city/add-city.view-model";
+import {LoadCitiesViewModel} from "../../../view-models/city/load-cities.view-model";
 
 /* @ngInject */
-export class StateMasterPageController implements IController {
+export class CityMasterPageController implements IController {
 
     //#region Properties
 
@@ -28,29 +30,31 @@ export class StateMasterPageController implements IController {
     /*
     * Initialize controller with injectors.
     * */
-    public constructor(protected $scope: IStateMasterPageScope,
+    public constructor(protected $scope: ICityMasterPageScope,
                        protected $uibModal: IModalService,
                        protected $ui: UiService,
                        protected $states: IStateService,
+                       protected $cities: ICityService,
                        protected $messageBus: INgRxMessageBusService,
                        protected $translate: angular.translate.ITranslateService) {
 
         // Properties binding.
-        this.$scope.loadStatesResult = new SearchResultViewModel<StateViewModel>();
+        this.$scope.loadCitiesResult = new SearchResultViewModel<CityViewModel>();
 
-        const loadStatesModel = new LoadStatesViewModel();
-        loadStatesModel.pager = new PagerViewModel();
-        loadStatesModel.pager.page = 1;
-        loadStatesModel.pager.records = ValidationValueConstant.maxRecordsPerSearchPage;
-        this.$scope.loadStatesConditions = loadStatesModel;
+        const loadCitiesModel = new LoadStatesViewModel();
+        loadCitiesModel.pager = new PagerViewModel();
+        loadCitiesModel.pager.page = 1;
+        loadCitiesModel.pager.records = ValidationValueConstant.maxRecordsPerSearchPage;
+        this.$scope.loadCitiesConditions = loadCitiesModel;
 
         // Methods binding.
-        this.$scope.shouldStatesDisplayed = this.shouldStatesDisplayed;
+        this.$scope.shouldCitiesDisplayed = this.shouldStatesDisplayed;
         this.$scope.shouldControlsAvailable = this.shouldControlsAvailable;
-        this.$scope.ngOnStateMasterPageLoaded = this.ngOnStateMasterPageLoaded;
-        this.$scope.clickAddState = this.clickAddState;
-        this.$scope.clickDeleteState = this.clickDeleteState;
-        this.$scope.clickEditState = this.clickEditState;
+        this.$scope.ngOnCityMasterPageLoaded = this.ngOnCityMasterPageLoaded;
+        this.$scope.clickAddCity = this.clickAddCity;
+        this.$scope.clickDeleteCity = this.clickDeleteCity;
+        this.$scope.clickEditCity = this.clickEditState;
+        this.$scope.clickOpenCitiesFinderModal = this._clickOpenCitiesFinderModal;
 
         this.$scope.masterItemAvailabilities = MasterItemAvailabilities;
     }
@@ -60,61 +64,61 @@ export class StateMasterPageController implements IController {
     //#region Methods
 
     protected shouldStatesDisplayed = (): boolean => {
-        const loadStatesResult = this.$scope.loadStatesResult;
+        const loadStatesResult = this.$scope.loadCitiesResult;
         return loadStatesResult && loadStatesResult.items && (loadStatesResult.items.length > 0);
     };
 
     protected shouldControlsAvailable = (): boolean => {
-        return this.$scope.loadStates;
+        return this.$scope.loadCities;
     };
 
-    protected ngOnStateMasterPageLoaded = (): void => {
+    protected ngOnCityMasterPageLoaded = (): void => {
 
-        this.$scope.loadStates = true;
+        this.$scope.loadCities = true;
 
         // Display loading ui.
         this.$messageBus
             .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
 
-        this.$states
-            .loadStatesAsync(this.$scope.loadStatesConditions)
-            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
-                this.$scope.loadStatesResult = loadStatesResult;
+        this.$cities
+            .loadCitiesAsync(this.$scope.loadCitiesConditions)
+            .then((loadStatesResult: SearchResultViewModel<CityViewModel>) => {
+                this.$scope.loadCitiesResult = loadStatesResult;
             })
             .finally(() => {
-                this.$scope.loadStates = false;
+                this.$scope.loadCities = false;
                 this.$messageBus
                     .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
     };
 
     /*
-    * Called when add state is clicked.
+    * Called when add faq is clicked.
     * */
-    protected clickAddState = (): void => {
+    protected clickAddCity = (): void => {
 
         const modalResult = this.$uibModal
             .open({
-                component: 'stateDetail',
+                component: 'cityDetail',
                 size: 'lg',
                 backdrop: 'static'
             }).result;
 
         modalResult
-            .then((model: AddStateViewModel) => {
+            .then((model: AddCityViewModel) => {
                 // Display loading ui.
                 this.$messageBus
                     .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
-                return this.$states.addStateAsync(model);
+                return this.$cities.addCityAsync(model);
             })
             .then(() => {
-                const message = this.$translate.instant('MSG_ADDED_STATE_SUCCESSFULLY');
+                const message = this.$translate.instant('MSG_ADDED_CITY_SUCCESSFULLY');
 
-                // Reload states.
-                return this.loadStatesAsync(this.$scope.loadStatesConditions);
+                // Reload faqs.
+                return this.loadCitiesAsync(this.$scope.loadCitiesConditions);
             })
-            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
-                this.$scope.loadStatesResult = loadStatesResult;
+            .then((loadCitiesResult: SearchResultViewModel<CityViewModel>) => {
+                this.$scope.loadCitiesResult = loadCitiesResult;
             })
             .finally(() => {
                 this.$messageBus
@@ -122,7 +126,7 @@ export class StateMasterPageController implements IController {
             });
     };
 
-    protected clickDeleteState = (stateId: string): void => {
+    protected clickDeleteCity = (stateId: string): void => {
 
         // Display loading ui.
         this.$messageBus
@@ -130,11 +134,11 @@ export class StateMasterPageController implements IController {
 
         this.$states.deleteStateAsync(stateId)
             .then(() => {
-                // Reload states.
-                return this.loadStatesAsync(this.$scope.loadStatesConditions);
+                // Reload faqs.
+                return this.loadCitiesAsync(this.$scope.loadCitiesConditions);
             })
-            .then((loadCitiesResult: SearchResultViewModel<StateViewModel>) => {
-                this.$scope.loadStatesResult = loadCitiesResult;
+            .then((loadCitiesResult: SearchResultViewModel<CityViewModel>) => {
+                this.$scope.loadCitiesResult = loadCitiesResult;
             })
             .finally(() => {
                 this.$messageBus
@@ -142,17 +146,17 @@ export class StateMasterPageController implements IController {
             });
     };
 
-    protected clickEditState = (state: StateViewModel): void => {
+    protected clickEditState = (city: CityViewModel): void => {
 
         const modalResult = this.$uibModal
             .open({
-                component: 'stateDetail',
+                component: 'cityDetail',
                 size: 'lg',
                 backdrop: 'static',
                 resolve: {
-                    state: () => {
+                    city: () => {
                         return {
-                            ...state
+                            ...city
                         };
                     }
                 }
@@ -166,23 +170,34 @@ export class StateMasterPageController implements IController {
                 return this.$states.editStateAsync(model.id, model);
             })
             .then(() => {
-                const message = this.$translate.instant('MSG_ADDED_STATE_SUCCESSFULLY');
+                const message = this.$translate.instant('MSG_ADDED_CITY_SUCCESSFULLY');
 
-                // Reload states.
-                return this.loadStatesAsync(this.$scope.loadStatesConditions);
+                // Reload faqs.
+                return this.loadCitiesAsync(this.$scope.loadCitiesConditions);
             })
-            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
-                this.$scope.loadStatesResult = loadStatesResult;
+            .then((loadCitiesResult: SearchResultViewModel<CityViewModel>) => {
+                this.$scope.loadCitiesResult = loadCitiesResult;
             })
             .finally(() => {
                 this.$messageBus
                     .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
-            })
+            });
     };
 
-    protected loadStatesAsync = (conditions: LoadStatesViewModel): IPromise<SearchResultViewModel<StateViewModel>> => {
-        return this.$states
-            .loadStatesAsync(conditions);
+    protected _clickOpenCitiesFinderModal = (): void => {
+
+        const modalResult = this.$uibModal
+            .open({
+                component: 'cityFilter',
+                size: 'md',
+                backdrop: 'static'
+            }).result;
+
+    };
+
+    protected loadCitiesAsync = (conditions: LoadCitiesViewModel): IPromise<SearchResultViewModel<CityViewModel>> => {
+        return this.$cities
+            .loadCitiesAsync(conditions);
     };
 
     //#endregion

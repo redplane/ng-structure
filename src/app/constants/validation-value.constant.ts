@@ -4,6 +4,8 @@ export class ValidationValueConstant {
 
     public static maxRecordsPerSearchPage = 50;
 
+    public static maxTypeaheadPerSearch = 5;
+
     //#endregion
 
 }

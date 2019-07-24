@@ -10,6 +10,10 @@ export class ControllerNamesConstant {
 
     public static stateDetailControllerName = 'stateDetailController';
 
+    public static cityMasterPageControllerName = 'cityMasterPageController';
+
+    public static cityDetailControllerName = 'cityDetailController';
+
     //#endregion
 
 }

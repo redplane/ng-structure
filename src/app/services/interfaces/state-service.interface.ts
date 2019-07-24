@@ -9,29 +9,25 @@ export interface IStateService {
 
     //#region Methods
 
-    //#region Methods
-
     /*
-    * Load FAQs asynchronously.
+    * Load states asynchronously.
     * */
     loadStatesAsync(condition: LoadStatesViewModel): IPromise<SearchResultViewModel<StateViewModel>>;
 
     /*
-    * Add faq into system asynchronously.
+    * Add state into system asynchronously.
     * */
     addStateAsync(model: AddStateViewModel): IPromise<StateViewModel>;
 
     /*
-    * Delete faq by id.
+    * Delete state by id.
     * */
     deleteStateAsync(stateId: string): IPromise<void>;
 
     /*
-    * Edit faq by id.
+    * Edit state by id.
     * */
     editStateAsync(stateId: string, model: EditStateViewModel): IPromise<StateViewModel>;
 
-
     //#endregion
-
 }
