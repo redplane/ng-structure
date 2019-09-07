@@ -15,6 +15,11 @@ export interface IStateService {
     loadStatesAsync(condition: LoadStatesViewModel): IPromise<SearchResultViewModel<StateViewModel>>;
 
     /*
+    * Load whole states asynchronously.
+    * */
+    loadWholeStatesAsync(): IPromise<StateViewModel[]>;
+
+    /*
     * Add state into system asynchronously.
     * */
     addStateAsync(model: AddStateViewModel): IPromise<StateViewModel>;

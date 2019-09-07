@@ -40,6 +40,21 @@
             </div>
         </div>
 
+        <!--Availability-->
+        <div class="row">
+            <div class="col-12">
+                <b>{{'TITLE_AVAILABILITY' | translate}}</b>
+                <div class="form-group">
+
+                    <select class="form-control"
+                            ng-model="cityModel.availability"
+                            ng-options="availability.value as availability.key for availability in availabilities">
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="card-footer">
         <div class="row">

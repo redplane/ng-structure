@@ -5,12 +5,8 @@ import {CityViewModel} from "../../../view-models/city/city.view-model";
 import {AddCityViewModel} from "../../../view-models/city/add-city.view-model";
 import {EditCityViewModel} from "../../../view-models/city/edit-city.view-model";
 import {CityDetailFormViewModel} from "../../../view-models/city/city-detail-form.view-model";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
-import {IStateService} from "../../../services/interfaces/state-service.interface";
-import {LoadStatesViewModel} from "../../../view-models/state/load-states.view-model";
-import {PagerViewModel} from "../../../view-models/pager.view-model";
-import {ValidationValueConstant} from "../../../constants/validation-value.constant";
-import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
+import {KeyValueModel} from "../../../models/key-value.model";
+import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
 
 /* @ngInject */
 export class CityDetailController implements IController {
@@ -20,15 +16,22 @@ export class CityDetailController implements IController {
     /*
     * Initialize controller with injectors.
     * */
-    public constructor(protected $scope: ICityDetailScope,
-                       protected $states: IStateService) {
+    public constructor(protected $scope: ICityDetailScope) {
 
         this.$scope.cityModel = new CityViewModel(null);
+        this.$scope.availableStates = this.$scope.$resolve.states;
+
+        const availabilities = new Array<KeyValueModel<MasterItemAvailabilities>>();
+        availabilities.push(new KeyValueModel<MasterItemAvailabilities>('Available', MasterItemAvailabilities.available));
+        availabilities.push(new KeyValueModel<MasterItemAvailabilities>('Unavailable', MasterItemAvailabilities.unavailable));
+        this.$scope.availabilities = availabilities;
 
         const city = this.$scope.$resolve.city;
         if (city) {
             this.$scope.inEditMode = true;
-            this.$scope.cityModel = <CityViewModel>city;
+            this.$scope.cityModel = <CityViewModel>{
+                ...city
+            };
             this.$scope.originalCityModel = <CityViewModel>{
                 ...city
             }
@@ -74,27 +77,10 @@ export class CityDetailController implements IController {
         this.$scope.$close(editCityModel);
     };
 
-    private _loadAvailableStatesAsync = (): StateViewModel[] | IPromise<StateViewModel[]> => {
-
-        // TODO: Load state by keyword.
-        const loadStatesCondition = new LoadStatesViewModel();
-        const pager = new PagerViewModel();
-        pager.page = 1;
-        pager.records = ValidationValueConstant.maxRecordsPerSearchPage;
-        loadStatesCondition.pager = pager;
-
-        return this.$states.loadStatesAsync(loadStatesCondition)
-            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
-                return loadStatesResult.items;
-            });
-
-    };
-
     /*
     * Called when component is initialized.
     * */
     public $onInit(): void {
-        this._loadAvailableStatesAsync()
     }
 
 

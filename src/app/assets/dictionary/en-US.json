@@ -38,6 +38,7 @@
   "TITLE_CITY_NAME": "City name",
   "TITLE_LAST_MODIFIED_TIME": "Last modified time",
   "TITLE_CITY": "City",
+  "TITLE_AVAILABILITY": "Availability",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

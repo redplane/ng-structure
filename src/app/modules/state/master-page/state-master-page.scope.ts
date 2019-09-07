@@ -42,11 +42,6 @@ export interface IStateMasterPageScope {
     shouldControlsAvailable: () => boolean;
 
     /*
-    * Called when state master page is loaded.
-    * */
-    ngOnStateMasterPageLoaded: () => void;
-
-    /*
     * Add state.
     * */
     clickAddState: () => void;
@@ -60,6 +55,11 @@ export interface IStateMasterPageScope {
     * Raised when edit state is clicked.
     * */
     clickEditState: (state: StateViewModel) => void;
+
+    /*
+    * Click reload cities.
+    * */
+    clickReloadStates: (page: number) => void;
 
     //#endregion
 }

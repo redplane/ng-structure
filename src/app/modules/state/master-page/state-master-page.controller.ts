@@ -14,6 +14,7 @@ import {IStateService} from "../../../services/interfaces/state-service.interfac
 import {AddStateViewModel} from "../../../view-models/state/add-state.view-model";
 import {EditStateViewModel} from "../../../view-models/state/edit-state.view-model";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
+import {CityViewModel} from "../../../view-models/city/city.view-model";
 
 /* @ngInject */
 export class StateMasterPageController implements IController {
@@ -47,7 +48,6 @@ export class StateMasterPageController implements IController {
         // Methods binding.
         this.$scope.shouldStatesDisplayed = this.shouldStatesDisplayed;
         this.$scope.shouldControlsAvailable = this.shouldControlsAvailable;
-        this.$scope.ngOnStateMasterPageLoaded = this.ngOnStateMasterPageLoaded;
         this.$scope.clickAddState = this.clickAddState;
         this.$scope.clickDeleteState = this.clickDeleteState;
         this.$scope.clickEditState = this.clickEditState;
@@ -59,33 +59,26 @@ export class StateMasterPageController implements IController {
 
     //#region Methods
 
+    /*
+    * Called when controller initialized.
+    * */
+    public $onInit(): void {
+        this.clickReloadStates(1)
+    }
+
+    /*
+    * Whether states should be displayed or not.
+    * */
     protected shouldStatesDisplayed = (): boolean => {
         const loadStatesResult = this.$scope.loadStatesResult;
         return loadStatesResult && loadStatesResult.items && (loadStatesResult.items.length > 0);
     };
 
+    /*
+    * Whether controls should be available or not.
+    * */
     protected shouldControlsAvailable = (): boolean => {
         return this.$scope.loadStates;
-    };
-
-    protected ngOnStateMasterPageLoaded = (): void => {
-
-        this.$scope.loadStates = true;
-
-        // Display loading ui.
-        this.$messageBus
-            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
-
-        this.$states
-            .loadStatesAsync(this.$scope.loadStatesConditions)
-            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
-                this.$scope.loadStatesResult = loadStatesResult;
-            })
-            .finally(() => {
-                this.$scope.loadStates = false;
-                this.$messageBus
-                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
-            });
     };
 
     /*
@@ -178,6 +171,31 @@ export class StateMasterPageController implements IController {
                 this.$messageBus
                     .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             })
+    };
+
+    /*
+    * Called when reload cities is clicked.
+    * */
+    protected clickReloadStates = (page: number): void => {
+        // Display loading ui.
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        // Page number is not defined.
+        if (page > 0) {
+            this.$scope.loadStatesConditions.pager.page = page;
+        }
+
+        // Reload cities using specific conditions.
+        this.$states
+            .loadStatesAsync(this.$scope.loadStatesConditions)
+            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
+                this.$scope.loadStatesResult = loadStatesResult
+            })
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+            });
     };
 
     protected loadStatesAsync = (conditions: LoadStatesViewModel): IPromise<SearchResultViewModel<StateViewModel>> => {

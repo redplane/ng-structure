@@ -3,10 +3,21 @@ import {MasterItemAvailabilities} from "../../../enums/master-item-availabilitie
 import {CityViewModel} from "../../../view-models/city/city.view-model";
 import {LoadCitiesViewModel} from "../../../view-models/city/load-cities.view-model";
 import {IScope} from "angular";
+import {StateViewModel} from "../../../view-models/state/state-view.model";
 
-export interface ICityMasterPageScope extends IScope{
+export interface ICityMasterPageScope extends IScope {
 
     //#region Properties
+
+    /*
+    * Id to state mapping.
+    * */
+    idToState: { [id: string]: StateViewModel };
+
+    /*
+    * Loaded states.
+    * */
+    states: StateViewModel[];
 
     /*
     * Result of loading cities.
@@ -43,11 +54,6 @@ export interface ICityMasterPageScope extends IScope{
     shouldControlsAvailable: () => boolean;
 
     /*
-    * Called when city master page is loaded.
-    * */
-    ngOnCityMasterPageLoaded: () => void;
-
-    /*
     * Add city.
     * */
     clickAddCity: () => void;
@@ -62,7 +68,15 @@ export interface ICityMasterPageScope extends IScope{
     * */
     clickEditCity: (city: CityViewModel) => void;
 
+    /*
+    * Click open finder modal.
+    * */
     clickOpenCitiesFinderModal: () => void;
+
+    /*
+    * Click reload cities.
+    * */
+    clickReloadCities: (page: number) => void;
 
     //#endregion
 }

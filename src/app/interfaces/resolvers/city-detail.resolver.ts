@@ -1,11 +1,13 @@
 import {CityViewModel} from "../../view-models/city/city.view-model";
-import {IPromise} from "angular";
+import {StateViewModel} from "../../view-models/state/state-view.model";
 
 export interface ICityDetailResolver {
 
     //#region Properties
 
-    city: CityViewModel | IPromise<CityViewModel>;
+    city: CityViewModel;
+
+    states: StateViewModel[];
 
     //#endregion
 }

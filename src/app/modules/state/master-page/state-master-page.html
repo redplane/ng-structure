@@ -1,20 +1,3 @@
-<div class="card" ng-init="ngOnStateMasterPageLoaded()">
-    <div class="card-header">
-        <h3 class="card-title">{{'TITLE_STATE_FILTER' | translate}}</h3>
-    </div>
-    <div class="card-body">
-
-    </div>
-    <div class="card-footer">
-        <div class="text-right">
-            <button class="btn btn-outline-primary"
-                    ng-click="ngOnStateMasterPageLoaded()">
-                {{'TITLE_RELOAD' | translate}}
-            </button>
-        </div>
-    </div>
-</div>
-
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -93,11 +76,18 @@
             </div>
         </div>
     </div>
-    <div class="card-footer">
-        <div class="text-right">
-            <button class="btn btn-primary" ng-click="clickAddState()">
-                {{'TITLE_ADD' | translate}}
-            </button>
-        </div>
+</div>
+
+<div class="toolbar right bottom">
+    <div class="text-right">
+        <button class="btn btn-primary"
+                ng-click="clickAddState()">
+            <span class="fa fa-plus"></span>
+        </button>
+
+        <button class="btn btn-outline-primary"
+                ng-click="clickReloadStates(1)">
+            <span class="fa fa-refresh"></span>
+        </button>
     </div>
 </div>

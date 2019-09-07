@@ -9,10 +9,10 @@
         <div class="col-md-12">
             <div class="form-group">
                 <b>{{'TITLE_STATE_NAME' | translate}}</b>
-                <input type="text"
-                       ng-model="asyncSelected"
-                       uib-typeahead="address for address in getLocation($viewValue)"
-                       class="form-control">
+                <select class="form-control"
+                        ng-options="availableState.id as availableState.name for availableState in availableStates"
+                        ng-model="stateId">
+                </select>
             </div>
         </div>
     </div>
@@ -20,9 +20,13 @@
 </div>
 <div class="card-footer">
     <div class="text-right">
-        <button class="btn btn-outline-primary"
-                ng-click="ngOnCityMasterPageLoaded()">
+        <button class="btn btn-outline-primary">
             {{'TITLE_RELOAD' | translate}}
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                ng-click="closeModal()">
+            {{'TITLE_CANCEL' | translate}}
         </button>
     </div>
 </div>

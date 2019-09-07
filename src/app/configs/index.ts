@@ -2,6 +2,7 @@ import {IModule} from "angular";
 import {OcLazyLoadConfig} from './oc-lazy-load.config';
 import {AngularTranslateConfig} from "./angular-translate.config";
 import {LocalForageConfig} from "./local-forage.config";
+import {PaginationConfig} from "./pagination.config";
 
 export class ConfigModule {
 
@@ -17,6 +18,9 @@ export class ConfigModule {
 
         // Local forage
         new LocalForageConfig(ngModule);
+
+        // Pagination config.
+        new PaginationConfig(ngModule);
     }
 
     //#endregion

@@ -1,5 +1,4 @@
-<div class="card"
-     ng-init="ngOnCityMasterPageLoaded()">
+<div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-12">
@@ -7,6 +6,7 @@
                     <thead>
                     <tr>
                         <th class="text-center">{{'TITLE_NAME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_STATE_NAME' | translate}}</th>
                         <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
                         <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
                         <th class="text-center"></th>
@@ -22,6 +22,14 @@
                             </b>
                             <del ng-switch-default>
                                 {{item.name}}
+                            </del>
+                        </td>
+                        <td ng-switch="item.availability == masterItemAvailabilities.available">
+                            <b ng-switch-when="true">
+                                {{idToState[item.stateId].name}}
+                            </b>
+                            <del ng-switch-default>
+                                {{idToState[item.stateId].name}}
                             </del>
                         </td>
                         <td>
@@ -64,7 +72,7 @@
                                     items-per-page="loadCitiesConditions.pager.records"
                                     total-items="loadCitiesResult.pager.totalRecords"
                                     ng-model="loadCitiesConditions.pager.page"
-                                    ng-change="ngOnCityMasterPageLoaded()"></ul>
+                                    ng-change="clickReloadCities()"></ul>
                             </div>
                         </td>
                     </tr>
@@ -87,7 +95,7 @@
         </button>
 
         <button class="btn btn-outline-secondary"
-                ng-click="ngOnCityMasterPageLoaded()">
+                ng-click="clickReloadCities(1)">
             <i class="fa fa-refresh"></i>
         </button>
     </div>
