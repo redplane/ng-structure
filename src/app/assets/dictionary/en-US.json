@@ -38,6 +38,8 @@
   "TITLE_CITY_NAME": "City name",
   "TITLE_LAST_MODIFIED_TIME": "Last modified time",
   "TITLE_CITY": "City",
+  "TITLE_CITIES": "Cities",
+  "TITLE_USERS": "Users",
   "TITLE_AVAILABILITY": "Availability",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
@@ -46,6 +48,7 @@
   "MSG_ADDED_FAQ_SUCCESSFULLY": "FAQ has been added successfully.",
   "MSG_ADDED_STATE_SUCCESSFULLY": "State has been added successfully.",
   "MSG_ADDED_CITY_SUCCESSFULLY": "City has been added successfully.",
-  "MSG_PLEASE_SELECT_STATE": "Please select a state"
+  "MSG_PLEASE_SELECT_STATE": "Please select a state",
+  "MSG_NO_USER_AVAILABLE": "No user available"
 
 }

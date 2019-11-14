@@ -28,4 +28,8 @@ export class UrlStatesConstant {
 
     public static cityMasterPageModuleUrl = '/city';
 
+    public static userManagementModuleName = 'user';
+
+    public static userManagementModuleUrl = '/user'
+
 }

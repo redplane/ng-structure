@@ -14,6 +14,8 @@ export class ControllerNamesConstant {
 
     public static cityDetailControllerName = 'cityDetailController';
 
+    public static userManagementController = 'userManagementController';
+
     //#endregion
 
 }

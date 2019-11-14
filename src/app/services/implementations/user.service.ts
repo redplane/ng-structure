@@ -1,8 +1,11 @@
 import {IUserService} from "../interfaces/user-service.interface";
 import {LoginResultViewModel} from "../../view-models/user/login-result.view-model";
-import {IHttpParamSerializer, IHttpResponse, IHttpService, IPromise} from "angular";
+import {IHttpParamSerializer, IHttpPromise, IHttpResponse, IHttpService, IPromise} from "angular";
 import {IAppSettings} from "../../interfaces/app-setting.interface";
 import {ProfileViewModel} from "../../view-models/user/profile.view-model";
+import {SearchResultViewModel} from "../../view-models/search-result.view-model";
+import {UserViewModel} from "../../view-models/user/user.view-model";
+import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
 
 export class UserService implements IUserService {
 
@@ -52,6 +55,14 @@ export class UserService implements IUserService {
         return this.$http
             .get<ProfileViewModel>(fullUrl)
             .then((loadProfileResponse: IHttpResponse<ProfileViewModel>) => loadProfileResponse.data);
+    }
+
+
+    public loadUsersAsync(conditions: LoadUserViewModel): IPromise<SearchResultViewModel<UserViewModel>> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/user/search`;
+        return this.$http
+            .post<SearchResultViewModel<UserViewModel>>(fullUrl, conditions)
+            .then(loadUsersResponse => loadUsersResponse.data);
     }
 
     //#endregion
