@@ -3,6 +3,7 @@ import {DetailedUserViewModel} from "../../../../view-models/user/detailed-user.
 import {IUserDetailScope} from "./user-detail.scope";
 import {IUserService} from "../../../../services/interfaces/user-service.interface";
 import {UserRoles} from "../../../../enums/user-roles.enum";
+import {DetailedUserViewConstant} from "../../../../constants/detailed-user-view.constant";
 
 /* @ngInject */
 export class UserDetailController implements IController {
@@ -14,6 +15,7 @@ export class UserDetailController implements IController {
                        protected $users: IUserService) {
         $scope.detailedUser = detailedUser;
         $scope.loadUserPhoto = $users.loadUserPhoto;
+        $scope.loadDetailedUserViews = () => DetailedUserViewConstant;
 
         $scope.shouldVendorAreaDisplayed = this._shouldVendorAreaDisplayed;
     }

@@ -1,7 +1,9 @@
 import {DetailedUserViewModel} from "../../../../view-models/user/detailed-user.view-model";
 import {UserViewModel} from "../../../../view-models/user/user.view-model";
+import {DetailedUserViewConstant} from "../../../../constants/detailed-user-view.constant";
+import {IScope} from "angular";
 
-export interface IUserDetailScope {
+export interface IUserDetailScope extends IScope {
 
     //#region Properties
 
@@ -15,6 +17,8 @@ export interface IUserDetailScope {
 
     // Whether vendor area be displayed or not.
     shouldVendorAreaDisplayed(): boolean;
+
+    loadDetailedUserViews(): DetailedUserViewConstant;
 
     //#endregion
 

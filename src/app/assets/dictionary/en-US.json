@@ -47,6 +47,8 @@
   "TITLE_BANK": "Bank",
   "TITLE_VENDOR": "Vendor",
   "TITLE_ASSIGNED_LOCATIONS": "Assigned locations",
+  "TITLE_ADDRESS": "Address",
+  "TITLE_VENDOR_NAME": "Vendor name",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
