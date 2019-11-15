@@ -8,6 +8,8 @@ export class ValidationValueConstant {
 
     public static maxSupportedSearchRecords = 150;
 
+    public static maxUserSearchRecords = 20;
+
     //#endregion
 
 }

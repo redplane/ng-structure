@@ -14,14 +14,15 @@ export class UserManagementModule {
             .state(UrlStatesConstant.userManagementModuleName, {
                 url: UrlStatesConstant.userManagementModuleUrl,
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
-                controller: ControllerNamesConstant.userManagementController,
+                controller: ControllerNamesConstant.userManagementControllerName,
                 templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
-
-
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./user-management.html')));
+                        require.ensure([], () => {
+                            require('./user-management.scss');
+                            resolve(require('./user-management.html'));
+                        });
                     });
                 }],
                 resolve: {
@@ -38,7 +39,7 @@ export class UserManagementModule {
                                 const {UserManagementController} = require('./user-management.controller');
 
                                 // Import controller file.
-                                ngModule.controller(ControllerNamesConstant.userManagementController, UserManagementController);
+                                ngModule.controller(ControllerNamesConstant.userManagementControllerName, UserManagementController);
                                 $ocLazyLoad.inject(ngModule.name);
                                 resolve(ngModule.controller);
                             });

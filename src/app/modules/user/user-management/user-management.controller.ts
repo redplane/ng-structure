@@ -4,6 +4,15 @@ import {IUserService} from "../../../services/interfaces/user-service.interface"
 import {IUserManagementScope} from "./user-management.scope";
 import {UserViewModel} from "../../../view-models/user/user.view-model";
 import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
+import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
+import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
+import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-bus-service.interface";
+import {LoadUserViewModel} from "../../../view-models/user/load-user.view-model";
+import {PagerViewModel} from "../../../view-models/pager.view-model";
+import {ValidationValueConstant} from "../../../constants/validation-value.constant";
+import {UrlStatesConstant} from "../../../constants/url-states.constant";
+import {DetailedUserStateParams} from "../../../models/route-params/detailed-user-state-params";
 
 /* @ngInject */
 export class UserManagementController implements IController {
@@ -13,10 +22,18 @@ export class UserManagementController implements IController {
     public constructor(protected $state: StateService,
                        protected $users: IUserService,
                        protected $localForage: angular.localForage.ILocalForageService,
-                       protected $scope: IUserManagementScope) {
+                       protected $scope: IUserManagementScope,
+                       protected $messageBus: INgRxMessageBusService) {
+
+        const loadUsersPager = new PagerViewModel();
+        loadUsersPager.page = 1;
+        loadUsersPager.records = ValidationValueConstant.maxUserSearchRecords;
+
+        $scope.loadUsersConditions = new LoadUserViewModel(loadUsersPager);
         $scope.loadUsersResult = new SearchResultViewModel<UserViewModel>();
         $scope.shouldUsersDisplayed = this._shouldUsersDisplayed;
-        $scope.clickLoadUsers = this._clickLoadUsers;
+        $scope.loadUserPhoto = $users.loadUserPhoto;
+        $scope.clickViewUser = this._clickViewUser;
     }
 
     //#endregion
@@ -24,8 +41,22 @@ export class UserManagementController implements IController {
     //#region Methods
 
     // Called when login is clicked.
-    private _loadUsersAsync = (): void => {
-    };
+    public $onInit(): void {
+
+        // Display loading ui.
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        this.$users
+            .loadUsersAsync(this.$scope.loadUsersConditions)
+            .then((loadUsersResult: SearchResultViewModel<UserViewModel>) => {
+                this.$scope.loadUsersResult = loadUsersResult
+            })
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+            });
+    }
 
     // Whether users should be displayed.
     private _shouldUsersDisplayed = (): boolean => {
@@ -36,15 +67,24 @@ export class UserManagementController implements IController {
         return true;
     };
 
-    private _clickLoadUsers = (): void => {
+    private _clickViewUser = (user: UserViewModel) => {
+        if (!user) {
+            console.error('No user is found');
+            return;
+        }
 
-        this.$users
-            .loadUsersAsync({})
-            .then((loadUsersResult: SearchResultViewModel<UserViewModel>) => {
-                this.$scope.loadUsersResult = loadUsersResult
+        // Display loading ui.
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        const routeParams = new DetailedUserStateParams(user.id);
+        this.$state
+            .go(UrlStatesConstant.userDetailModuleName, routeParams)
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
-
-    }
+    };
 
     //#endregion
 }

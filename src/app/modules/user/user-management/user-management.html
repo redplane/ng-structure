@@ -1,35 +1,57 @@
-<div class="card card-default">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <ul>
-                        <li>Username</li>
-                        <li>Email</li>
-                        <li>Full name</li>
-                        <li>Authentication provider</li>
-                        <li>Phone no</li>
-                        <li>Roles</li>
-                        <li>Address</li>
-                    </ul>
+<!--Users list-->
+<div class="user-management">
+    <div ng-if="shouldUsersDisplayed()">
+        <div class="card card-default"
+             ng-repeat="user in loadUsersResult.items">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-6 text-center">
+                        <div class="form-group">
+                            <img class="img-fluid" ng-src="{{loadUserPhoto(user)}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-xs-6">
+                        <div class="form-group">
+                            <table class="table table-condensed table-striped">
+                                <tbody>
+                                <tr>
+                                    <th>{{'TITLE_USERNAME' | translate}}</th>
+                                    <td>{{user.username}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'TITLE_EMAIL_ADDRESS' | translate}}</th>
+                                    <td>{{user.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'TITLE_FULL_NAME' | translate}}</th>
+                                    <td>{{user.fullName}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'TITLE_PHONE_NUMBER' | translate}}</th>
+                                    <td>{{user.phoneNo}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="pull-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-danger">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary">
-                            <i class="fa fa-upload"></i>
-                        </button>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pull-right">
+                            <div class="btn-group"
+                                 role="group"
+                                 aria-label="{{user.username}}">
+                                <button type="button"
+                                        class="btn btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-outline-primary" ng-click="clickViewUser(user)">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

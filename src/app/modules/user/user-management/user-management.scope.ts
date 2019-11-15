@@ -1,7 +1,9 @@
 import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
 import {UserViewModel} from "../../../view-models/user/user.view-model";
+import {IScope} from "angular";
+import {LoadUserViewModel} from "../../../view-models/user/load-user.view-model";
 
-export interface IUserManagementScope {
+export interface IUserManagementScope extends IScope {
 
     //#region Properties
 
@@ -10,6 +12,9 @@ export interface IUserManagementScope {
     * */
     loadUsersResult: SearchResultViewModel<UserViewModel>;
 
+    // Condition to load users.
+    loadUsersConditions: LoadUserViewModel;
+
     //#endregion
 
     //#region Methods
@@ -17,6 +22,10 @@ export interface IUserManagementScope {
     shouldUsersDisplayed(): boolean;
 
     clickLoadUsers(): void;
+
+    loadUserPhoto(user: UserViewModel): string;
+    
+    clickViewUser(user: UserViewModel): void;
 
     //#endregion
 }

@@ -7,5 +7,4 @@ export class PagerViewModel {
     public records: number;
 
     //#endregion
-
 }

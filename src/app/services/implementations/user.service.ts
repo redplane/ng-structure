@@ -6,6 +6,8 @@ import {ProfileViewModel} from "../../view-models/user/profile.view-model";
 import {SearchResultViewModel} from "../../view-models/search-result.view-model";
 import {UserViewModel} from "../../view-models/user/user.view-model";
 import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
+import {DetailedUserViewModel} from "../../view-models/user/detailed-user.view-model";
+import {UserRoles} from "../../enums/user-roles.enum";
 
 export class UserService implements IUserService {
 
@@ -63,6 +65,34 @@ export class UserService implements IUserService {
         return this.$http
             .post<SearchResultViewModel<UserViewModel>>(fullUrl, conditions)
             .then(loadUsersResponse => loadUsersResponse.data);
+    }
+
+    public loadDetailedUserAsync(id: string): IPromise<DetailedUserViewModel> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/user/profile?id=${id}`;
+        return this.$http
+            .get<DetailedUserViewModel>(fullUrl)
+            .then(loadDetailedUserResponse => loadDetailedUserResponse.data);
+    }
+
+    public loadUserPhoto(user: UserViewModel): string {
+        if (!user || !user.photo) {
+            return '/assets/images/avatar.png';
+        }
+
+        return user.photo;
+    }
+
+    public hasRoles(availableRoles: UserRoles[], roles: UserRoles[]): boolean {
+        if (!availableRoles) {
+            return false;
+        }
+
+        if (!roles) {
+            return false;
+        }
+
+        return availableRoles
+            .findIndex(role => roles.indexOf(role) !== -1) !== -1;
     }
 
     //#endregion

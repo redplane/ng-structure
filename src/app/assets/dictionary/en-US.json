@@ -41,6 +41,12 @@
   "TITLE_CITIES": "Cities",
   "TITLE_USERS": "Users",
   "TITLE_AVAILABILITY": "Availability",
+  "TITLE_EMAIL_ADDRESS": "Email address",
+  "TITLE_PHONE_NUMBER": "Phone number",
+  "TITLE_FULL_NAME": "Full name",
+  "TITLE_BANK": "Bank",
+  "TITLE_VENDOR": "Vendor",
+  "TITLE_ASSIGNED_LOCATIONS": "Assigned locations",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
