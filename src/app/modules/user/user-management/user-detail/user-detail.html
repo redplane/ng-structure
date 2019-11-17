@@ -35,35 +35,38 @@
 </div>
 
 <div class="card card-accent-light"
-     ng-if="shouldVendorAreaDisplayed()">
+     ng-if="shouldFoodVendorAreaDisplayed()">
     <div class="card-body">
         <div class="form-group">
             <nav>
                 <div class="nav nav-tabs"
                      role="tablist">
-                    <a class="nav-item nav-link active"
-                       data-toggle="tab"
-                       href="#nav-home"
-                       role="tab"
-                       aria-controls="nav-home"
-                       aria-selected="true">{{'TITLE_VENDOR' | translate}}</a>
+
+                    <!--Vendor-->
                     <a class="nav-item nav-link"
                        data-toggle="tab"
-                       href="#nav-home"
+                       role="tab"
+                       ui-sref-active="active"
+                       ui-sref="{{urlStateConstants.detailedVendorModuleName}}({id:'{{detailedUser.id}}'})"
+                       aria-controls="nav-home"
+                       aria-selected="true">{{'TITLE_VENDOR' | translate}}</a>
+
+                    <!--Assigned location-->
+                    <a class="nav-item nav-link"
+                       ng-if="shouldAssignedLocationDisplayed()"
+                       data-toggle="tab"
+                       ui-sref="{{urlStateConstants.vendorAssignedLocationModuleName}}({id:'{{detailedUser.id}}'})"
+                       ui-sref-active="active"
                        role="tab"
                        aria-controls="nav-home"
                        aria-selected="true">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</a>
-                    <a class="nav-item nav-link"
-                       data-toggle="tab"
-                       href="#nav-home"
-                       role="tab"
-                       aria-controls="nav-home"
-                       aria-selected="true">{{'TITLE_BANK' | translate}}</a>
                 </div>
             </nav>
         </div>
 
-        <div ui-view="{{loadDetailedUserViews().vendor}}"></div>
+        <div ui-view="{{detailedUserViewConstants.detailedFoodVendor}}"></div>
+
+        <div ui-view="{{detailedUserViewConstants.assignedLocations}}"></div>
     </div>
 </div>
 

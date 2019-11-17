@@ -1,7 +1,7 @@
 import {IController} from "angular";
 import {ILoginScope} from "./login.scope";
 import {StateService} from "@uirouter/core";
-import {IUserService} from "../../../services/interfaces/user-service.interface";
+import {IUsersService} from "../../../services/interfaces/user-service.interface";
 import {BasicLoginViewModel} from "../../../view-models/user/basic-login.view-model";
 import {LoginResultViewModel} from "../../../view-models/user/login-result.view-model";
 import {StorageKeyNameConstant} from "../../../constants/storage-key-name.constant";
@@ -14,7 +14,7 @@ export class LoginController implements IController {
 
     public constructor(protected $scope: ILoginScope,
                        protected $state: StateService,
-                       protected $users: IUserService,
+                       protected $users: IUsersService,
                        protected $localForage: angular.localForage.ILocalForageService) {
 
         // Property initialize.

@@ -1,0 +1,54 @@
+<form name="addEditAssignedLocationForm"
+      class="card card-accent-light mb-0">
+    <div class="card-header">
+        <b>{{'TITLE_PICK_LOCATION' | translate}}</b>
+    </div>
+    <div class="card-body">
+
+        <!--State-->
+        <div class="row">
+            <div class="col-sm-3">
+                <b>{{'TITLE_STATE' | translate}}</b>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <select name="stateId"
+                            class="form-control"
+                            ng-options="availableState.id as availableState.name for availableState in availableStates"
+                            ng-model="selectedStateId"
+                            ng-required="true">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!--City-->
+        <div class="row">
+            <div class="col-sm-3">
+                <b>{{'TITLE_CITY' | translate}}</b>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <select name="cityId"
+                            ng-disabled="shouldCitiesSelectionDisabled()"
+                            class="form-control"
+                            ng-model="selectedCityId"
+                            ng-options="availableCity.id as availableCity.name for availableCity in availableCities"
+                            ng-required="true">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <button class="btn btn-outline-primary"
+                ng-click="clickOk()"
+                ng-disabled="!addEditAssignedLocationForm.$valid">
+            {{'TITLE_OK' | translate}}
+        </button>
+        <button class="btn btn-outline-secondary"
+                ng-click="clickCancel()">
+            {{'TITLE_CANCEL' | translate}}
+        </button>
+    </div>
+</form>

@@ -2,7 +2,7 @@ import {StateProvider} from "@uirouter/angularjs";
 import {UrlStatesConstant} from "../../../constants/url-states.constant";
 import {ICompileService, IQService, module} from 'angular';
 import {ILazyLoad} from "oclazyload";
-import {IUserService} from "../../../services/interfaces/user-service.interface";
+import {IUsersService} from "../../../services/interfaces/user-service.interface";
 
 /* @ngInject */
 export class AuthenticatedLayoutModule {
@@ -54,7 +54,7 @@ export class AuthenticatedLayoutModule {
                         });
                     }],
 
-                    profile: ['$users', ($users: IUserService) => {
+                    profile: ['$users', ($users: IUsersService) => {
                         return $users.loadProfileAsync();
                     }]
                 }

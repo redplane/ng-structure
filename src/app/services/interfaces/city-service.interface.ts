@@ -5,7 +5,7 @@ import {SearchResultViewModel} from "../../view-models/search-result.view-model"
 import {AddCityViewModel} from "../../view-models/city/add-city.view-model";
 import {EditCityViewModel} from "../../view-models/city/edit-city.view-model";
 
-export interface ICityService {
+export interface ICitiesService {
 
     //#region Methods
 
@@ -28,6 +28,9 @@ export interface ICityService {
     * Edit state by id.
     * */
     editCityAsync(stateId: string, model: EditCityViewModel): IPromise<CityViewModel>;
+
+    // Load cities by using ids.
+    loadCitiesByIdsAsync(ids: string[]): IPromise<{[key: string]: CityViewModel}>;
 
     //#endregion
 

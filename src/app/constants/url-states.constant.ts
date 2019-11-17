@@ -32,12 +32,16 @@ export class UrlStatesConstant {
 
     public static userManagementModuleUrl = '/user';
 
-    public static userDetailModuleName = 'user-detail';
+    public static detailedUserModuleName = 'user-detail';
 
-    public static userDetailModuleUrl = '/user/:id';
+    public static detailedUserModuleUrl = '/user/:id';
 
-    public static detailedVendorModuleName = 'detailed-vendor';
+    public static detailedVendorModuleName = 'detailedVendor';
 
     public static detailedVendorModuleUrl = '/user/:id/vendor';
+
+    public static vendorAssignedLocationModuleName = 'vendorAssignedLocation';
+
+    public static vendorAssignedLocationModuleUrl = '/user/:id/assigned-location';
 
 }

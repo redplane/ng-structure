@@ -2,12 +2,17 @@ import {DetailedUserViewModel} from "../../../../view-models/user/detailed-user.
 import {UserViewModel} from "../../../../view-models/user/user.view-model";
 import {DetailedUserViewConstant} from "../../../../constants/detailed-user-view.constant";
 import {IScope} from "angular";
+import {UrlStatesConstant} from "../../../../constants/url-states.constant";
 
 export interface IUserDetailScope extends IScope {
 
     //#region Properties
 
     detailedUser: DetailedUserViewModel;
+
+    urlStateConstants: UrlStatesConstant;
+
+    detailedUserViewConstants: DetailedUserViewConstant;
 
     //#endregion
 
@@ -16,9 +21,10 @@ export interface IUserDetailScope extends IScope {
     loadUserPhoto(detailedUser: UserViewModel): string;
 
     // Whether vendor area be displayed or not.
-    shouldVendorAreaDisplayed(): boolean;
+    shouldFoodVendorAreaDisplayed(): boolean;
 
-    loadDetailedUserViews(): DetailedUserViewConstant;
+    // Whether assigned location be displayed or not.
+    shouldAssignedLocationDisplayed(): boolean;
 
     //#endregion
 

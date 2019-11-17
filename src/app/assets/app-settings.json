@@ -1,3 +1,4 @@
 {
-  "apiEndpoint": "http://localhost:62744"
+  "apiEndpoint": "http://localhost:62744",
+  "gMapUrl": "https://maps.googleapis.com/maps/api/js?key=AIzaSyAkYNhTSu3H0AACIgkf2qpoEOxC0EKGtWA"
 }

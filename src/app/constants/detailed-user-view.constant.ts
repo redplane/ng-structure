@@ -2,9 +2,9 @@ export class DetailedUserViewConstant {
 
     //#region Properties
 
-    public static vendor = 'vendor';
+    public static detailedFoodVendor = 'detailedFoodVendor';
 
-    public static assignedLocations: string = 'assigned-location';
+    public static assignedLocations: string = 'assignedLocation';
 
     //#endregion
 

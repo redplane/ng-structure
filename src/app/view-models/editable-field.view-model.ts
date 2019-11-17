@@ -10,8 +10,9 @@ export class EditableFieldViewModel<T> {
 
     //#region Constructor
 
-    public constructor() {
-        this.hasModified = false;
+    public constructor(value?: T, hasModified?: boolean) {
+        this.value = value;
+        this.hasModified = hasModified;
     }
 
     //#endregion

@@ -49,10 +49,13 @@
   "TITLE_ASSIGNED_LOCATIONS": "Assigned locations",
   "TITLE_ADDRESS": "Address",
   "TITLE_VENDOR_NAME": "Vendor name",
+  "TITLE_PICK_LOCATION": "Pick a location",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
   "MSG_NO_CITY_AVAILABLE": "No city available",
+  "MSG_LOADING_ASSIGNED_LOCATIONS": "Assigned locations are being loaded...",
+  "MSG_NO_ASSIGNED_LOCATIONS_AVAILABLE": "No assigned locations available",
   "MSG_ADDED_FAQ_SUCCESSFULLY": "FAQ has been added successfully.",
   "MSG_ADDED_STATE_SUCCESSFULLY": "State has been added successfully.",
   "MSG_ADDED_CITY_SUCCESSFULLY": "City has been added successfully.",

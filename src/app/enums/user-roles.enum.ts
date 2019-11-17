@@ -1,6 +1,6 @@
 export enum UserRoles {
     admin,
-    foodDeliveryVendor,
     foodVendor,
+    foodDeliveryVendor,
     basic
 }

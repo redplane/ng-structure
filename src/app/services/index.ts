@@ -1,10 +1,11 @@
 import {UiService} from "./implementations/ui.service";
 import {IModule} from "angular";
-import {UserService} from "./implementations/user.service";
+import {UsersService} from "./implementations/users.service";
 import {FaqService} from "./implementations/faq.service";
 import {NgRxMessageBusService} from "./implementations/ngrx-message-bus.service";
-import {StateService} from "./implementations/state.service";
-import {CityService} from "./implementations/city.service";
+import {StatesService} from "./implementations/state.service";
+import {CitiesService} from "./implementations/cities.service";
+import {LocationPickerModalsService} from "./implementations/location-picker-modal/location-picker-modals.service";
 
 /* @ngInject */
 export class ServiceModule {
@@ -13,11 +14,12 @@ export class ServiceModule {
 
     public constructor(ngModule: IModule){
         ngModule.service('$ui', UiService);
-        ngModule.service('$users', UserService);
+        ngModule.service('$users', UsersService);
         ngModule.service('$faqs', FaqService);
-        ngModule.service('$states', StateService);
-        ngModule.service('$cities', CityService);
+        ngModule.service('$states', StatesService);
+        ngModule.service('$cities', CitiesService);
         ngModule.service('$messageBus', () => new NgRxMessageBusService(null));
+        ngModule.service('$locationPickerModals', LocationPickerModalsService);
     }
 
     //#endregion

@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-12">
+
+        <!--Assigned locations-->
+        <div class="form-group">
+            <table class="table table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th class="text-center">{{'TITLE_STATE' | translate}}</th>
+                    <th class="text-center">{{'TITLE_CITY' | translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody ng-if="assignedLocations">
+                <tr ng-if="!loadingAssignedLocations"
+                    ng-repeat="assignedLocation in assignedLocations">
+                    <td class="text-center">
+                        <span ng-if="idToState[assignedLocation.stateId]">
+                            {{idToState[assignedLocation.stateId].name}}
+                        </span>
+                        <span ng-if="!idToState[assignedLocation.stateId]">
+                            {{'MSG_NO_STATE_AVAILABLE' | translate}}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span ng-if="idToCity[assignedLocation.cityId]">
+                            {{idToCity[assignedLocation.cityId].name}}
+                        </span>
+                        <span ng-if="!idToCity[assignedLocation.cityId]">
+                            {{'MSG_NO_CITY_AVAILABLE' | translate}}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <button type="button"
+                                class="btn btn-outline-danger"
+                                ng-click="clickDeleteAssignedLocation(assignedLocation)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr ng-if="loadingAssignedLocations">
+                    <td colspan="3" class="text-center">
+                        <b class="text-info">{{'MSG_LOADING_ASSIGNED_LOCATIONS' | translate}}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody ng-if="!assignedLocations || !assignedLocations.length">
+                <tr>
+                    <td colspan="3" class="text-center">
+                        <b class="text-danger">{{'MSG_NO_ASSIGNED_LOCATIONS_AVAILABLE' | translate}}</b>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <div class="col-12">
+                <div class="pull-right">
+                    <button class="btn btn-outline-info"
+                            ng-disabled="loadingAssignedLocations"
+                            ng-click="clickAddAssignedLocation()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+                    <button class="btn btn-outline-primary"
+                            ng-click="clickUpdateAssignedLocations()">
+                        <i class="fa fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

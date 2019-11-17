@@ -1,4 +1,4 @@
-import {IUserService} from "../interfaces/user-service.interface";
+import {IUsersService} from "../interfaces/user-service.interface";
 import {LoginResultViewModel} from "../../view-models/user/login-result.view-model";
 import {IHttpParamSerializer, IHttpPromise, IHttpResponse, IHttpService, IPromise} from "angular";
 import {IAppSettings} from "../../interfaces/app-setting.interface";
@@ -8,8 +8,10 @@ import {UserViewModel} from "../../view-models/user/user.view-model";
 import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
 import {DetailedUserViewModel} from "../../view-models/user/detailed-user.view-model";
 import {UserRoles} from "../../enums/user-roles.enum";
+import {EditFoodVendorViewModel} from "../../view-models/user/edit-food-vendor.view-model";
+import {IFoodVendor} from "../../interfaces/food-vendor.interface";
 
-export class UserService implements IUserService {
+export class UsersService implements IUsersService {
 
     //#region Constructor
 
@@ -59,7 +61,6 @@ export class UserService implements IUserService {
             .then((loadProfileResponse: IHttpResponse<ProfileViewModel>) => loadProfileResponse.data);
     }
 
-
     public loadUsersAsync(conditions: LoadUserViewModel): IPromise<SearchResultViewModel<UserViewModel>> {
         const fullUrl = `${this.appSettings.apiEndpoint}/api/user/search`;
         return this.$http
@@ -93,6 +94,13 @@ export class UserService implements IUserService {
 
         return availableRoles
             .findIndex(role => roles.indexOf(role) !== -1) !== -1;
+    }
+
+    public editFoodVendorAsync(model: EditFoodVendorViewModel): IPromise<IFoodVendor> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/food-vendor`;
+        return this.$http
+            .put(fullUrl, model)
+            .then(editFoodVendorResponse => <IFoodVendor> editFoodVendorResponse.data);
     }
 
     //#endregion

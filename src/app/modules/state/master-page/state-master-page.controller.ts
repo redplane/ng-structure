@@ -10,7 +10,7 @@ import {MessageEventNameConstant} from "../../../constants/message-event-name.co
 import {IStateMasterPageScope} from "./state-master-page.scope";
 import {LoadStatesViewModel} from "../../../view-models/state/load-states.view-model";
 import {StateViewModel} from "../../../view-models/state/state-view.model";
-import {IStateService} from "../../../services/interfaces/state-service.interface";
+import {IStatesService} from "../../../services/interfaces/state-service.interface";
 import {AddStateViewModel} from "../../../view-models/state/add-state.view-model";
 import {EditStateViewModel} from "../../../view-models/state/edit-state.view-model";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
@@ -32,7 +32,7 @@ export class StateMasterPageController implements IController {
     public constructor(protected $scope: IStateMasterPageScope,
                        protected $uibModal: IModalService,
                        protected $ui: UiService,
-                       protected $states: IStateService,
+                       protected $states: IStatesService,
                        protected $messageBus: INgRxMessageBusService,
                        protected $translate: angular.translate.ITranslateService) {
 

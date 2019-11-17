@@ -1,0 +1,105 @@
+<!--Vendor name-->
+<div class="row">
+    <div class="col-3">
+        <b>{{'TITLE_VENDOR_NAME' | translate}}</b>
+    </div>
+    <div class="col-9">
+        <div class="form-group">
+            <input class="form-control" readonly ng-model="detailedUser.vendor.name">
+        </div>
+    </div>
+</div>
+
+<!--Phone number-->
+<div class="row">
+    <div class="col-3">
+        <b>{{'TITLE_PHONE_NUMBER' | translate}}</b>
+    </div>
+    <div class="col-9">
+        <div class="form-group">
+            <input class="form-control"
+                   readonly
+                   ng-model="detailedUser.vendor.phoneNo">
+        </div>
+    </div>
+</div>
+
+<!--Bank-->
+<div class="row">
+    <div class="col-3">
+        <b>{{'TITLE_BANK' | translate}}</b>
+    </div>
+    <div class="col-9">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-credit-card"></i>
+                    </span>
+                </div>
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.bank.accountNo">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-id-card-o"></i>
+                </span>
+                </div>
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.bank.accountName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-university"></i>
+                    </span>
+                </div>
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.bank.name">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Address-->
+<div class="row">
+    <div class="col-3">
+        <b>{{'TITLE_ADDRESS' | translate}}</b>
+    </div>
+    <div class="col-9">
+        <div class="form-group">
+            <textarea class="form-control"
+                      readonly
+                      ng-value="loadAddressDisplay(detailedUser.vendor.address)"></textarea>
+        </div>
+
+        <div class="form-group"
+             ng-if="detailedUser.vendor.address.coordinate">
+            <div map-lazy-load="https://maps.google.com/maps/api/js"
+                 map-lazy-load-params="{{loadGMapUrl()}}">
+                <ng-map center="{{loadAddressCoordinate(detailedUser.vendor.address.coordinate)}}"
+                        street-view-control="false"
+                        map-type-control="false"
+                        pan-control="false"
+                        scale-control="false"
+                        draggable="false"
+                        zoom="10">
+                    <marker position="{{loadAddressCoordinate(detailedUser.vendor.address.coordinate)}}">
+                    </marker>
+                </ng-map>
+            </div>
+        </div>
+    </div>
+</div>
+

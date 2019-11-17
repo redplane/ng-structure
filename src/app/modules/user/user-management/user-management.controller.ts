@@ -1,6 +1,6 @@
 import {IController} from "angular";
 import {StateService} from "@uirouter/core";
-import {IUserService} from "../../../services/interfaces/user-service.interface";
+import {IUsersService} from "../../../services/interfaces/user-service.interface";
 import {IUserManagementScope} from "./user-management.scope";
 import {UserViewModel} from "../../../view-models/user/user.view-model";
 import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
@@ -20,7 +20,7 @@ export class UserManagementController implements IController {
     //#region Constructor
 
     public constructor(protected $state: StateService,
-                       protected $users: IUserService,
+                       protected $users: IUsersService,
                        protected $localForage: angular.localForage.ILocalForageService,
                        protected $scope: IUserManagementScope,
                        protected $messageBus: INgRxMessageBusService) {
@@ -79,7 +79,7 @@ export class UserManagementController implements IController {
 
         const routeParams = new DetailedUserStateParams(user.id);
         this.$state
-            .go(UrlStatesConstant.userDetailModuleName, routeParams)
+            .go(UrlStatesConstant.detailedUserModuleName, routeParams)
             .finally(() => {
                 this.$messageBus
                     .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);

@@ -7,6 +7,8 @@ export class LoadCitiesViewModel {
 
     public ids: string[];
 
+    public stateIds: string[];
+
     public pager: PagerViewModel;
 
     //#endregion

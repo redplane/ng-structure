@@ -1,4 +1,4 @@
-import {IStateService} from "../interfaces/state-service.interface";
+import {IStatesService} from "../interfaces/state-service.interface";
 import {AddStateViewModel} from "../../view-models/state/add-state.view-model";
 import {StateViewModel} from "../../view-models/state/state-view.model";
 import {EditStateViewModel} from "../../view-models/state/edit-state.view-model";
@@ -10,7 +10,7 @@ import {DeleteStateViewModel} from "../../view-models/state/delete-state.view-mo
 import {PagerViewModel} from "../../view-models/pager.view-model";
 import {ValidationValueConstant} from "../../constants/validation-value.constant";
 
-export class StateService implements IStateService {
+export class StatesService implements IStatesService {
 
     //#region Constructor
 
@@ -127,6 +127,28 @@ export class StateService implements IStateService {
 
                         return states;
                     })
+            });
+    }
+
+    // Load states by ids.
+    public loadStatesByIdsAsync(ids: string[]): IPromise<{[key: string]: StateViewModel}> {
+
+        const loadStatesConditions = new LoadStatesViewModel();
+        loadStatesConditions.ids = ids;
+
+        return this.loadStatesAsync(loadStatesConditions)
+            .then((loadStatesResult: SearchResultViewModel<StateViewModel>) => {
+                const items = loadStatesResult.items;
+                if (!items || !items.length) {
+                    return {};
+                }
+
+                const dictionary: {[key: string]: StateViewModel} = {};
+                for (const item of items) {
+                    dictionary[item.id] = item;
+                }
+
+                return dictionary;
             });
     }
 

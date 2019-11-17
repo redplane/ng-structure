@@ -6,8 +6,11 @@ import {SearchResultViewModel} from "../../view-models/search-result.view-model"
 import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
 import {DetailedUserViewModel} from "../../view-models/user/detailed-user.view-model";
 import {UserRoles} from "../../enums/user-roles.enum";
+import {IRegion} from "../../interfaces/region.interface";
+import {EditFoodVendorViewModel} from "../../view-models/user/edit-food-vendor.view-model";
+import {IFoodVendor} from "../../interfaces/food-vendor.interface";
 
-export interface IUserService {
+export interface IUsersService {
 
     //#region Methods
 
@@ -20,6 +23,11 @@ export interface IUserService {
     * Load profile asynchronously.
     * */
     loadProfileAsync(): IPromise<ProfileViewModel>;
+
+    /*
+    * Update assigned location asynchronously.
+    * */
+    editFoodVendorAsync(model: EditFoodVendorViewModel): IPromise<IFoodVendor>;
 
     /*
     * Load users asynchronously.
