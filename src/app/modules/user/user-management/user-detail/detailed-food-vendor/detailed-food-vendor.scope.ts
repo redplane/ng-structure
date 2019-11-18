@@ -36,5 +36,7 @@ export interface IDetailedFoodVendorScope extends IScope{
 
     shouldCitiesSelectionDisabled(): boolean;
 
+    clickCancelEditFoodVendor(): void;
+
     //#endregion
 }

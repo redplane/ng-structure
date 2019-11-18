@@ -40,6 +40,7 @@ export class DetailedFoodVendorController implements IController {
         $scope.editFoodVendorModel = new EditFoodVendorViewModel();
         $scope.clickEditDetailedFoodVendor = this._clickEditDetailedFoodVendor;
         $scope.shouldCitiesSelectionDisabled = this._shouldCitiesSelectionDisabled;
+        $scope.clickCancelEditFoodVendor = this._clickCancelEditFoodVendor;
     }
 
     //#endregion
@@ -138,6 +139,10 @@ export class DetailedFoodVendorController implements IController {
                 this.$scope.availableCities = loadCitiesResult.items;
             });
 
+    };
+
+    protected _clickCancelEditFoodVendor = (): void => {
+        this.$scope.editingVendorProfile = false;
     };
 
     //#endregion

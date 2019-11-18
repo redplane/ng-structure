@@ -44,10 +44,8 @@ export class CityMasterPageController implements IController {
         // Properties binding.
         this.$scope.loadCitiesResult = new SearchResultViewModel<CityViewModel>();
 
-        const loadCitiesModel = new LoadStatesViewModel();
-        loadCitiesModel.pager = new PagerViewModel();
-        loadCitiesModel.pager.page = 1;
-        loadCitiesModel.pager.records = ValidationValueConstant.maxRecordsPerSearchPage;
+        const loadCitiesModel = new LoadCitiesViewModel();
+        loadCitiesModel.pager = new PagerViewModel(1, ValidationValueConstant.maxRecordsPerSearchPage);
         this.$scope.loadCitiesConditions = loadCitiesModel;
 
         // Methods binding.

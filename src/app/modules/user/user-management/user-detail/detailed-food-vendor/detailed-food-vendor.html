@@ -1,224 +1,253 @@
-<!--Vendor name-->
-<div class="row">
-    <div class="col-3">
-        <b>{{'TITLE_VENDOR_NAME' | translate}}</b>
-    </div>
-    <div class="col-9">
-        <div class="form-group" ng-switch="editingVendorProfile">
+<form novalidate
+      name="editFoodVendorDetailForm">
 
-            <!--In edit mode-->
-            <input class="form-control"
-                   ng-model="editFoodVendorModel.vendorName.value"
-                   ng-switch-when="true">
-
-            <!--In add mode-->
-            <input class="form-control"
-                   readonly
-                   ng-model="detailedUser.vendor.name"
-                   ng-switch-default="">
+    <!--Vendor name-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_VENDOR_NAME' | translate}}</b>
         </div>
-    </div>
-</div>
-
-<!--Phone number-->
-<div class="row">
-    <div class="col-3">
-        <b>{{'TITLE_PHONE_NUMBER' | translate}}</b>
-    </div>
-    <div class="col-9">
-        <div class="form-group"
-             ng-switch="editingVendorProfile">
-
-            <!--In edit mode-->
-            <input class="form-control"
-                   ng-model="editFoodVendorModel.phoneNo.value"
-                   ng-switch-when="true">
-
-            <!--In add mode-->
-            <input class="form-control"
-                   readonly
-                   ng-model="detailedUser.vendor.phoneNo"
-                   ng-switch-default="">
-        </div>
-    </div>
-</div>
-
-<!--Bank-->
-<div class="row">
-    <div class="col-3">
-        <b>{{'TITLE_BANK' | translate}}</b>
-    </div>
-
-    <div class="col-9">
-        <!--Account number-->
-        <div class="form-group"
-             ng-switch="editingVendorProfile">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fa fa-credit-card"></i>
-                    </span>
-                </div>
+        <div class="col-9">
+            <div class="form-group" ng-switch="editingVendorProfile">
 
                 <!--In edit mode-->
                 <input class="form-control"
-                       ng-model="editFoodVendorModel.bank.value.accountNo"
+                       ng-model="editFoodVendorModel.vendorName.value"
+                       ng-required="true"
                        ng-switch-when="true">
 
                 <!--In add mode-->
                 <input class="form-control"
                        readonly
-                       ng-model="detailedUser.vendor.bank.accountNo"
+                       ng-model="detailedUser.vendor.name"
                        ng-switch-default="">
             </div>
         </div>
+    </div>
 
-        <!--Account name-->
-        <div class="form-group"
-             ng-switch="editingVendorProfile">
-            <div class="input-group">
-                <div class="input-group-prepend">
+    <!--Phone number-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_PHONE_NUMBER' | translate}}</b>
+        </div>
+        <div class="col-9">
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+
+                <!--In edit mode-->
+                <input class="form-control"
+                       ng-model="editFoodVendorModel.phoneNo.value"
+                       ng-required="true"
+                       ng-switch-when="true">
+
+                <!--In add mode-->
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.phoneNo"
+                       ng-switch-default="">
+            </div>
+        </div>
+    </div>
+
+    <!--Bank-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_BANK' | translate}}</b>
+        </div>
+
+        <div class="col-9">
+            <!--Account number-->
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-credit-card"></i>
+                    </span>
+                    </div>
+
+                    <!--In edit mode-->
+                    <input name="bankAccountNumber"
+                           class="form-control"
+                           ng-model="editFoodVendorModel.bank.value.accountNo"
+                           ng-required="true"
+                           ng-switch-when="true">
+
+                    <!--In add mode-->
+                    <input class="form-control"
+                           readonly
+                           ng-model="detailedUser.vendor.bank.accountNo"
+                           ng-switch-default="">
+                </div>
+            </div>
+
+            <!--Account name-->
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+                <div class="input-group">
+                    <div class="input-group-prepend">
                 <span class="input-group-text">
                     <i class="fa fa-id-card-o"></i>
                 </span>
+                    </div>
+
+                    <!--In edit mode-->
+                    <input name="bankAccountName"
+                           class="form-control"
+                           ng-model="editFoodVendorModel.bank.value.accountName"
+                           ng-required="true"
+                           ng-switch-when="true">
+
+                    <!--In add mode-->
+                    <input ng-switch-default=""
+                           class="form-control"
+                           readonly
+                           ng-model="detailedUser.vendor.bank.accountName">
                 </div>
-
-                <!--In edit mode-->
-                <input class="form-control"
-                       ng-model="editFoodVendorModel.bank.value.accountName"
-                       ng-switch-when="true">
-
-                <!--In add mode-->
-                <input ng-switch-default=""
-                       class="form-control"
-                       readonly
-                       ng-model="detailedUser.vendor.bank.accountName">
             </div>
-        </div>
 
-        <!--Bank name-->
-        <div class="form-group"
-             ng-switch="editingVendorProfile">
-            <div class="input-group">
-                <div class="input-group-prepend">
+            <!--Bank name-->
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+                <div class="input-group">
+                    <div class="input-group-prepend">
                     <span class="input-group-text">
                         <i class="fa fa-university"></i>
                     </span>
+                    </div>
+
+                    <!--In edit mode-->
+                    <input name="bankName"
+                           class="form-control"
+                           ng-model="editFoodVendorModel.bank.value.name"
+                           ng-required="true"
+                           ng-switch-when="true">
+
+                    <!--In add mode-->
+                    <input class="form-control"
+                           readonly
+                           ng-switch-default=""
+                           ng-model="detailedUser.vendor.bank.name">
                 </div>
-
-                <!--In edit mode-->
-                <input class="form-control"
-                       ng-model="editFoodVendorModel.bank.value.name"
-                       ng-switch-when="true">
-
-                <!--In add mode-->
-                <input class="form-control"
-                       readonly
-                       ng-switch-default=""
-                       ng-model="detailedUser.vendor.bank.name">
             </div>
         </div>
     </div>
-</div>
 
 
-<!--Address-->
-<div class="row"
-     ng-switch="editingVendorProfile">
-    <div class="col-3">
-        <b>{{'TITLE_ADDRESS' | translate}}</b>
-    </div>
+    <!--Address-->
+    <div class="row"
+         ng-switch="editingVendorProfile">
+        <div class="col-3">
+            <b>{{'TITLE_ADDRESS' | translate}}</b>
+        </div>
 
-    <div class="col-9"
-         ng-switch-when="true">
+        <div class="col-9"
+             ng-switch-when="true">
 
-        <div class="row">
-            <!--Auxiliary address-->
-            <div class="col-12">
-                <div class="form-group">
-                    <input class="form-control"
-                           ng-model="editFoodVendorModel.address.value.auxiliaryAddress">
+            <div class="row">
+                <!--Auxiliary address-->
+                <div class="col-12">
+                    <div class="form-group">
+                        <input class="form-control"
+                               ng-model="editFoodVendorModel.address.value.auxiliaryAddress">
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-12">
-                <div class="form-group">
-                    <textarea class="form-control"
+                <div class="col-12">
+                    <div class="form-group">
+                    <textarea name="auxiliaryAddressText"
+                              class="form-control"
+                              ng-required="true"
                               ng-model="editFoodVendorModel.address.value.addressText"></textarea>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-6">
-                <div class="form-group">
-                    <input class="form-control"
-                           ng-model="editFoodVendorModel.address.value.postalCode">
+                <div class="col-6">
+                    <div class="form-group">
+                        <input name="postalCode"
+                               class="form-control"
+                               ng-required="true"
+                               ng-model="editFoodVendorModel.address.value.postalCode">
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-3">
-                <div class="form-group">
-                    <select class="form-control"
-                            ng-options="availableState.id as availableState.name for availableState in availableStates"
-                            ng-model="editFoodVendorModel.address.value.stateId">
-                    </select>
+                <div class="col-3">
+                    <div class="form-group">
+                        <select name="stateId"
+                                class="form-control"
+                                ng-options="availableState.id as availableState.name for availableState in availableStates"
+                                ng-model="editFoodVendorModel.address.value.stateId">
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-3">
-                <div class="form-group">
-                    <select class="form-control"
-                            ng-options="availableCity.id as availableCity.name for availableCity in availableCities"
-                            ng-model="editFoodVendorModel.address.value.cityId"
-                            ng-disabled="shouldCitiesSelectionDisabled()">
+                <div class="col-3">
+                    <div class="form-group">
+                        <select class="form-control"
+                                name="cityId"
+                                ng-options="availableCity.id as availableCity.name for availableCity in availableCities"
+                                ng-model="editFoodVendorModel.address.value.cityId"
+                                ng-disabled="shouldCitiesSelectionDisabled()">
 
-                    </select>
+                        </select>
+                    </div>
                 </div>
+
+
             </div>
-
-
         </div>
-    </div>
 
-    <div class="col-9"
-         ng-switch-default>
-        <div class="form-group">
+        <div class="col-9"
+             ng-switch-default>
+            <div class="form-group">
             <textarea class="form-control"
                       readonly
                       ng-value="loadAddressDisplay(detailedUser.vendor.address)"></textarea>
-        </div>
+            </div>
 
-        <div class="form-group"
-             ng-if="detailedUser.vendor.address.coordinate">
-            <div map-lazy-load="https://maps.google.com/maps/api/js"
-                 map-lazy-load-params="{{loadGMapUrl()}}">
-                <ng-map center="{{loadAddressCoordinate(detailedUser.vendor.address.coordinate)}}"
-                        street-view-control="false"
-                        map-type-control="false"
-                        pan-control="false"
-                        scale-control="false"
-                        draggable="false"
-                        zoom="10">
-                    <marker position="{{loadAddressCoordinate(detailedUser.vendor.address.coordinate)}}">
-                    </marker>
-                </ng-map>
+            <div class="form-group"
+                 ng-if="detailedUser.vendor.address.coordinate">
+                <div map-lazy-load="https://maps.google.com/maps/api/js"
+                     map-lazy-load-params="{{loadGMapUrl()}}">
+                    <ng-map center="{{loadAddressCoordinate(detailedUser.vendor.address.coordinate)}}"
+                            street-view-control="false"
+                            map-type-control="false"
+                            pan-control="false"
+                            scale-control="false"
+                            draggable="false"
+                            zoom="10">
+                        <marker position="{{loadAddressCoordinate(detailedUser.vendor.address.coordinate)}}">
+                        </marker>
+                    </ng-map>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-9 offset-3">
-        <div class="pull-right">
-            <div class="btn-group">
-                <button class="btn btn-outline-info"
-                        ng-click="clickEditDetailedFoodVendor()">
-                    <span class="fa fa-pencil"></span>
-                </button>
-                <button class="btn btn-outline-primary">
-                    <span class="fa fa-check"></span>
-                </button>
+    <div class="row">
+        <div class="col-9 offset-3">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-outline-info"
+                            ng-if="!editingVendorProfile"
+                            ng-click="clickEditDetailedFoodVendor()">
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                    <button class="btn btn-outline-primary"
+                            ng-if="editingVendorProfile"
+                            ng-disabled="editFoodVendorDetailForm.$invalid || !editFoodVendorDetailForm.$dirty">
+                        <span class="fa fa-check"></span>
+                    </button>
+                    <button class="btn btn-outline-secondary"
+                            ng-if="editingVendorProfile"
+                            ng-click="clickCancelEditFoodVendor()">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+</form>
+
+
 
