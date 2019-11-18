@@ -21,4 +21,16 @@ export class EditFoodVendorViewModel {
 
     //#endregion
 
+    //#region Constructor
+
+    public constructor() {
+        this.assignedLocations = new EditableFieldViewModel<IRegion[]>();
+        this.vendorName = new EditableFieldViewModel<string>();
+        this.phoneNo = new EditableFieldViewModel<string>();
+        this.bank = new EditableFieldViewModel<IBank>();
+        this.address = new EditableFieldViewModel<IAddress>();
+    }
+
+    //#endregion
+
 }

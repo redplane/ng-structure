@@ -50,6 +50,7 @@
   "TITLE_ADDRESS": "Address",
   "TITLE_VENDOR_NAME": "Vendor name",
   "TITLE_PICK_LOCATION": "Pick a location",
+  "TITLE_POSTAL_CODE": "Postal code",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

@@ -78,7 +78,6 @@ export class LocationPickerModalController implements IController {
     protected _shouldCitiesSelectionDisabled = (): boolean => {
         const availableStates = this.$scope.availableStates;
         const availableCities = this.$scope.availableCities;
-
         return (!availableStates) || (!availableCities);
     };
 
