@@ -49,6 +49,30 @@
         </div>
     </div>
 
+    <!--IC number-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_IC_NO' | translate}}</b>
+        </div>
+        <div class="col-9">
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+
+                <!--In edit mode-->
+                <input class="form-control"
+                       ng-model="editVendorModel.icNo.value"
+                       ng-required="true"
+                       ng-switch-when="true">
+
+                <!--In add mode-->
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.icNo"
+                       ng-switch-default="">
+            </div>
+        </div>
+    </div>
+
     <!--Vendor status-->
     <div class="row">
         <div class="col-3">

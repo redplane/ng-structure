@@ -53,6 +53,7 @@
   "TITLE_POSTAL_CODE": "Postal code",
   "TITLE_VENDOR_STATUS": "Vendor status",
   "TITLE_VENDOR_READINESS": "Vendor readiness",
+  "TITLE_IC_NO": "IC number",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

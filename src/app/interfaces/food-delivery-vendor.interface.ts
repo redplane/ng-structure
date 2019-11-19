@@ -6,6 +6,8 @@ export interface IFoodDeliveryVendor extends IVendor {
 
     //#region Properties
 
+    icNo: string;
+
     vehicle: IVehicle;
 
     preferredLocations: IRegion[];

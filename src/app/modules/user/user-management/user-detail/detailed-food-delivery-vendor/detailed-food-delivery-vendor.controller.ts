@@ -91,11 +91,12 @@ export class DetailedFoodDeliveryVendorController implements IController {
 
     protected _clickEditDetailedFoodDeliveryVendor = (): void => {
         let editingVendorProfile = this.$scope.editingVendorProfile;
-        const vendor = <IFoodDeliveryVendor> this.$scope.detailedUser.vendor;
+        const vendor = <IFoodDeliveryVendor>this.$scope.detailedUser.vendor;
 
         if (!editingVendorProfile) {
             const model = new EditFoodDeliveryVendorModel();
             model.name = new EditableFieldViewModel<string>(vendor.name, false);
+            model.icNo = new EditableFieldViewModel<string>(vendor.icNo, false);
             model.phoneNo = new EditableFieldViewModel<string>(vendor.phoneNo, false);
             model.address = new EditableFieldViewModel<IAddress>(vendor.address, false);
             model.vehicle = new EditableFieldViewModel<IVehicle>(vendor.vehicle, false);
@@ -181,20 +182,30 @@ export class DetailedFoodDeliveryVendorController implements IController {
 
         const model: EditFoodDeliveryVendorModel = {...this.$scope.editVendorModel};
         const validKeys = ['name', 'icNo', 'phoneNo', 'vehicle', 'address'];
-        //
-        // this.$users.editFoodVendorAsync(model)
-        //     .then((foodVendor: IFoodVendor) => {
-        //
-        //         // Turn off edit mode.
-        //         this.$scope.editingVendorProfile = false;
-        //
-        //         // Update the food vendor model.
-        //         this.$scope.detailedUser.vendor = foodVendor;
-        //     })
-        //     .finally(() => {
-        //         this.$messageBus
-        //             .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
-        //     });
+
+        for (const validKey of validKeys) {
+            if (!validKey || !model[validKey]) {
+                continue;
+            }
+
+            // Mark the field to be modified.
+            (<EditableFieldViewModel<any>>model[validKey]).hasModified = true;
+        }
+
+
+        this.$users.editFoodDeliveryVendorAsync(this.$scope.detailedUser.id,
+            model)
+            .then((foodDeliveryVendor: IFoodDeliveryVendor) => {
+                // Turn off edit mode.
+                this.$scope.editingVendorProfile = false;
+
+                // Update the food vendor model.
+                this.$scope.detailedUser.vendor = foodDeliveryVendor;
+            })
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+            });
     };
 
     //#endregion

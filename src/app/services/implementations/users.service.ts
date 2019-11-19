@@ -107,12 +107,19 @@ export class UsersService implements IUsersService {
     }
 
     public editFoodDeliveryVendorAsync(userId: string, model: EditFoodDeliveryVendorModel): IPromise<IFoodDeliveryVendor> {
-        const fullUrl = `${this.appSettings.apiEndpoint}/api/food-delivery-vendor/profile`;
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/delivery-vendor/profile`;
         const data = new FormData();
 
+        let httpRequestOptions = {
+            headers: {
+                'Content-Type': undefined
+            }
+        };
+
+        // TODO: Vehicle implementation.
         // Get keys.
-        const keys = Object.keys(model);
-        for (const key of keys) {
+        const validKeys = ['name', 'icNo', 'phoneNo'];
+        for (const key of validKeys) {
             const keyValue = <EditableFieldViewModel<any>> model[key];
             if (!keyValue || !keyValue.hasModified) {
                 continue;
@@ -122,12 +129,26 @@ export class UsersService implements IUsersService {
             data.append(`${key}[hasModified]`, 'true');
         }
 
+        const address = model.address;
+        if (address && address.value) {
+            data.append('address[value][cityId]', address.value.cityId);
+            data.append('address[value][stateId]', address.value.stateId);
+            data.append('address[value][postalCode][latitude]', `${address.value.coordinate.latitude}`);
+            data.append('address[value][coordinate][longitude]', `${address.value.coordinate.longitude}`);
+            data.append('address[value][auxiliaryAddress]', `${address.value.auxiliaryAddress}`);
+            data.append('address[value][addressText]', `${address.value.addressText}`);
+            data.append('address[hasModified]', 'true');
+        }
+
         if (model.photo) {
             data.append(`photo`, model.photo);
         }
 
+        // Add user id into request.
+        data.append('userId', userId);
+
         return this.$http
-            .put(fullUrl, data)
+            .put(fullUrl, data, httpRequestOptions)
             .then((editFoodDeliveryVendorResponse: IHttpResponse<IFoodDeliveryVendor>) => {
                 return editFoodDeliveryVendorResponse.data;
             });
