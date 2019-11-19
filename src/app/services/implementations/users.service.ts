@@ -10,6 +10,9 @@ import {DetailedUserViewModel} from "../../view-models/user/detailed-user.view-m
 import {UserRoles} from "../../enums/user-roles.enum";
 import {EditFoodVendorViewModel} from "../../view-models/user/edit-food-vendor.view-model";
 import {IFoodVendor} from "../../interfaces/food-vendor.interface";
+import {EditFoodDeliveryVendorModel} from "../../models/edit-food-delivery-vendor.model";
+import {IFoodDeliveryVendor} from "../../interfaces/food-delivery-vendor.interface";
+import {EditableFieldViewModel} from "../../view-models/editable-field.view-model";
 
 export class UsersService implements IUsersService {
 
@@ -101,6 +104,33 @@ export class UsersService implements IUsersService {
         return this.$http
             .put(fullUrl, model)
             .then(editFoodVendorResponse => <IFoodVendor> editFoodVendorResponse.data);
+    }
+
+    public editFoodDeliveryVendorAsync(userId: string, model: EditFoodDeliveryVendorModel): IPromise<IFoodDeliveryVendor> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/food-delivery-vendor/profile`;
+        const data = new FormData();
+
+        // Get keys.
+        const keys = Object.keys(model);
+        for (const key of keys) {
+            const keyValue = <EditableFieldViewModel<any>> model[key];
+            if (!keyValue || !keyValue.hasModified) {
+                continue;
+            }
+
+            data.append(`${key}[value]`, keyValue.value);
+            data.append(`${key}[hasModified]`, 'true');
+        }
+
+        if (model.photo) {
+            data.append(`photo`, model.photo);
+        }
+
+        return this.$http
+            .put(fullUrl, data)
+            .then((editFoodDeliveryVendorResponse: IHttpResponse<IFoodDeliveryVendor>) => {
+                return editFoodDeliveryVendorResponse.data;
+            });
     }
 
     //#endregion

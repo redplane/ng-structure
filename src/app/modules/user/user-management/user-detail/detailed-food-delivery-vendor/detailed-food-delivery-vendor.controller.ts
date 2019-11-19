@@ -1,7 +1,7 @@
 import {IController} from "angular";
 import {DetailedUserViewModel} from "../../../../../view-models/user/detailed-user.view-model";
 import {IUsersService} from "../../../../../services/interfaces/user-service.interface";
-import {IDetailedFoodVendorScope} from "./detailed-food-vendor.scope";
+import {IDetailedFoodVendorScope} from "./detailed-food-delivery-vendor.scope";
 import {AddressViewModel} from "../../../../../view-models/address.view-model";
 import {IAppSettings} from "../../../../../interfaces/app-setting.interface";
 import {ICoordinate} from "../../../../../interfaces/coordinate.interface";
@@ -22,9 +22,12 @@ import {IFoodVendor} from "../../../../../interfaces/food-vendor.interface";
 import {INgRxMessageBusService} from "../../../../../services/interfaces/ngrx-message-bus-service.interface";
 import {MessageChannelNameConstant} from "../../../../../constants/message-channel-name.constant";
 import {MessageEventNameConstant} from "../../../../../constants/message-event-name.constant";
+import {EditFoodDeliveryVendorModel} from "../../../../../models/edit-food-delivery-vendor.model";
+import {IVehicle} from "../../../../../interfaces/vehicle.interface";
+import {IFoodDeliveryVendor} from "../../../../../interfaces/food-delivery-vendor.interface";
 
 /* @ngInject */
-export class DetailedFoodVendorController implements IController {
+export class DetailedFoodDeliveryVendorController implements IController {
 
     //#regon Constructor
 
@@ -42,11 +45,11 @@ export class DetailedFoodVendorController implements IController {
         $scope.loadAddressCoordinate = (coordinate: ICoordinate) => `${coordinate.latitude}, ${coordinate.longitude}`;
         $scope.shouldBankDisplayed = this._shouldBankDisplayed;
 
-        $scope.editFoodVendorModel = new EditFoodVendorViewModel();
-        $scope.clickEditDetailedFoodVendor = this._clickEditDetailedFoodVendor;
+        $scope.editVendorModel = new EditFoodDeliveryVendorModel();
+        $scope.clickEditDetailedFoodDeliveryVendor = this._clickEditDetailedFoodDeliveryVendor;
         $scope.shouldCitiesSelectionDisabled = this._shouldCitiesSelectionDisabled;
         $scope.clickCancelEditFoodVendor = this._clickCancelEditFoodVendor;
-        $scope.clickUpdateFoodVendor = this._clickUpdateFoodVendor;
+        $scope.clickUpdateFoodDeliveryVendor = this._clickUpdateFoodDeliveryVendor;
         $scope.loadingAvailableCities = false;
     }
 
@@ -62,7 +65,7 @@ export class DetailedFoodVendorController implements IController {
                 this.$scope.availableStates = states;
             });
 
-        this.$scope.$watch('editFoodVendorModel.address.value.stateId', this._clickReloadCities);
+        this.$scope.$watch('editVendorModel.address.value.stateId', this._clickReloadCities);
     }
 
     //#endregion
@@ -86,18 +89,18 @@ export class DetailedFoodVendorController implements IController {
             .hasRoles(detailedUser.roles, [UserRoles.foodVendor]);
     };
 
-    protected _clickEditDetailedFoodVendor = (): void => {
+    protected _clickEditDetailedFoodDeliveryVendor = (): void => {
         let editingVendorProfile = this.$scope.editingVendorProfile;
-        const vendor = this.$scope.detailedUser.vendor;
+        const vendor = <IFoodDeliveryVendor> this.$scope.detailedUser.vendor;
 
         if (!editingVendorProfile) {
-            const model = new EditFoodVendorViewModel();
-            model.vendorName = new EditableFieldViewModel<string>(vendor.name, false);
+            const model = new EditFoodDeliveryVendorModel();
+            model.name = new EditableFieldViewModel<string>(vendor.name, false);
             model.phoneNo = new EditableFieldViewModel<string>(vendor.phoneNo, false);
-            model.bank = new EditableFieldViewModel<IBank>(vendor.bank, false);
             model.address = new EditableFieldViewModel<IAddress>(vendor.address, false);
+            model.vehicle = new EditableFieldViewModel<IVehicle>(vendor.vehicle, false);
 
-            this.$scope.editFoodVendorModel = model;
+            this.$scope.editVendorModel = model;
             this.$scope.editingVendorProfile = true;
             return;
         }
@@ -113,7 +116,7 @@ export class DetailedFoodVendorController implements IController {
             return true;
         }
 
-        const editVendorModel = this.$scope.editFoodVendorModel;
+        const editVendorModel = this.$scope.editVendorModel;
         if (!editVendorModel) {
             return true;
         }
@@ -160,7 +163,7 @@ export class DetailedFoodVendorController implements IController {
         this.$scope.editingVendorProfile = false;
     };
 
-    protected _clickUpdateFoodVendor = (event: Event): void => {
+    protected _clickUpdateFoodDeliveryVendor = (event: Event): void => {
 
         if (event) {
             event.preventDefault();
@@ -176,26 +179,22 @@ export class DetailedFoodVendorController implements IController {
         this.$messageBus
             .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
 
-        const model: EditFoodVendorViewModel = {...this.$scope.editFoodVendorModel};
-        model.address.hasModified = true;
-        model.bank.hasModified = true;
-        model.phoneNo.hasModified = true;
-        model.vendorName.hasModified = true;
-        model.userId = this.$scope.detailedUser.id;
-
-        this.$users.editFoodVendorAsync(model)
-            .then((foodVendor: IFoodVendor) => {
-
-                // Turn off edit mode.
-                this.$scope.editingVendorProfile = false;
-
-                // Update the food vendor model.
-                this.$scope.detailedUser.vendor = foodVendor;
-            })
-            .finally(() => {
-                this.$messageBus
-                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
-            });
+        const model: EditFoodDeliveryVendorModel = {...this.$scope.editVendorModel};
+        const validKeys = ['name', 'icNo', 'phoneNo', 'vehicle', 'address'];
+        //
+        // this.$users.editFoodVendorAsync(model)
+        //     .then((foodVendor: IFoodVendor) => {
+        //
+        //         // Turn off edit mode.
+        //         this.$scope.editingVendorProfile = false;
+        //
+        //         // Update the food vendor model.
+        //         this.$scope.detailedUser.vendor = foodVendor;
+        //     })
+        //     .finally(() => {
+        //         this.$messageBus
+        //             .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+        //     });
     };
 
     //#endregion

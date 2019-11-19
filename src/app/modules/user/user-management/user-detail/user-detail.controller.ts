@@ -5,7 +5,8 @@ import {IUsersService} from "../../../../services/interfaces/user-service.interf
 import {UserRoles} from "../../../../enums/user-roles.enum";
 import {DetailedUserViewConstant} from "../../../../constants/detailed-user-view.constant";
 import {UrlStatesConstant} from "../../../../constants/url-states.constant";
-import {StateProvider, StateService} from "@uirouter/angularjs";
+import {StateService} from "@uirouter/angularjs";
+
 /* @ngInject */
 export class UserDetailController implements IController {
 
@@ -46,7 +47,7 @@ export class UserDetailController implements IController {
         }
 
         return this.$users
-            .hasRoles(detailedUser.roles, [UserRoles.foodVendor]);
+            .hasRoles(detailedUser.roles, [UserRoles.foodVendor, UserRoles.foodDeliveryVendor]);
     };
 
     protected _shouldAssignedLocationDisplayed = (): boolean => {

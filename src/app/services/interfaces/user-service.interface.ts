@@ -9,6 +9,8 @@ import {UserRoles} from "../../enums/user-roles.enum";
 import {IRegion} from "../../interfaces/region.interface";
 import {EditFoodVendorViewModel} from "../../view-models/user/edit-food-vendor.view-model";
 import {IFoodVendor} from "../../interfaces/food-vendor.interface";
+import {EditFoodDeliveryVendorModel} from "../../models/edit-food-delivery-vendor.model";
+import {IFoodDeliveryVendor} from "../../interfaces/food-delivery-vendor.interface";
 
 export interface IUsersService {
 
@@ -25,9 +27,14 @@ export interface IUsersService {
     loadProfileAsync(): IPromise<ProfileViewModel>;
 
     /*
-    * Update assigned location asynchronously.
+    * Update food vendor asynchronously.
     * */
     editFoodVendorAsync(model: EditFoodVendorViewModel): IPromise<IFoodVendor>;
+
+    /*
+    * Update food delivery vendor asynchronously.
+    * */
+    editFoodDeliveryVendorAsync(userId: string, model: EditFoodDeliveryVendorModel): IPromise<IFoodDeliveryVendor>;
 
     /*
     * Load users asynchronously.

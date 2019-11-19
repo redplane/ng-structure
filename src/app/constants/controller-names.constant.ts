@@ -22,6 +22,8 @@ export class ControllerNamesConstant {
 
     public static detailedFoodDeliveryVendorControllerName = 'detailedFoodDeliveryVendorController';
 
+    public static detailedVendorControllerName = 'detailedVendorController';
+
     public static vendorAssignedLocationControllerName = 'vendorAssignedLocationControllerName';
     //#endregion
 

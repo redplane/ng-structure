@@ -5,6 +5,7 @@ import {IFormController, IScope} from "angular";
 import {EditFoodVendorViewModel} from "../../../../../view-models/user/edit-food-vendor.view-model";
 import {StateViewModel} from "../../../../../view-models/state/state-view.model";
 import {CityViewModel} from "../../../../../view-models/city/city.view-model";
+import {EditFoodDeliveryVendorModel} from "../../../../../models/edit-food-delivery-vendor.model";
 
 export interface IDetailedFoodVendorScope extends IScope{
 
@@ -16,7 +17,7 @@ export interface IDetailedFoodVendorScope extends IScope{
 
     editingVendorProfile: boolean;
 
-    editFoodVendorModel: EditFoodVendorViewModel;
+    editVendorModel: EditFoodDeliveryVendorModel;
 
     availableStates: StateViewModel[];
 
@@ -36,13 +37,13 @@ export interface IDetailedFoodVendorScope extends IScope{
 
     shouldBankDisplayed(): boolean;
 
-    clickEditDetailedFoodVendor(): void;
+    clickEditDetailedFoodDeliveryVendor(): void;
 
     shouldCitiesSelectionDisabled(): boolean;
 
     clickCancelEditFoodVendor(): void;
 
-    clickUpdateFoodVendor(event: Event): void;
+    clickUpdateFoodDeliveryVendor(event: Event): void;
 
     //#endregion
 }
