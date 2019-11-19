@@ -18,6 +18,10 @@ import {LoadCitiesViewModel} from "../../../../../view-models/city/load-cities.v
 import {PagerViewModel} from "../../../../../view-models/pager.view-model";
 import {ValidationValueConstant} from "../../../../../constants/validation-value.constant";
 import {CityViewModel} from "../../../../../view-models/city/city.view-model";
+import {IFoodVendor} from "../../../../../interfaces/food-vendor.interface";
+import {INgRxMessageBusService} from "../../../../../services/interfaces/ngrx-message-bus-service.interface";
+import {MessageChannelNameConstant} from "../../../../../constants/message-channel-name.constant";
+import {MessageEventNameConstant} from "../../../../../constants/message-event-name.constant";
 
 /* @ngInject */
 export class DetailedFoodVendorController implements IController {
@@ -29,6 +33,7 @@ export class DetailedFoodVendorController implements IController {
                        protected $users: IUsersService,
                        protected $states: IStatesService,
                        protected $cities: ICitiesService,
+                       protected $messageBus: INgRxMessageBusService,
                        protected $scope: IDetailedFoodVendorScope) {
 
         $scope.detailedUser = detailedUser;
@@ -41,6 +46,7 @@ export class DetailedFoodVendorController implements IController {
         $scope.clickEditDetailedFoodVendor = this._clickEditDetailedFoodVendor;
         $scope.shouldCitiesSelectionDisabled = this._shouldCitiesSelectionDisabled;
         $scope.clickCancelEditFoodVendor = this._clickCancelEditFoodVendor;
+        $scope.clickUpdateFoodVendor = this._clickUpdateFoodVendor;
     }
 
     //#endregion
@@ -124,9 +130,6 @@ export class DetailedFoodVendorController implements IController {
             return;
         }
 
-        // Reset city id.
-        this.$scope.editFoodVendorModel.address.value.cityId = null;
-
         const loadCitiesConditions = new LoadCitiesViewModel();
         loadCitiesConditions.stateIds = [stateId];
         loadCitiesConditions.pager = new PagerViewModel();
@@ -143,6 +146,44 @@ export class DetailedFoodVendorController implements IController {
 
     protected _clickCancelEditFoodVendor = (): void => {
         this.$scope.editingVendorProfile = false;
+    };
+
+    protected _clickUpdateFoodVendor = (event: Event): void => {
+
+        if (event) {
+            event.preventDefault();
+        }
+
+        const editFoodVendorDetailForm = this.$scope.editFoodVendorDetailForm;
+
+        if (editFoodVendorDetailForm.$invalid || !editFoodVendorDetailForm.$dirty) {
+            return;
+        }
+
+        // Display loading screen.
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        const model: EditFoodVendorViewModel = {...this.$scope.editFoodVendorModel};
+        model.address.hasModified = true;
+        model.bank.hasModified = true;
+        model.phoneNo.hasModified = true;
+        model.vendorName.hasModified = true;
+        model.userId = this.$scope.detailedUser.id;
+
+        this.$users.editFoodVendorAsync(model)
+            .then((foodVendor: IFoodVendor) => {
+
+                // Turn off edit mode.
+                this.$scope.editingVendorProfile = false;
+
+                // Update the food vendor model.
+                this.$scope.detailedUser.vendor = foodVendor;
+            })
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+            });
     };
 
     //#endregion

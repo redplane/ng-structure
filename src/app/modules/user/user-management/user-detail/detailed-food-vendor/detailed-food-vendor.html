@@ -1,5 +1,6 @@
 <form novalidate
-      name="editFoodVendorDetailForm">
+      name="editFoodVendorDetailForm"
+      ng-submit="clickUpdateFoodVendor($event)">
 
     <!--Vendor name-->
     <div class="row">
@@ -166,6 +167,7 @@
                         <input name="postalCode"
                                class="form-control"
                                ng-required="true"
+                               placeholder="{{'TITLE_POSTAL_CODE' | translate}}"
                                ng-model="editFoodVendorModel.address.value.postalCode">
                     </div>
                 </div>
@@ -191,7 +193,6 @@
                         </select>
                     </div>
                 </div>
-
 
             </div>
         </div>
