@@ -21,6 +21,9 @@ export class UserDetailController implements IController {
 
         $scope.shouldFoodVendorAreaDisplayed = this._shouldFoodVendorAreaDisplayed;
         $scope.shouldAssignedLocationDisplayed = this._shouldAssignedLocationDisplayed;
+        $scope.shouldPreferredLocationDisplay = this._shouldPreferredLocationDisplay;
+        $scope.shouldVehicleDisplay = this._shouldPreferredLocationDisplay;
+
         $scope.urlStateConstants = UrlStatesConstant;
         $scope.detailedUserViewConstants = DetailedUserViewConstant;
     }
@@ -58,6 +61,16 @@ export class UserDetailController implements IController {
 
         return this.$users
             .hasRoles(detailedUser.roles, [UserRoles.foodVendor]);
+    };
+
+    protected _shouldPreferredLocationDisplay = (): boolean => {
+        const detailedUser = this.$scope.detailedUser;
+        if (!detailedUser) {
+            return false;
+        }
+
+        return this.$users
+            .hasRoles(detailedUser.roles, [UserRoles.foodDeliveryVendor]);
     };
 
     //#endregion

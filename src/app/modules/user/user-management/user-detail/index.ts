@@ -19,12 +19,16 @@ export class UserDetailModule {
         // View definitions.
         const detailedVendorView = `${DetailedUserViewConstant.detailedFoodVendor}@${UrlStatesConstant.detailedVendorModuleName}`;
         const assignedLocationView = `${DetailedUserViewConstant.assignedLocations}@${UrlStatesConstant.vendorAssignedLocationModuleName}`;
+        const preferredLocationView = `${DetailedUserViewConstant.preferredLocations}@${UrlStatesConstant.vendorPreferredLocationModuleName}`;
+        const vehicleView = `${DetailedUserViewConstant.vehicle}@${UrlStatesConstant.vendorVehicleModuleName}`;
 
         const detailedVendorViews: { [key: string]: string | Ng1ViewDeclaration } = {};
         const assignedLocationViews: { [key: string]: string | Ng1ViewDeclaration } = {};
+        const preferredLocationViews: { [key: string]: string | Ng1ViewDeclaration } = {};
+        const vehicleViews: { [key: string]: string | Ng1ViewDeclaration } = {};
 
-        // Default view.
-        detailedVendorViews[''] = {
+        // Detailed user view.
+        const detailedUserView: Ng1ViewDeclaration = {
             templateProvider: ['$q', ($q: IQService) => {
                 // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                 return $q((resolve) => {
@@ -36,6 +40,11 @@ export class UserDetailModule {
             }],
             controller: ControllerNamesConstant.userDetailControllerName
         };
+
+        //#region Detailed vendor
+
+        // Default view.
+        detailedVendorViews[''] = detailedUserView;
 
         // Detailed vendor view.
         detailedVendorViews[detailedVendorView] = {
@@ -59,6 +68,7 @@ export class UserDetailModule {
             controller: ControllerNamesConstant.detailedVendorControllerName
         };
 
+        // Detailed vendor module name.
         $stateProvider
             .state(UrlStatesConstant.detailedVendorModuleName, {
                 url: UrlStatesConstant.detailedVendorModuleUrl,
@@ -103,20 +113,12 @@ export class UserDetailModule {
                 }
             });
 
+        //#endregion
+
+        //#region Assigned locations
 
         // User detailed view.
-        assignedLocationViews[''] = {
-            templateProvider: ['$q', ($q: IQService) => {
-                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
-                return $q((resolve) => {
-                    // lazy load the view
-                    require.ensure([], () => {
-                        resolve(require('./user-detail.html'));
-                    });
-                });
-            }],
-            controller: ControllerNamesConstant.userDetailControllerName
-        };
+        assignedLocationViews[''] = detailedUserView;
 
         // Detailed vendor view.
         assignedLocationViews[assignedLocationView] = {
@@ -163,6 +165,115 @@ export class UserDetailModule {
                     }]
                 }
             });
+
+        //#endregion
+
+        //#region Preferred locations
+
+        // User detailed view.
+        preferredLocationViews[''] = detailedUserView;
+
+        // Detailed vendor view.
+        preferredLocationViews[preferredLocationView] = {
+            templateProvider: ['$q', ($q: IQService) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => {
+                        resolve(require('./vendor-preferred-location/vendor-preferred-location.html'));
+                    });
+                });
+            }],
+            controller: ControllerNamesConstant.vendorPreferredLocationControllerName
+        };
+
+        $stateProvider
+            .state(UrlStatesConstant.vendorPreferredLocationModuleName, {
+                url: UrlStatesConstant.vendorPreferredLocationModuleUrl,
+                parent: UrlStatesConstant.authenticatedLayoutModuleName,
+                views: preferredLocationViews,
+                resolve: {
+                    loadController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+                        return $q((resolve) => {
+                            require.ensure([], (require) => {
+                                // load only controller module
+                                let ngModule = module('user.user-detail.preferred-location', []);
+
+                                // Lazy load login controller
+                                const {UserDetailController} = require('./user-detail.controller');
+                                const {VendorPreferredLocationController} = require('./vendor-preferred-location/vendor-preferred-location.controller');
+
+                                // Import controller file.
+                                ngModule.controller(ControllerNamesConstant.userDetailControllerName, UserDetailController);
+                                ngModule.controller(ControllerNamesConstant.vendorPreferredLocationControllerName, VendorPreferredLocationController);
+
+                                $ocLazyLoad.inject(ngModule.name);
+                                resolve(ngModule.controller);
+                            });
+                        });
+                    }],
+
+                    detailedUser: ['$users', '$stateParams', ($users: IUsersService, $stateParams: DetailedUserStateParams) => {
+                        return $users.loadDetailedUserAsync($stateParams.id);
+                    }]
+                }
+            });
+
+        //#endregion
+
+        //#region Vehicles
+
+        // User detailed view.
+        vehicleViews[''] = detailedUserView;
+
+        // Detailed vendor view.
+        vehicleViews[vehicleView] = {
+            templateProvider: ['$q', ($q: IQService) => {
+                // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
+                return $q((resolve) => {
+                    // lazy load the view
+                    require.ensure([], () => {
+                        resolve(require('./vendor-vehicle/vendor-vehicle.html'));
+                    });
+                });
+            }],
+            controller: ControllerNamesConstant.vendorVehicleControllerName
+        };
+
+        $stateProvider
+            .state(UrlStatesConstant.vendorVehicleModuleName, {
+                url: UrlStatesConstant.vendorVehicleModuleUrl,
+                parent: UrlStatesConstant.authenticatedLayoutModuleName,
+                views: vehicleViews,
+                resolve: {
+                    loadController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+                        return $q((resolve) => {
+                            require.ensure([], (require) => {
+                                // load only controller module
+                                let ngModule = module('user.user-detail.vehicle', []);
+
+                                // Lazy load login controller
+                                const {UserDetailController} = require('./user-detail.controller');
+                                const {VendorVehicleController} = require('./vendor-vehicle/vendor-vehicle.controller');
+
+                                // Import controller file.
+                                ngModule.controller(ControllerNamesConstant.userDetailControllerName, UserDetailController);
+                                ngModule.controller(ControllerNamesConstant.vendorVehicleControllerName, VendorVehicleController);
+
+                                $ocLazyLoad.inject(ngModule.name);
+                                resolve(ngModule.controller);
+                            });
+                        });
+                    }],
+
+                    detailedUser: ['$users', '$stateParams', ($users: IUsersService, $stateParams: DetailedUserStateParams) => {
+                        return $users.loadDetailedUserAsync($stateParams.id);
+                    }]
+                }
+            });
+
+
+        //#endregion
 
         $stateProvider
             .state(UrlStatesConstant.detailedUserModuleName, {

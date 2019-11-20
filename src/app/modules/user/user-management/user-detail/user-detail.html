@@ -60,6 +60,26 @@
                        role="tab"
                        aria-controls="nav-home"
                        aria-selected="true">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</a>
+
+                    <!--Preferred location-->
+                    <a class="nav-item nav-link"
+                       ng-if="shouldPreferredLocationDisplay()"
+                       data-toggle="tab"
+                       ui-sref="{{urlStateConstants.vendorPreferredLocationModuleName}}({id:'{{detailedUser.id}}'})"
+                       ui-sref-active="active"
+                       role="tab"
+                       aria-controls="nav-home"
+                       aria-selected="true">{{'TITLE_PREFERRED_LOCATIONS' | translate}}</a>
+
+                    <!--Vehicle-->
+                    <a class="nav-item nav-link"
+                       ng-if="shouldVehicleDisplay()"
+                       data-toggle="tab"
+                       ui-sref="{{urlStateConstants.vendorVehicleModuleName}}({id:'{{detailedUser.id}}'})"
+                       ui-sref-active="active"
+                       role="tab"
+                       aria-controls="nav-home"
+                       aria-selected="true">{{'TITLE_VEHICLE' | translate}}</a>
                 </div>
             </nav>
         </div>
@@ -67,6 +87,10 @@
         <div ui-view="{{detailedUserViewConstants.detailedFoodVendor}}"></div>
 
         <div ui-view="{{detailedUserViewConstants.assignedLocations}}"></div>
+
+        <div ui-view="{{detailedUserViewConstants.preferredLocations}}"></div>
+
+        <div ui-view="{{detailedUserViewConstants.vehicle}}"></div>
     </div>
 </div>
 

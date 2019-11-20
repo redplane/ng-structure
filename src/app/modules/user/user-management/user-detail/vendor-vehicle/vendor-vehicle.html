@@ -1,0 +1,131 @@
+<form novalidate
+      name="editVendorVehicleForm"
+      ng-submit="clickUpdateFoodVendor($event)">
+
+    <!--Vehicle type-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_VEHICLE_TYPE' | translate}}</b>
+        </div>
+        <div class="col-9">
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+
+                <!--In edit mode-->
+                <input class="form-control"
+                       ng-model="editFoodVendorModel.vehicle.type"
+                       ng-required="true"
+                       ng-switch-when="true">
+
+                <!--In add mode-->
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.vehicle.type"
+                       ng-switch-default="">
+            </div>
+        </div>
+    </div>
+
+    <!--Vehicle name-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_VEHICLE_NAME' | translate}}</b>
+        </div>
+        <div class="col-9">
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+
+                <!--In edit mode-->
+                <input class="form-control"
+                       ng-model="editFoodVendorModel.phoneNo.value"
+                       ng-required="true"
+                       ng-switch-when="true">
+
+                <!--In add mode-->
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.vehicle.name"
+                       ng-switch-default="">
+            </div>
+        </div>
+    </div>
+
+    <!--Vehicle model-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_VEHICLE_MODEL' | translate}}</b>
+        </div>
+
+        <div class="col-9">
+
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+                <!--In edit mode-->
+                <input class="form-control"
+                       ng-model="editFoodVendorModel.phoneNo.value"
+                       ng-required="true"
+                       ng-switch-when="true">
+
+                <!--In add mode-->
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.vehicle.model"
+                       ng-switch-default="">
+            </div>
+        </div>
+    </div>
+
+    <!--Plate no-->
+    <div class="row">
+        <div class="col-3">
+            <b>{{'TITLE_PLATE_NO' | translate}}</b>
+        </div>
+
+        <div class="col-9">
+
+            <div class="form-group"
+                 ng-switch="editingVendorProfile">
+                <!--In edit mode-->
+                <input class="form-control"
+                       ng-model="editFoodVendorModel.phoneNo.value"
+                       ng-required="true"
+                       ng-switch-when="true">
+
+                <!--In add mode-->
+                <input class="form-control"
+                       readonly
+                       ng-model="detailedUser.vendor.vehicle.plateNo"
+                       ng-switch-default="">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-9 offset-3">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-outline-info"
+                            ng-if="!editingVendorProfile"
+                            ng-click="clickEditDetailedFoodVendor()">
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                    <button class="btn btn-outline-primary"
+                            ng-if="editingVendorProfile"
+                            ng-disabled="editFoodVendorDetailForm.$invalid || !editFoodVendorDetailForm.$dirty">
+                        <span class="fa fa-check"></span>
+                    </button>
+                    <button class="btn btn-outline-secondary"
+                            ng-if="editingVendorProfile"
+                            ng-click="clickCancelEditFoodVendor()">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+

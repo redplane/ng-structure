@@ -54,6 +54,13 @@
   "TITLE_VENDOR_STATUS": "Vendor status",
   "TITLE_VENDOR_READINESS": "Vendor readiness",
   "TITLE_IC_NO": "IC number",
+  "TITLE_PREFERRED_LOCATIONS": "Preferred locations",
+  "TITLE_VEHICLE": "Vehicle",
+  "TITLE_VEHICLE_TYPE": "Vehicle type",
+  "TITLE_VEHICLE_NAME": "Vehicle name",
+  "TITLE_VEHICLE_MODEL": "Vehicle model",
+  "TITLE_PLATE_NO": "Plate number",
+  "TITLE_MOTORCYCLE": "Motorcycle",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

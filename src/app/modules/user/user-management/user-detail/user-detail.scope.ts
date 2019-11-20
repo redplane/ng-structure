@@ -26,6 +26,12 @@ export interface IUserDetailScope extends IScope {
     // Whether assigned location be displayed or not.
     shouldAssignedLocationDisplayed(): boolean;
 
+    // Whether preferred location should be displayed or not.
+    shouldPreferredLocationDisplay(): boolean;
+
+    // Whether vehicle area should be displayed.
+    shouldVehicleDisplay(): boolean;
+    
     //#endregion
 
 }

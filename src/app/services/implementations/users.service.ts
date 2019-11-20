@@ -130,7 +130,7 @@ export class UsersService implements IUsersService {
         }
 
         const address = model.address;
-        if (address && address.value) {
+        if (address && address.value && address.hasModified) {
             data.append('address[value][cityId]', address.value.cityId);
             data.append('address[value][stateId]', address.value.stateId);
             data.append('address[value][postalCode][latitude]', `${address.value.coordinate.latitude}`);
@@ -138,6 +138,20 @@ export class UsersService implements IUsersService {
             data.append('address[value][auxiliaryAddress]', `${address.value.auxiliaryAddress}`);
             data.append('address[value][addressText]', `${address.value.addressText}`);
             data.append('address[hasModified]', 'true');
+        }
+
+        // Preferred locations.
+        const preferredLocationModel = model.preferredLocations;
+        if (preferredLocationModel && preferredLocationModel.hasModified) {
+            const locations = preferredLocationModel.value;
+            if (locations && locations.length) {
+                data.append('preferredLocations.hasModified', 'true');
+                for (let index = 0; index < locations.length; index++) {
+                    const location = locations[index];
+                    data.append(`preferredLocations.value[${index}].stateId`, location.stateId);
+                    data.append(`preferredLocations.value[${index}].cityId`, location.cityId);
+                }
+            }
         }
 
         if (model.photo) {

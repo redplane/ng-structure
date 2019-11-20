@@ -6,6 +6,10 @@ export class DetailedUserViewConstant {
 
     public static assignedLocations: string = 'assignedLocation';
 
+    public static preferredLocations = 'preferredLocation';
+
+    public static vehicle = 'vehicle';
+
     //#endregion
 
 }

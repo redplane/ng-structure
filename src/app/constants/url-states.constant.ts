@@ -44,4 +44,12 @@ export class UrlStatesConstant {
 
     public static vendorAssignedLocationModuleUrl = '/user/:id/assigned-location';
 
+    public static vendorPreferredLocationModuleName = 'vendorPreferredLocation';
+
+    public static vendorPreferredLocationModuleUrl = '/user/:id/preferred-location'
+
+    public static vendorVehicleModuleName = 'vendorVehicle';
+
+    public static vendorVehicleModuleUrl = '/user/:id/vehicle'
+
 }
