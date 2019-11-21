@@ -61,6 +61,11 @@
   "TITLE_VEHICLE_MODEL": "Vehicle model",
   "TITLE_PLATE_NO": "Plate number",
   "TITLE_MOTORCYCLE": "Motorcycle",
+  "TITLE_OTHER": "Other",
+  "TITLE_VAN": "Van",
+  "TITLE_LORRY": "Lorry",
+  "TITLE_CAR": "Car",
+  "TITLE_RATINGS": "Ratings",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

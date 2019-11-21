@@ -50,6 +50,10 @@ export class UrlStatesConstant {
 
     public static vendorVehicleModuleName = 'vendorVehicle';
 
-    public static vendorVehicleModuleUrl = '/user/:id/vehicle'
+    public static vendorVehicleModuleUrl = '/user/:id/vehicle';
+
+    public static ratingManagementModuleName = 'ratingManagement';
+
+    public static ratingManagementModuleUrl = 'rating';
 
 }

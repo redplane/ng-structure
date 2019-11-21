@@ -1,6 +1,7 @@
 import {IController} from "angular";
 import {ICityFilterScope} from "./city-filter.scope";
 
+/* @ngInject */
 export class CityFilterController implements IController {
 
     //#region Constructor

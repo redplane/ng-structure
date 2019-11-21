@@ -116,7 +116,7 @@ export class UsersService implements IUsersService {
             }
         };
 
-        // TODO: Vehicle implementation.
+
         // Get keys.
         const validKeys = ['name', 'icNo', 'phoneNo'];
         for (const key of validKeys) {
@@ -152,6 +152,16 @@ export class UsersService implements IUsersService {
                     data.append(`preferredLocations.value[${index}].cityId`, location.cityId);
                 }
             }
+        }
+
+        // Vehicle
+        const vehicle = model.vehicle;
+        if (vehicle && vehicle.hasModified) {
+            data.append('vehicle.hasModified', 'true');
+            data.append('vehicle.value.type', `${vehicle.value.type}`);
+            data.append('vehicle.value.name', `${vehicle.value.name}`);
+            data.append('vehicle.value.model', `${vehicle.value.model}`);
+            data.append('vehicle.value.plateNo', `${vehicle.value.plateNo}`);
         }
 
         if (model.photo) {

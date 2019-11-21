@@ -1,21 +1,23 @@
 <form novalidate
       name="editVendorVehicleForm"
-      ng-submit="clickUpdateFoodVendor($event)">
+      ng-submit="clickUpdateVendorVehicle($event)">
 
     <!--Vehicle type-->
-    <div class="row">
+    <div class="row"
+         ng-if="shouldVehicleTypeDisplayed()">
         <div class="col-3">
             <b>{{'TITLE_VEHICLE_TYPE' | translate}}</b>
         </div>
-        <div class="col-9">
-            <div class="form-group"
-                 ng-switch="editingVendorProfile">
+        <div class="col-9"
+             ng-switch="editingVendorVehicle">
+            <div class="form-group">
 
                 <!--In edit mode-->
-                <input class="form-control"
-                       ng-model="editFoodVendorModel.vehicle.type"
-                       ng-required="true"
-                       ng-switch-when="true">
+                <select class="form-control"
+                        ng-model="editVendorModel.vehicle.value.type"
+                        ng-required="true"
+                        ng-options="validVehicle.key as validVehicle.value | translate for validVehicle in validVehicles"
+                        ng-switch-when="true"></select>
 
                 <!--In add mode-->
                 <input class="form-control"
@@ -27,24 +29,25 @@
     </div>
 
     <!--Vehicle name-->
-    <div class="row">
+    <div class="row"
+         ng-if="shouldVehicleNameDisplay()">
         <div class="col-3">
             <b>{{'TITLE_VEHICLE_NAME' | translate}}</b>
         </div>
         <div class="col-9">
             <div class="form-group"
-                 ng-switch="editingVendorProfile">
+                 ng-switch="editingVendorVehicle">
 
                 <!--In edit mode-->
                 <input class="form-control"
-                       ng-model="editFoodVendorModel.phoneNo.value"
+                       ng-model="editVendorModel.vehicle.value.name"
                        ng-required="true"
                        ng-switch-when="true">
 
                 <!--In add mode-->
                 <input class="form-control"
                        readonly
-                       ng-model="detailedUser.vendor.vehicle.name"
+                       value="{{loadVehicleName(detailedUser.vendor.vehicle) | translate}}"
                        ng-switch-default="">
             </div>
         </div>
@@ -59,10 +62,10 @@
         <div class="col-9">
 
             <div class="form-group"
-                 ng-switch="editingVendorProfile">
+                 ng-switch="editingVendorVehicle">
                 <!--In edit mode-->
                 <input class="form-control"
-                       ng-model="editFoodVendorModel.phoneNo.value"
+                           ng-model="editVendorModel.vehicle.value.model"
                        ng-required="true"
                        ng-switch-when="true">
 
@@ -84,10 +87,10 @@
         <div class="col-9">
 
             <div class="form-group"
-                 ng-switch="editingVendorProfile">
+                 ng-switch="editingVendorVehicle">
                 <!--In edit mode-->
                 <input class="form-control"
-                       ng-model="editFoodVendorModel.phoneNo.value"
+                       ng-model="editVendorModel.vehicle.value.plateNo"
                        ng-required="true"
                        ng-switch-when="true">
 
@@ -106,18 +109,18 @@
             <div class="pull-right">
                 <div class="btn-group">
                     <button class="btn btn-outline-info"
-                            ng-if="!editingVendorProfile"
-                            ng-click="clickEditDetailedFoodVendor()">
+                            ng-if="!editingVendorVehicle"
+                            ng-click="clickEditVendorVehicle()">
                         <span class="fa fa-pencil"></span>
                     </button>
                     <button class="btn btn-outline-primary"
-                            ng-if="editingVendorProfile"
-                            ng-disabled="editFoodVendorDetailForm.$invalid || !editFoodVendorDetailForm.$dirty">
+                            ng-if="editingVendorVehicle"
+                            ng-disabled="editVendorVehicleForm.$invalid || !editVendorVehicleForm.$dirty">
                         <span class="fa fa-check"></span>
                     </button>
                     <button class="btn btn-outline-secondary"
-                            ng-if="editingVendorProfile"
-                            ng-click="clickCancelEditFoodVendor()">
+                            ng-if="editingVendorVehicle"
+                            ng-click="clickCancelEditVendorVehicle()">
                         <span class="fa fa-times"></span>
                     </button>
                 </div>

@@ -8,6 +8,7 @@ import {StateModule} from "./state";
 import {CityModule} from "./city";
 import {UserManagementModule} from "./user/user-management";
 import {UserDetailModule} from "./user/user-management/user-detail";
+import {RatingModule} from "./rating";
 
 export class PageModule {
 
@@ -22,6 +23,7 @@ export class PageModule {
         ngModule.config(($stateProvider: StateProvider) => new CityModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new UserManagementModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new UserDetailModule($stateProvider));
+        ngModule.config(($stateProvider: StateProvider) => new RatingModule($stateProvider));
     }
 
     //#endregion

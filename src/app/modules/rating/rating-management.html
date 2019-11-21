@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{'TITLE_NAME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="shouldRatingsDisplayed()"
+                        ng-repeat="item in loadCitiesResult.items"
+                        class="text-middle text-center">
+                        <td ng-switch="item.availability == masterItemAvailabilities.available">
+                            <b ng-switch-when="true">
+                                {{item.name}}
+                            </b>
+                            <del ng-switch-default>
+                                {{item.name}}
+                            </del>
+                        </td>
+                        <td ng-switch="item.availability == masterItemAvailabilities.available">
+                            <b ng-switch-when="true">
+                                {{idToState[item.stateId].name}}
+                            </b>
+                            <del ng-switch-default>
+                                {{idToState[item.stateId].name}}
+                            </del>
+                        </td>
+                        <td>
+                            <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td>
+                            <i>{{item.lastModifiedTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td class="text-center"
+                            ng-switch="item.availability == masterItemAvailabilities.available">
+
+                            <div ng-switch-when="true">
+                                <div class="form-group">
+                                    <button class="btn btn-outline-danger"
+                                            ng-click="clickDeleteCity(item.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-outline-info"
+                                            ng-click="clickEditCity(item)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr ng-if="!shouldRatingsDisplayed()">
+                        <td class="text-center"
+                            colspan="5">
+                            <b class="text-danger">{{'MSG_NO_CITY_AVAILABLE' | translate}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="d-flex justify-content-center">
+                                <ul uib-pagination
+                                    items-per-page="loadCitiesConditions.pager.records"
+                                    total-items="loadCitiesResult.pager.totalRecords"
+                                    ng-model="loadCitiesConditions.pager.page"
+                                    ng-change="clickReloadCities()"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="toolbar right bottom">
+    <div class="text-right">
+        <button class="btn btn-outline-primary" ng-click="clickAddCity()">
+            <i class="fa fa-plus"></i>
+        </button>
+
+        <button class="btn btn-outline-info" ng-click="clickOpenCitiesFinderModal()">
+            <i class="fa fa-search"></i>
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                ng-click="clickReloadCities(1)">
+            <i class="fa fa-refresh"></i>
+        </button>
+    </div>
+</div>

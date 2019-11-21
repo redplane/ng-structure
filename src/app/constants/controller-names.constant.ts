@@ -24,11 +24,13 @@ export class ControllerNamesConstant {
 
     public static detailedVendorControllerName = 'detailedVendorController';
 
-    public static vendorAssignedLocationControllerName = 'vendorAssignedLocationControllerName';
+    public static vendorAssignedLocationControllerName = 'vendorAssignedLocationController';
 
-    public static vendorPreferredLocationControllerName = 'vendorPreferredLocationControllerName';
+    public static vendorPreferredLocationControllerName = 'vendorPreferredLocationController';
 
-    public static vendorVehicleControllerName = 'vendorVehicleControllerName';
+    public static vendorVehicleControllerName = 'vendorVehicleController';
+
+    public static ratingManagementControllerName = 'ratingManagementController';
 
     //#endregion
 
