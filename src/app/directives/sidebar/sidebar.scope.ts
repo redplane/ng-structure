@@ -11,7 +11,7 @@ export interface ISidebarScope {
     //#region Methods
 
     /*
-    * Called when a nav item is clicked to change state.
+    * Called when a nav item is clicked to change states.
     * */
     clickChangeState(stateName: string): void;
 

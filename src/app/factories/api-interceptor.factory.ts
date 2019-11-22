@@ -29,7 +29,7 @@ export class ApiInterceptorFactory implements IHttpInterceptor {
 
     responseError = (rejection: any): IPromise<IHttpResponse<any>> | IHttpResponse<any> => {
 
-        // Get state service.
+        // Get states service.
         if (rejection.status === 401) {
 
             const $state: StateService = this.$injector.get('$state');

@@ -15,17 +15,17 @@ export interface ICitiesService {
     loadCitiesAsync(condition: LoadCitiesViewModel): IPromise<SearchResultViewModel<CityViewModel>>;
 
     /*
-    * Add state into system asynchronously.
+    * Add states into system asynchronously.
     * */
     addCityAsync(model: AddCityViewModel): IPromise<CityViewModel>;
 
     /*
-    * Delete state by id.
+    * Delete states by id.
     * */
     deleteCityAsync(cityId: string): IPromise<void>;
 
     /*
-    * Edit state by id.
+    * Edit states by id.
     * */
     editCityAsync(stateId: string, model: EditCityViewModel): IPromise<CityViewModel>;
 

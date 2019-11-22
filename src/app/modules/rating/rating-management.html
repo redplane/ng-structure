@@ -13,7 +13,7 @@
                     </thead>
                     <tbody>
                     <tr ng-if="shouldRatingsDisplayed()"
-                        ng-repeat="item in loadCitiesResult.items"
+                        ng-repeat="item in loadRatingsResult.items"
                         class="text-middle text-center">
                         <td ng-switch="item.availability == masterItemAvailabilities.available">
                             <b ng-switch-when="true">
@@ -23,19 +23,11 @@
                                 {{item.name}}
                             </del>
                         </td>
-                        <td ng-switch="item.availability == masterItemAvailabilities.available">
-                            <b ng-switch-when="true">
-                                {{idToState[item.stateId].name}}
-                            </b>
-                            <del ng-switch-default>
-                                {{idToState[item.stateId].name}}
-                            </del>
-                        </td>
                         <td>
                             <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
                         </td>
                         <td>
-                            <i>{{item.lastModifiedTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                            <i ng-if="item.lastModifiedTime != null">{{item.lastModifiedTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
                         </td>
                         <td class="text-center"
                             ng-switch="item.availability == masterItemAvailabilities.available">
@@ -43,15 +35,8 @@
                             <div ng-switch-when="true">
                                 <div class="form-group">
                                     <button class="btn btn-outline-danger"
-                                            ng-click="clickDeleteCity(item.id)">
+                                            ng-click="clickDeleteRating(item)">
                                         <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-
-                                <div class="form-group">
-                                    <button class="btn btn-outline-info"
-                                            ng-click="clickEditCity(item)">
-                                        <i class="fa fa-pencil"></i>
                                     </button>
                                 </div>
                             </div>
@@ -61,7 +46,7 @@
                     <tr ng-if="!shouldRatingsDisplayed()">
                         <td class="text-center"
                             colspan="5">
-                            <b class="text-danger">{{'MSG_NO_CITY_AVAILABLE' | translate}}</b>
+                            <b class="text-danger">{{'MSG_NO_RATING_AVAILABLE' | translate}}</b>
                         </td>
                     </tr>
                     <tr>
@@ -85,12 +70,8 @@
 
 <div class="toolbar right bottom">
     <div class="text-right">
-        <button class="btn btn-outline-primary" ng-click="clickAddCity()">
+        <button class="btn btn-outline-primary" ng-click="clickDisplayAddRatingModal()">
             <i class="fa fa-plus"></i>
-        </button>
-
-        <button class="btn btn-outline-info" ng-click="clickOpenCitiesFinderModal()">
-            <i class="fa fa-search"></i>
         </button>
 
         <button class="btn btn-outline-secondary"

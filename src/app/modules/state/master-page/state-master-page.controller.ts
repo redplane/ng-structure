@@ -8,11 +8,11 @@ import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-
 import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
 import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
 import {IStateMasterPageScope} from "./state-master-page.scope";
-import {LoadStatesViewModel} from "../../../view-models/state/load-states.view-model";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {LoadStatesViewModel} from "../../../view-models/states/load-states.view-model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {IStatesService} from "../../../services/interfaces/state-service.interface";
-import {AddStateViewModel} from "../../../view-models/state/add-state.view-model";
-import {EditStateViewModel} from "../../../view-models/state/edit-state.view-model";
+import {AddStateViewModel} from "../../../view-models/states/add-state.view-model";
+import {EditStateViewModel} from "../../../view-models/states/edit-state.view-model";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
 import {CityViewModel} from "../../../view-models/city/city.view-model";
 
@@ -82,7 +82,7 @@ export class StateMasterPageController implements IController {
     };
 
     /*
-    * Called when add state is clicked.
+    * Called when add states is clicked.
     * */
     protected clickAddState = (): void => {
 

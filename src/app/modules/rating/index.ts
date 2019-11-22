@@ -33,9 +33,10 @@ export class RatingModule {
                             require.ensure([], (require) => {
 
                                 // load only controller module
-                                let ngModule = module('app.rating-management', []);
-                                const {RatingManagementController} = require('./rating-management.controller');
+                                require('../shared/mesage-modal');
 
+                                let ngModule = module('app.rating-management', ['ngMessageModalModule']);
+                                const {RatingManagementController} = require('./rating-management.controller');
 
                                 // Import controller file.
                                 ngModule.controller(ControllerNamesConstant.ratingManagementControllerName, RatingManagementController);

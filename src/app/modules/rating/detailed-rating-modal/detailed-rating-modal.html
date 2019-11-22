@@ -1,0 +1,45 @@
+<form class="card"
+      novalidate
+      name="detailedRatingForm"
+      ng-submit="clickAddEditRating($event)">
+    <div class="card-header"
+         ng-switch="initialDetailedRating && initialDetailedRating.id !== null">
+        <h3 class="card-title">
+            <span ng-switch-when="true">
+                {{'TITLE_EDIT_RATING' | translate:{ name: initialDetailedRating.name} }}
+            </span>
+            <span ng-switch-default>{{'TITLE_ADD_RATING' | translate}}</span>
+        </h3>
+    </div>
+    <div class="card-body">
+        <!--Rating name-->
+        <div class="row">
+            <div class="col-12">
+                <b>{{'TITLE_NAME' | translate}}</b>
+                <div class="form-group">
+
+                    <input ng-model="detailedRating.name"
+                           class="form-control"
+                           ng-required="true">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-outline-primary"
+                        ng-disabled="detailedRatingForm.$invalid || !detailedRatingForm.$dirty">
+                    {{'TITLE_OK' | translate}}
+                </button>
+
+                <button class="btn btn-outline-secondary"
+                        type="button"
+                        ng-click="clickCancel()">
+                    {{'TITLE_CANCEL' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

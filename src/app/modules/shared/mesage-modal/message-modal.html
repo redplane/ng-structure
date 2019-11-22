@@ -1,0 +1,28 @@
+<div ng-class="modalOptions.headerClass">
+    <h4 class="modal-title"
+        ng-if="modalOptions.htmlTitle && modalOptions.htmlTitle.length"
+        ng-bind-html="modalOptions.htmlTitle">
+    </h4>
+    <button type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            ng-click="clickCloseModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div ng-class="modalOptions.bodyClass"
+     ng-bind-html="modalOptions.htmlContent">
+
+</div>
+<div class="modal-footer"
+     ng-if="modalOptions.buttons && modalOptions.buttons.length">
+    <div ng-class="modalOptions.buttonsWrapperClass">
+        <button ng-repeat="modalButton in modalOptions.buttons"
+                ng-class="modalButton.buttonClass"
+                type="button"
+                ng-bind-html="modalButton.htmlContent"
+                ng-click="clickModalButton(modalButton)">
+        </button>
+    </div>
+</div>

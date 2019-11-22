@@ -3,7 +3,7 @@ import {AddressViewModel} from "../../../../../view-models/address.view-model";
 import {ICoordinate} from "../../../../../interfaces/coordinate.interface";
 import {IFormController, IScope} from "angular";
 import {EditFoodVendorViewModel} from "../../../../../view-models/user/edit-food-vendor.view-model";
-import {StateViewModel} from "../../../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../../../view-models/states/state-view.model";
 import {CityViewModel} from "../../../../../view-models/city/city.view-model";
 
 export interface IDetailedFoodVendorScope extends IScope{

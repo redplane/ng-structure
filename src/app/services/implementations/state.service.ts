@@ -1,12 +1,12 @@
 import {IStatesService} from "../interfaces/state-service.interface";
-import {AddStateViewModel} from "../../view-models/state/add-state.view-model";
-import {StateViewModel} from "../../view-models/state/state-view.model";
-import {EditStateViewModel} from "../../view-models/state/edit-state.view-model";
-import {LoadStatesViewModel} from "../../view-models/state/load-states.view-model";
+import {AddStateViewModel} from "../../view-models/states/add-state.view-model";
+import {StateViewModel} from "../../view-models/states/state-view.model";
+import {EditStateViewModel} from "../../view-models/states/edit-state.view-model";
+import {LoadStatesViewModel} from "../../view-models/states/load-states.view-model";
 import {SearchResultViewModel} from "../../view-models/search-result.view-model";
 import {IHttpResponse, IHttpService, IPromise} from "angular";
 import {IAppSettings} from "../../interfaces/app-setting.interface";
-import {DeleteStateViewModel} from "../../view-models/state/delete-state.view-model";
+import {DeleteStateViewModel} from "../../view-models/states/delete-state.view-model";
 import {PagerViewModel} from "../../view-models/pager.view-model";
 import {ValidationValueConstant} from "../../constants/validation-value.constant";
 
@@ -24,7 +24,7 @@ export class StatesService implements IStatesService {
     //#region Methods
 
     /*
-    * Add state asynchronously.
+    * Add states asynchronously.
     * */
     public addStateAsync(model: AddStateViewModel): IPromise<StateViewModel> {
         const fullUrl = `${this.appSettings.apiEndpoint}/api/state`;
@@ -34,7 +34,7 @@ export class StatesService implements IStatesService {
     }
 
     /*
-    * Delete state asynchronously.
+    * Delete states asynchronously.
     * */
     public deleteStateAsync(stateId: string): IPromise<void> {
         const fullUrl = `${this.appSettings.apiEndpoint}/api/state/${stateId}`;
@@ -52,7 +52,7 @@ export class StatesService implements IStatesService {
     }
 
     /*
-    * Edit state asynchronously.
+    * Edit states asynchronously.
     * */
     public editStateAsync(stateId: string, model: EditStateViewModel): IPromise<StateViewModel> {
         const fullUrl = `${this.appSettings.apiEndpoint}/api/state/${stateId}`;
@@ -62,7 +62,7 @@ export class StatesService implements IStatesService {
     }
 
     /*
-    * Load state asynchronously.
+    * Load states asynchronously.
     * */
     public loadStatesAsync(condition: LoadStatesViewModel): IPromise<SearchResultViewModel<StateViewModel>> {
         const fullUrl = `${this.appSettings.apiEndpoint}/api/state/search`;

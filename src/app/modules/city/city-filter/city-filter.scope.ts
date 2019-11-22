@@ -1,6 +1,6 @@
 import {IScope} from "angular";
 import {ICityDetailResolver} from "../../../interfaces/resolvers/city-detail.resolver";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 
 export interface ICityFilterScope extends IScope, ng.ui.bootstrap.IModalScope {
 
@@ -17,7 +17,7 @@ export interface ICityFilterScope extends IScope, ng.ui.bootstrap.IModalScope {
     availableStates: StateViewModel[];
 
     /*
-    * Id of state.
+    * Id of states.
     * */
     stateId: string;
 

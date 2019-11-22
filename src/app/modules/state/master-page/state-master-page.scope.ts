@@ -1,6 +1,6 @@
 import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
-import {LoadStatesViewModel} from "../../../view-models/state/load-states.view-model";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {LoadStatesViewModel} from "../../../view-models/states/load-states.view-model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
 
 export interface IStateMasterPageScope {
@@ -18,7 +18,7 @@ export interface IStateMasterPageScope {
     loadStates: boolean;
 
     /*
-    * Condition to load state items.
+    * Condition to load states items.
     * */
     loadStatesConditions: LoadStatesViewModel;
 
@@ -42,17 +42,17 @@ export interface IStateMasterPageScope {
     shouldControlsAvailable: () => boolean;
 
     /*
-    * Add state.
+    * Add states.
     * */
     clickAddState: () => void;
 
     /*
-    * Delete state
+    * Delete states
     * */
     clickDeleteState: (stateId: string) => void;
 
     /*
-    * Raised when edit state is clicked.
+    * Raised when edit states is clicked.
     * */
     clickEditState: (state: StateViewModel) => void;
 

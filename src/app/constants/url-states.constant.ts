@@ -20,9 +20,9 @@ export class UrlStatesConstant {
 
     public static faqMasterPageModuleName = 'faq-master-page';
 
-    public static stateMasterPageModuleUrl = '/state';
+    public static stateMasterPageModuleUrl = '/states';
 
-    public static stateMasterPageModuleName = 'state-master-page';
+    public static stateMasterPageModuleName = 'states-master-page';
 
     public static cityMasterPageModuleName = 'city-master-page';
 
@@ -46,7 +46,7 @@ export class UrlStatesConstant {
 
     public static vendorPreferredLocationModuleName = 'vendorPreferredLocation';
 
-    public static vendorPreferredLocationModuleUrl = '/user/:id/preferred-location'
+    public static vendorPreferredLocationModuleUrl = '/user/:id/preferred-location';
 
     public static vendorVehicleModuleName = 'vendorVehicle';
 
@@ -54,6 +54,6 @@ export class UrlStatesConstant {
 
     public static ratingManagementModuleName = 'ratingManagement';
 
-    public static ratingManagementModuleUrl = 'rating';
+    public static ratingManagementModuleUrl = '/rating';
 
 }

@@ -7,16 +7,16 @@ import {UiService} from "../../../services/implementations/ui.service";
 import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-bus-service.interface";
 import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
 import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
-import {LoadStatesViewModel} from "../../../view-models/state/load-states.view-model";
+import {LoadStatesViewModel} from "../../../view-models/states/load-states.view-model";
 import {IStatesService} from "../../../services/interfaces/state-service.interface";
-import {EditStateViewModel} from "../../../view-models/state/edit-state.view-model";
+import {EditStateViewModel} from "../../../view-models/states/edit-state.view-model";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
 import {ICityMasterPageScope} from "./city-master-page.scope";
 import {CityViewModel} from "../../../view-models/city/city.view-model";
 import {ICitiesService} from "../../../services/interfaces/city-service.interface";
 import {AddCityViewModel} from "../../../view-models/city/add-city.view-model";
 import {LoadCitiesViewModel} from "../../../view-models/city/load-cities.view-model";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {ICityDetailResolver} from "../../../interfaces/resolvers/city-detail.resolver";
 
 /* @ngInject */
@@ -172,7 +172,7 @@ export class CityMasterPageController implements IController {
     };
 
     /*
-    * Called when edit state is clicked.
+    * Called when edit states is clicked.
     * */
     protected clickEditCity = (city: CityViewModel): void => {
 

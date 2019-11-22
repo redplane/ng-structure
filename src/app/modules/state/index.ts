@@ -33,7 +33,7 @@ export class StateModule {
                             require.ensure([], (require) => {
 
                                 // load only controller module
-                                let ngModule = module('app.state-master-page', []);
+                                let ngModule = module('app.states-master-page', []);
                                 const {StateMasterPageController} = require('./master-page/state-master-page.controller.ts');
 
                                 // // Lazy load faq detail.

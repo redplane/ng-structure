@@ -2,7 +2,7 @@ import {IController} from "angular";
 import {ILocationPickerScope} from "./location-picker-modal.scope";
 import {AddAssignedLocationModel} from "../../../models/add-assigned-location.model";
 import {IStatesService} from "../../interfaces/state-service.interface";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {ICitiesService} from "../../interfaces/city-service.interface";
 import {LoadCitiesViewModel} from "../../../view-models/city/load-cities.view-model";
 import {PagerViewModel} from "../../../view-models/pager.view-model";

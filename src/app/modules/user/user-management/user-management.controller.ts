@@ -6,7 +6,7 @@ import {UserViewModel} from "../../../view-models/user/user.view-model";
 import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
 import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
 import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-bus-service.interface";
 import {LoadUserViewModel} from "../../../view-models/user/load-user.view-model";
 import {PagerViewModel} from "../../../view-models/pager.view-model";

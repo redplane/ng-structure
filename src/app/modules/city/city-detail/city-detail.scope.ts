@@ -1,7 +1,7 @@
 import {CityViewModel} from "../../../view-models/city/city.view-model";
 import {CityDetailFormViewModel} from "../../../view-models/city/city-detail-form.view-model";
 import {ICityDetailResolver} from "../../../interfaces/resolvers/city-detail.resolver";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {IPromise, IScope} from "angular";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
 import {KeyValueModel} from "../../../models/key-value.model";
@@ -20,7 +20,7 @@ export interface ICityDetailScope extends ng.ui.bootstrap.IModalScope, IScope {
     cityModel: CityViewModel;
 
     /*
-    * Original state model.
+    * Original states model.
     * */
     originalCityModel: CityViewModel;
 

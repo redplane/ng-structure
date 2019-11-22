@@ -12,7 +12,7 @@ import {IBank} from "../../../../../interfaces/bank.interface";
 import {IAddress} from "../../../../../interfaces/address.interface";
 import {IStatesService} from "../../../../../services/interfaces/state-service.interface";
 import {SearchResultViewModel} from "../../../../../view-models/search-result.view-model";
-import {StateViewModel} from "../../../../../view-models/state/state-view.model";
+import {StateViewModel} from "../../../../../view-models/states/state-view.model";
 import {ICitiesService} from "../../../../../services/interfaces/city-service.interface";
 import {LoadCitiesViewModel} from "../../../../../view-models/city/load-cities.view-model";
 import {PagerViewModel} from "../../../../../view-models/pager.view-model";

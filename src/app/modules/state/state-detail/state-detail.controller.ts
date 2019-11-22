@@ -1,10 +1,10 @@
 import {IController} from "angular";
 import {IStateDetailScope} from "./state-detail.scope";
 import {EditableFieldViewModel} from "../../../view-models/editable-field.view-model";
-import {StateViewModel} from "../../../view-models/state/state-view.model";
-import {AddStateViewModel} from "../../../view-models/state/add-state.view-model";
-import {StateDetailFormViewModel} from "../../../view-models/state/state-detail-form.view-model";
-import {EditStateViewModel} from "../../../view-models/state/edit-state.view-model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
+import {AddStateViewModel} from "../../../view-models/states/add-state.view-model";
+import {StateDetailFormViewModel} from "../../../view-models/states/state-detail-form.view-model";
+import {EditStateViewModel} from "../../../view-models/states/edit-state.view-model";
 
 /* @ngInject */
 export class StateDetailController implements IController {

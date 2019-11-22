@@ -1,9 +1,9 @@
-import {LoadStatesViewModel} from "../../view-models/state/load-states.view-model";
+import {LoadStatesViewModel} from "../../view-models/states/load-states.view-model";
 import {IPromise} from "angular";
 import {SearchResultViewModel} from "../../view-models/search-result.view-model";
-import {StateViewModel} from "../../view-models/state/state-view.model";
-import {AddStateViewModel} from "../../view-models/state/add-state.view-model";
-import {EditStateViewModel} from "../../view-models/state/edit-state.view-model";
+import {StateViewModel} from "../../view-models/states/state-view.model";
+import {AddStateViewModel} from "../../view-models/states/add-state.view-model";
+import {EditStateViewModel} from "../../view-models/states/edit-state.view-model";
 
 export interface IStatesService {
 
@@ -20,17 +20,17 @@ export interface IStatesService {
     loadWholeStatesAsync(): IPromise<StateViewModel[]>;
 
     /*
-    * Add state into system asynchronously.
+    * Add states into system asynchronously.
     * */
     addStateAsync(model: AddStateViewModel): IPromise<StateViewModel>;
 
     /*
-    * Delete state by id.
+    * Delete states by id.
     * */
     deleteStateAsync(stateId: string): IPromise<void>;
 
     /*
-    * Edit state by id.
+    * Edit states by id.
     * */
     editStateAsync(stateId: string, model: EditStateViewModel): IPromise<StateViewModel>;
 
