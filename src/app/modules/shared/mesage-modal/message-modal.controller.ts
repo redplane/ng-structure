@@ -25,8 +25,13 @@ export class MessageModalController implements IController {
             'modal-body': true
         };
 
+        const defaultModalFooterClasses = {
+            'modal-footer': true
+        };
+
         initialModalOptions.headerClass = {...defaultModalHeaderClasses, ...initialModalOptions.headerClass};
         initialModalOptions.bodyClass = {...defaultModalBodyClasses, ...initialModalOptions.bodyClass};
+        initialModalOptions.footerClass = {...defaultModalFooterClasses, ...initialModalOptions.footerClass};
         $scope.modalOptions = {...initialModalOptions};
 
         $scope.clickCloseModal = this._clickCloseModal;

@@ -133,16 +133,38 @@ export class RatingManagementController implements IController {
             .displayBasicModalAsync<void>({
                 bodyClass: {'text-center': true},
                 htmlContent: `<b class="text-danger">${htmlContent}</b>`,
-                buttonsWrapperClass: {'text-center': true},
+                footerClass: {'justify-content-center': true},
                 buttons: [
                     {
                         htmlContent: `<span>${titleOk}</span>`,
-                        handleClickAction: () => this.$q.resolve(1),
+                        handleClickAction: () => this.$q.resolve(true),
                         buttonClass: {'btn btn-outline-primary': true}
+                    },
+                    {
+                        htmlContent: `<span>${titleCancel}</span>`,
+                        handleClickAction: () => this.$q.reject(),
+                        buttonClass: {'btn btn-outline-secondary': true}
                     }
                 ]
             })
-            .then(result => console.log(result));
+            .then(() => {
+
+                // Display loading ui.
+                this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+                // Delete rating from system.
+                this.$ratings.deleteRatingAsync(rating.id)
+                    .then(() => {
+                        return this.$ratings
+                            .loadRatingsAsync(this.$scope.loadRatingsCondition)
+                    })
+                    .then((loadRatingsResult: SearchResultViewModel<RatingViewModel>) => {
+                        this.$scope.loadRatingsResult = loadRatingsResult;
+                    })
+                    .finally(() => {
+                        this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+                    })
+            });
     };
 
     //#endregion

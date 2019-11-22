@@ -10,7 +10,7 @@ export interface IBasicMessageModalOptions {
 
     bodyClass?: {[key: string]: boolean};
 
-    buttonsWrapperClass?: {[key: string]: boolean};
+    footerClass?: {[key: string]: boolean};
 
     buttons?: IModalButton[];
 }

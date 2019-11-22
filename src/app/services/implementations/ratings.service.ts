@@ -32,5 +32,12 @@ export class RatingsService implements IRatingsService {
             .then(addRatingResponse => addRatingResponse.data);
     }
 
+    public deleteRatingAsync(id: string): IPromise<void> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/rating/${id}`;
+        return this.$http
+            .delete(fullUrl)
+            .then(() => void(0));
+    }
+
     //#endregion
 }

@@ -10,6 +10,8 @@ export interface IRatingsService {
 
     addRatingAsync(model: AddRatingViewModel): IPromise<RatingViewModel>;
 
+    deleteRatingAsync(id: string): IPromise<void>;
+
     loadRatingsAsync(conditions: LoadRatingsViewModel): IPromise<SearchResultViewModel<RatingViewModel>>;
 
     //#endregion

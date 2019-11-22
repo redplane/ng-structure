@@ -15,14 +15,12 @@
      ng-bind-html="modalOptions.htmlContent">
 
 </div>
-<div class="modal-footer"
+<div ng-class="modalOptions.footerClass"
      ng-if="modalOptions.buttons && modalOptions.buttons.length">
-    <div ng-class="modalOptions.buttonsWrapperClass">
-        <button ng-repeat="modalButton in modalOptions.buttons"
-                ng-class="modalButton.buttonClass"
-                type="button"
-                ng-bind-html="modalButton.htmlContent"
-                ng-click="clickModalButton(modalButton)">
-        </button>
-    </div>
+    <button ng-repeat="modalButton in modalOptions.buttons"
+            ng-class="modalButton.buttonClass"
+            type="button"
+            ng-bind-html="modalButton.htmlContent"
+            ng-click="clickModalButton(modalButton)">
+    </button>
 </div>
