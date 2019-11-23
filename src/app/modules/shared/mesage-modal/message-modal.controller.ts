@@ -1,6 +1,6 @@
 import {IController} from "angular";
 import {IBasicMessageModalOptions} from "./basic-message-modal-option.interface";
-import {IMessageModalScope} from "./message-modal-scope";
+import {IMessageModalScope} from "./message-modal.scope";
 import {IModalButton} from "./modal-button.interface";
 
 export class MessageModalController implements IController {

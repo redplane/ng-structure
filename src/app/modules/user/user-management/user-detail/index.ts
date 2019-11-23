@@ -296,8 +296,11 @@ export class UserDetailModule {
                     loadController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
+
+                                require('../../../shared/photo-cropper-modal');
+
                                 // load only controller module
-                                let ngModule = module('user.user-detail', []);
+                                let ngModule = module('user.user-detail', ['ngPhotoCropperModule']);
 
                                 // Lazy load login controller
                                 const {UserDetailController} = require('./user-detail.controller');

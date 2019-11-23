@@ -31,7 +31,9 @@ export interface IUserDetailScope extends IScope {
 
     // Whether vehicle area should be displayed.
     shouldVehicleDisplay(): boolean;
-    
+
+    clickDisplayPhotoCropperModal(): void;
+
     //#endregion
 
 }

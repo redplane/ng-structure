@@ -6,6 +6,7 @@ import {UserRoles} from "../../../../enums/user-roles.enum";
 import {DetailedUserViewConstant} from "../../../../constants/detailed-user-view.constant";
 import {UrlStatesConstant} from "../../../../constants/url-states.constant";
 import {StateService} from "@uirouter/angularjs";
+import {PhotoCropperModalService} from "../../../shared/photo-cropper-modal/photo-cropper-modal.service";
 
 /* @ngInject */
 export class UserDetailController implements IController {
@@ -15,7 +16,9 @@ export class UserDetailController implements IController {
     public constructor(detailedUser: DetailedUserViewModel,
                        protected $scope: IUserDetailScope,
                        protected $users: IUsersService,
-                       protected $state: StateService) {
+                       protected $state: StateService,
+                       protected $photoCropperModals: PhotoCropperModalService) {
+
         $scope.detailedUser = detailedUser;
         $scope.loadUserPhoto = $users.loadUserPhoto;
 
@@ -23,6 +26,7 @@ export class UserDetailController implements IController {
         $scope.shouldAssignedLocationDisplayed = this._shouldAssignedLocationDisplayed;
         $scope.shouldPreferredLocationDisplay = this._shouldPreferredLocationDisplay;
         $scope.shouldVehicleDisplay = this._shouldPreferredLocationDisplay;
+        $scope.clickDisplayPhotoCropperModal = this._clickDisplayPhotoCropperModal;
 
         $scope.urlStateConstants = UrlStatesConstant;
         $scope.detailedUserViewConstants = DetailedUserViewConstant;
@@ -71,6 +75,11 @@ export class UserDetailController implements IController {
 
         return this.$users
             .hasRoles(detailedUser.roles, [UserRoles.foodDeliveryVendor]);
+    };
+
+    protected _clickDisplayPhotoCropperModal = (): void => {
+        this.$photoCropperModals
+            .displayPhotoCropperModalAsync();
     };
 
     //#endregion

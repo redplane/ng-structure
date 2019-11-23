@@ -67,14 +67,18 @@
     "angular-ui-tinymce": "0.0.19",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.3.1",
+    "cropperjs": "^1.5.6",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
+    "jquery-cropper": "^1.0.1",
     "moment": "^2.24.0",
+    "ng-cropperjs": "^1.1.2",
     "ngmap": "^1.18.5",
     "oclazyload": "^1.1.0",
     "popper.js": "^1.15.0",
     "rxjs": "^6.5.2",
     "tinymce": "^5.0.11",
-    "ui-bootstrap4": "^3.0.6"
+    "ui-bootstrap4": "^3.0.6",
+    "uuid": "^3.3.3"
   }
 }
