@@ -11,6 +11,7 @@ import {EditFoodVendorViewModel} from "../../view-models/user/edit-food-vendor.v
 import {IFoodVendor} from "../../interfaces/food-vendor.interface";
 import {EditFoodDeliveryVendorModel} from "../../models/edit-food-delivery-vendor.model";
 import {IFoodDeliveryVendor} from "../../interfaces/food-delivery-vendor.interface";
+import {EditUserProfileViewModel} from "../../view-models/user/edit-user-profile.view-model";
 
 export interface IUsersService {
 
@@ -25,6 +26,9 @@ export interface IUsersService {
     * Load profile asynchronously.
     * */
     loadProfileAsync(): IPromise<ProfileViewModel>;
+
+    // Upload user photo asynchronously.
+    uploadUserPhotoAsync(userId: string, photo: Blob): IPromise<void>;
 
     /*
     * Update food vendor asynchronously.

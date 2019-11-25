@@ -8,6 +8,8 @@ export interface IPhotoCropperModalScope extends IScope, IModalScope {
 
     modalId?: string;
 
+    fileSelectorId?: string;
+
     imageCropper: Cropper;
 
     imageUrl: string;
@@ -21,6 +23,8 @@ export interface IPhotoCropperModalScope extends IScope, IModalScope {
     clickDismissModal: () => void;
 
     clickOk: () => void;
+
+    selectFile: (event: HTMLInputElement) => void;
 
     //#endregion
 }

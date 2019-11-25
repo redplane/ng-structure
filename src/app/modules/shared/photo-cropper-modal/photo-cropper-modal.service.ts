@@ -16,7 +16,7 @@ export class PhotoCropperModalService {
     //#region Methods
 
     public displayPhotoCropperModalAsync(defaultImage: string,
-                                         options: Cropper.Options): IPromise<void> {
+                                         options: Cropper.Options): IPromise<Blob> {
         // Load controller.
         const loadControllerPromise = import('./photo-cropper-modal.controller')
             .then(m => m.PhotoCropperModalController);
@@ -39,11 +39,8 @@ export class PhotoCropperModalService {
                         }
                     });
 
-                return modalInstance.result;
-
-
-            })
-            .then(() => void(0));
+                return <IPromise<Blob>> modalInstance.result;
+            });
 
 
     }

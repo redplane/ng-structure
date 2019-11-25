@@ -13,6 +13,8 @@ import {IFoodVendor} from "../../interfaces/food-vendor.interface";
 import {EditFoodDeliveryVendorModel} from "../../models/edit-food-delivery-vendor.model";
 import {IFoodDeliveryVendor} from "../../interfaces/food-delivery-vendor.interface";
 import {EditableFieldViewModel} from "../../view-models/editable-field.view-model";
+import {EditUserProfileViewModel} from "../../view-models/user/edit-user-profile.view-model";
+import * as uuid from 'uuid/v1';
 
 export class UsersService implements IUsersService {
 
@@ -62,6 +64,26 @@ export class UsersService implements IUsersService {
         return this.$http
             .get<ProfileViewModel>(fullUrl)
             .then((loadProfileResponse: IHttpResponse<ProfileViewModel>) => loadProfileResponse.data);
+    }
+
+    public uploadUserPhotoAsync(userId: string, photo: Blob): IPromise<void> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/user/upload-profile-photo`;
+
+        const data = new FormData();
+        if (userId && userId.length) {
+            data.append('userId', userId);
+        }
+
+        let httpRequestOptions = {
+            headers: {
+                'Content-Type': undefined
+            }
+        };
+
+        data.append('photo', photo, `${uuid()}.png`);
+        return this.$http
+            .post<UserViewModel>(fullUrl, data, httpRequestOptions)
+            .then(m => void(0));
     }
 
     public loadUsersAsync(conditions: LoadUserViewModel): IPromise<SearchResultViewModel<UserViewModel>> {

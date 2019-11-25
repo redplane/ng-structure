@@ -1,4 +1,4 @@
-import {IController} from "angular";
+import {IController, IPromise, IQService} from "angular";
 import {DetailedUserViewModel} from "../../../../view-models/user/detailed-user.view-model";
 import {IUserDetailScope} from "./user-detail.scope";
 import {IUsersService} from "../../../../services/interfaces/user-service.interface";
@@ -7,6 +7,9 @@ import {DetailedUserViewConstant} from "../../../../constants/detailed-user-view
 import {UrlStatesConstant} from "../../../../constants/url-states.constant";
 import {StateService} from "@uirouter/angularjs";
 import {PhotoCropperModalService} from "../../../shared/photo-cropper-modal/photo-cropper-modal.service";
+import {INgRxMessageBusService} from "../../../../services/interfaces/ngrx-message-bus-service.interface";
+import {MessageChannelNameConstant} from "../../../../constants/message-channel-name.constant";
+import {MessageEventNameConstant} from "../../../../constants/message-event-name.constant";
 
 /* @ngInject */
 export class UserDetailController implements IController {
@@ -17,7 +20,9 @@ export class UserDetailController implements IController {
                        protected $scope: IUserDetailScope,
                        protected $users: IUsersService,
                        protected $state: StateService,
-                       protected $photoCropperModals: PhotoCropperModalService) {
+                       protected $messageBus: INgRxMessageBusService,
+                       protected $photoCropperModals: PhotoCropperModalService,
+                       protected $q: IQService) {
 
         $scope.detailedUser = detailedUser;
         $scope.loadUserPhoto = $users.loadUserPhoto;
@@ -26,7 +31,7 @@ export class UserDetailController implements IController {
         $scope.shouldAssignedLocationDisplayed = this._shouldAssignedLocationDisplayed;
         $scope.shouldPreferredLocationDisplay = this._shouldPreferredLocationDisplay;
         $scope.shouldVehicleDisplay = this._shouldPreferredLocationDisplay;
-        $scope.clickDisplayPhotoCropperModal = this._clickDisplayPhotoCropperModal;
+        $scope.clickChangeUserPhoto = this._clickChangeUserPhoto;
 
         $scope.urlStateConstants = UrlStatesConstant;
         $scope.detailedUserViewConstants = DetailedUserViewConstant;
@@ -77,12 +82,38 @@ export class UserDetailController implements IController {
             .hasRoles(detailedUser.roles, [UserRoles.foodDeliveryVendor]);
     };
 
-    protected _clickDisplayPhotoCropperModal = (): void => {
-        console.log(this.$scope.detailedUser.photo);
+    protected _clickChangeUserPhoto = (detailedUser: DetailedUserViewModel): void => {
         this.$photoCropperModals
-            .displayPhotoCropperModalAsync(this.$scope.detailedUser.photo, {
+            .displayPhotoCropperModalAsync(null, {
                 aspectRatio: 1 / 1,
-                viewMode: 3
+                viewMode: 2
+            })
+            .then((photo: Blob) => {
+
+                // Display loading message.
+                this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+                return this.$users
+                    .uploadUserPhotoAsync(this.$scope.detailedUser.id, photo)
+                    .then(() => {
+                        const fileReader = new FileReader();
+
+                        const loadDataPromise: IPromise<string> = this
+                            .$q(resolve => {
+                                fileReader.onloadend =  () => {
+                                    resolve(<string> fileReader.result);
+                                }
+                            });
+
+
+                        fileReader.readAsDataURL(photo);
+                        return loadDataPromise;
+                    })
+                    .then(imageUrl => {
+                        this.$scope.detailedUser.photo = imageUrl;
+                    })
+                    .finally(() => {
+                        this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+                    });
             });
     };
 
