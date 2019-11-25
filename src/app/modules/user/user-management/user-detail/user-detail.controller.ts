@@ -78,8 +78,12 @@ export class UserDetailController implements IController {
     };
 
     protected _clickDisplayPhotoCropperModal = (): void => {
+        console.log(this.$scope.detailedUser.photo);
         this.$photoCropperModals
-            .displayPhotoCropperModalAsync();
+            .displayPhotoCropperModalAsync(this.$scope.detailedUser.photo, {
+                aspectRatio: 1 / 1,
+                viewMode: 3
+            });
     };
 
     //#endregion

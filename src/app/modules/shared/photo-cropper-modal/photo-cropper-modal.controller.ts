@@ -15,11 +15,14 @@ export class PhotoCropperModalController implements IController {
 
     public constructor(modalId: string,
                        modalOptions: Cropper.Options,
+                       defaultImage: string,
                        protected $scope: IPhotoCropperModalScope,
                        protected $uibModalInstance: IModalInstanceService) {
         this._modalOptions = modalOptions;
         this.$scope.modalId = modalId;
+        this.$scope.imageUrl = defaultImage;
 
+        $scope.clickChangeImage = this._clickChangeImage;
         $scope.clickDismissModal = this._clickDismissModal;
         $scope.clickOk = this._clickOk;
     }
@@ -47,6 +50,10 @@ export class PhotoCropperModalController implements IController {
 
     protected _clickDismissModal = (): void => {
         this.$scope.$dismiss();
+    };
+
+    protected _clickChangeImage = (): void => {
+        this.$scope.imageCropper.replace("/assets/images/1.png");
     };
 
     //#endregion

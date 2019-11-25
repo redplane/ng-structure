@@ -10,9 +10,13 @@ export interface IPhotoCropperModalScope extends IScope, IModalScope {
 
     imageCropper: Cropper;
 
+    imageUrl: string;
+
     //#endregion
 
     //#region Methods
+
+    clickChangeImage: () => void;
 
     clickDismissModal: () => void;
 

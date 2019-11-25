@@ -78,7 +78,6 @@ export class AppModule {
                 loadLibraryPromises.push(import('angular-sanitize'));
                 loadLibraryPromises.push(import('ui-bootstrap4/dist/ui-bootstrap-tpls'));
                 loadLibraryPromises.push(import('angular-moment'));
-                loadLibraryPromises.push(import('ng-cropperjs/dist/main'));
 
                 return Promise
                     .all(loadLibraryPromises);

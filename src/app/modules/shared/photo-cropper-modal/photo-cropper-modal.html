@@ -14,11 +14,14 @@
 <div class="modal-body">
     <div style="max-width: 100%">
         <img id="{{modalId}}"
-             src="/assets/images/avatar.png"
+             ng-src="{{imageUrl}}"
              style="display:block; max-width: 100%">
     </div>
 </div>
 <div class="modal-footer justify-content-center">
+    <button class="btn btn-outline-info" ng-click="clickChangeImage()">
+        <span>Change image</span>
+    </button>
     <button class="btn btn-outline-primary"
             ng-click="clickOk()">
         {{'TITLE_OK' | translate}}
