@@ -13,7 +13,7 @@ export interface IPhrasesService {
 
     editPhraseAsync(phraseId: string, model: any): IPromise<PhraseViewModel>;
 
-    deletePhraseAsync(phraseId: string): IPromise<void>
+    deletePhraseAsync(phraseId: string, hardDelete: boolean): IPromise<number>
 
     //#endregion
 

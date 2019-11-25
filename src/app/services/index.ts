@@ -8,6 +8,7 @@ import {CitiesService} from "./implementations/cities.service";
 import {LocationPickerModalsService} from "./implementations/location-picker-modal/location-picker-modals.service";
 import {RatingsService} from "./implementations/ratings.service";
 import {StickersService} from "./implementations/stickers.service";
+import {PhrasesService} from "./implementations/phrases.service";
 
 /* @ngInject */
 export class ServiceModule {
@@ -24,6 +25,7 @@ export class ServiceModule {
         ngModule.service('$locationPickerModals', LocationPickerModalsService);
         ngModule.service('$ratings', RatingsService);
         ngModule.service('$stickers', StickersService);
+        ngModule.service('$phrases', PhrasesService);
     }
 
     //#endregion

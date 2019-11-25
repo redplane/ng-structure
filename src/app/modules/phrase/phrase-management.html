@@ -13,14 +13,14 @@
                     </thead>
                     <tbody>
                     <tr ng-if="shouldPhrasesDisplayed()"
-                        ng-repeat="item in loadStickersResult.items"
+                        ng-repeat="item in loadPhrasesResult.items"
                         class="text-middle text-center">
                         <td ng-switch="item.availability == masterItemAvailabilities.available">
                             <b ng-switch-when="true">
-                                {{item.name}}
+                                {{item.text}}
                             </b>
                             <del ng-switch-default>
-                                {{item.name}}
+                                {{item.text}}
                             </del>
                         </td>
                         <td>
@@ -33,25 +33,33 @@
                         <td class="text-center"
                             ng-switch="item.availability == masterItemAvailabilities.available">
 
-                            <div class="form-group"
-                                 ng-switch-when="true">
+                            <div class="form-group">
                                 <button class="btn btn-outline-info"
-                                        ng-click="clickEditSticker(item)">
+                                        ng-switch-when="true"
+                                        ng-click="clickEditPhrase(item)">
                                     <i class="fa fa-edit"></i>
+                                </button>
+
+                                <button class="btn btn-outline-primary"
+                                        ng-switch-default
+                                        ng-click="clickRestorePhrase(item)">
+                                    <span class="fa fa-refresh"></span>
+                                </button>
+
+                                <button class="btn btn-outline-danger"
+                                        ng-click="clickDeletePhrase(item)">
+                                    <i class="fa fa-trash"></i>
                                 </button>
                             </div>
 
-                            <button class="btn btn-outline-danger"
-                                    ng-click="clickDeleteSticker(item)">
-                                <i class="fa fa-trash"></i>
-                            </button>
+
 
                         </td>
                     </tr>
                     <tr ng-if="!shouldPhrasesDisplayed()">
                         <td class="text-center"
                             colspan="5">
-                            <b class="text-danger">{{'MSG_NO_STICKER_AVAILABLE' | translate}}</b>
+                            <b class="text-danger">{{'MSG_NO_PHRASE_AVAILABLE' | translate}}</b>
                         </td>
                     </tr>
                     <tr>

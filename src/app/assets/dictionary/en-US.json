@@ -81,6 +81,11 @@
   "TITLE_HARD_DELETE": "Hard delete",
   "TITLE_PHRASES": "Phrases",
   "TITLE_TEXT": "Text",
+  "TITLE_DELETE_PHRASE": "Delete phrase",
+  "TITLE_ADD_PHRASE": "Add a phrase",
+  "TITLE_EDIT_PHRASE": "Edit phrase",
+  "TITLE_AVAILABLE": "Available",
+  "TITLE_UNAVAILABLE": "Unavailable",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
@@ -95,5 +100,8 @@
   "MSG_NO_USER_AVAILABLE": "No user available",
   "MSG_DELETE_RATING": "Are you sure to delete <b>{{name}}</b> ?",
   "MSG_NO_STICKER_AVAILABLE": "No sticker is available",
-  "MSG_DELETE_STICKER": "Are you sure to delete the sticker: <b>{{name}}</b>"
+  "MSG_DELETE_STICKER": "Are you sure to delete the sticker: <b>{{name}}</b>",
+  "MSG_DELETE_PHRASE": "Are you sure to delete the phrase: <b>{{text}}</b>",
+  "MSG_NO_PHRASE_AVAILABLE": "No phrase is available"
+
 }

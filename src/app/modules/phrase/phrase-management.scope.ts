@@ -32,6 +32,8 @@ export interface IPhraseManagementScope extends IScope {
 
     clickDeletePhrase(phrase: PhraseViewModel): void;
 
+    clickRestorePhrase(phrase: PhraseViewModel): void;
+
     //#endregion
 
 }

@@ -3,6 +3,7 @@ import {UrlStatesConstant} from "../../constants/url-states.constant";
 import {ICompileService, IQService, module} from 'angular';
 import {ILazyLoad} from "oclazyload";
 import {ControllerNamesConstant} from "../../constants/controller-names.constant";
+import {DetailedPhraseModalService} from "./detailed-phrase-modal/detailed-phrase-modal.service";
 
 /* @ngInject */
 export class PhraseModule {
@@ -35,7 +36,8 @@ export class PhraseModule {
                                 require('../shared/message-modal');
 
                                 // load only controller module
-                                let ngModule = module('app.sticker', ['ngMessageModalModule']);
+                                let ngModule = module('app.phrase', ['ngMessageModalModule']);
+                                ngModule = ngModule.service('$detailedPhraseModals', DetailedPhraseModalService);
                                 const {PhraseManagementController} = require('./phrase-management.controller');
 
                                 // Import controller file.
