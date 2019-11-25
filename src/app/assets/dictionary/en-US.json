@@ -69,6 +69,18 @@
   "TITLE_ADD_RATING": "Add a rating",
   "TITLE_DELETE_RATING": "Delete rating",
   "TITLE_PICK_AN_IMAGE": "Pick an image",
+  "TITLE_STICKERS": "Stickers",
+  "TITLE_ADD_STICKER": "Add a sticker",
+  "TITLE_EDIT_STICKER": "Edit sticker: {{name}}",
+  "TITLE_IMAGE": "Image",
+  "TITLE_UPDATE_STICKER_IMAGE": "Update sticker image",
+  "TITLE_YES": "Yes",
+  "TITLE_NO": "No",
+  "TITLE_DELETE_STICKER": "Delete sticker confirmation",
+  "TITLE_SOFT_DELETE": "Soft delete",
+  "TITLE_HARD_DELETE": "Hard delete",
+  "TITLE_PHRASES": "Phrases",
+  "TITLE_TEXT": "Text",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
@@ -81,6 +93,7 @@
   "MSG_ADDED_CITY_SUCCESSFULLY": "City has been added successfully.",
   "MSG_PLEASE_SELECT_STATE": "Please select a state",
   "MSG_NO_USER_AVAILABLE": "No user available",
-  "MSG_DELETE_RATING": "Are you sure to delete <b>{{name}}</b> ?"
-
+  "MSG_DELETE_RATING": "Are you sure to delete <b>{{name}}</b> ?",
+  "MSG_NO_STICKER_AVAILABLE": "No sticker is available",
+  "MSG_DELETE_STICKER": "Are you sure to delete the sticker: <b>{{name}}</b>"
 }

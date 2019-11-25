@@ -5,15 +5,15 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th class="text-center">{{'TITLE_NAME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_TEXT' | translate}}</th>
                         <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
                         <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
                         <th class="text-center"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-if="shouldRatingsDisplayed()"
-                        ng-repeat="item in loadRatingsResult.items"
+                    <tr ng-if="shouldPhrasesDisplayed()"
+                        ng-repeat="item in loadStickersResult.items"
                         class="text-middle text-center">
                         <td ng-switch="item.availability == masterItemAvailabilities.available">
                             <b ng-switch-when="true">
@@ -27,36 +27,41 @@
                             <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
                         </td>
                         <td>
-                            <i ng-if="item.lastModifiedTime != null">{{item.lastModifiedTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                            <i ng-if="item.lastModifiedTime != null">{{item.lastModifiedTime | amUtc |
+                                amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
                         </td>
                         <td class="text-center"
                             ng-switch="item.availability == masterItemAvailabilities.available">
 
-                            <div ng-switch-when="true">
-                                <div class="form-group">
-                                    <button class="btn btn-outline-danger"
-                                            ng-click="clickDeleteRating(item)">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
+                            <div class="form-group"
+                                 ng-switch-when="true">
+                                <button class="btn btn-outline-info"
+                                        ng-click="clickEditSticker(item)">
+                                    <i class="fa fa-edit"></i>
+                                </button>
                             </div>
+
+                            <button class="btn btn-outline-danger"
+                                    ng-click="clickDeleteSticker(item)">
+                                <i class="fa fa-trash"></i>
+                            </button>
 
                         </td>
                     </tr>
-                    <tr ng-if="!shouldRatingsDisplayed()">
+                    <tr ng-if="!shouldPhrasesDisplayed()">
                         <td class="text-center"
                             colspan="5">
-                            <b class="text-danger">{{'MSG_NO_RATING_AVAILABLE' | translate}}</b>
+                            <b class="text-danger">{{'MSG_NO_STICKER_AVAILABLE' | translate}}</b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5">
                             <div class="d-flex justify-content-center">
                                 <ul uib-pagination
-                                    items-per-page="loadCitiesConditions.pager.records"
-                                    total-items="loadRatingsResult.pager.totalRecords"
-                                    ng-model="loadRatingsCondition.pager.page"
-                                    ng-change="clickReloadRatings()"></ul>
+                                    items-per-page="loadStickersCondition.pager.records"
+                                    total-items="loadStickersResult.pager.totalRecords"
+                                    ng-model="loadStickersCondition.pager.page"
+                                    ng-change="clickReloadStickers()"></ul>
                             </div>
                         </td>
                     </tr>
@@ -70,12 +75,13 @@
 
 <div class="toolbar right bottom">
     <div class="text-right">
-        <button class="btn btn-outline-primary" ng-click="clickDisplayAddRatingModal()">
+        <button class="btn btn-outline-primary"
+                ng-click="clickAddSticker()">
             <i class="fa fa-plus"></i>
         </button>
 
         <button class="btn btn-outline-secondary"
-                ng-click="clickReloadCities(1)">
+                ng-click="clickReloadStickers(1)">
             <i class="fa fa-refresh"></i>
         </button>
     </div>

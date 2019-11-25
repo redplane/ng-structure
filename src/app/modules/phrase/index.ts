@@ -5,21 +5,21 @@ import {ILazyLoad} from "oclazyload";
 import {ControllerNamesConstant} from "../../constants/controller-names.constant";
 
 /* @ngInject */
-export class RatingModule {
+export class PhraseModule {
 
     //#region Constructors
 
     public constructor(private $stateProvider: StateProvider) {
 
         $stateProvider
-            .state(UrlStatesConstant.ratingManagementModuleName, {
-                url: UrlStatesConstant.ratingManagementModuleUrl,
-                controller: ControllerNamesConstant.ratingManagementControllerName,
+            .state(UrlStatesConstant.phraseManagementModuleName, {
+                url: UrlStatesConstant.phraseManagementModuleUrl,
+                controller: ControllerNamesConstant.phraseManagementControllerName,
                 templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./rating-management.html')));
+                        require.ensure([], () => resolve(require('./phrase-management.html')));
                     });
                 }],
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
@@ -32,15 +32,15 @@ export class RatingModule {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
 
-                                // load only controller module
                                 require('../shared/message-modal');
 
-                                let ngModule = module('app.rating-management', ['ngMessageModalModule']);
-                                const {RatingManagementController} = require('./rating-management.controller');
+                                // load only controller module
+                                let ngModule = module('app.sticker', ['ngMessageModalModule']);
+                                const {PhraseManagementController} = require('./phrase-management.controller');
 
                                 // Import controller file.
-                                ngModule.controller(ControllerNamesConstant.ratingManagementControllerName, RatingManagementController);
-                                $ocLazyLoad.inject(ngModule.name);
+                                ngModule.controller(ControllerNamesConstant.phraseManagementControllerName, PhraseManagementController);
+                                $ocLazyLoad.inject( ngModule.name);
                                 resolve(ngModule.controller);
                             })
                         });

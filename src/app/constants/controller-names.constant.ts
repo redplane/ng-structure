@@ -32,6 +32,10 @@ export class ControllerNamesConstant {
 
     public static ratingManagementControllerName = 'ratingManagementController';
 
+    public static stickerManagementControllerName = 'stickerManagementController';
+
+    public static phraseManagementControllerName = 'phraseManagementController';
+
     //#endregion
 
 }

@@ -56,4 +56,12 @@ export class UrlStatesConstant {
 
     public static ratingManagementModuleUrl = '/rating';
 
+    public static stickerManagementModuleName = 'stickerManagementModule';
+
+    public static stickerManagementModuleUrl = '/sticker';
+
+    public static phraseManagementModuleName = 'phraseManagementModule';
+
+    public static phraseManagementModuleUrl = '/phrase'
+
 }

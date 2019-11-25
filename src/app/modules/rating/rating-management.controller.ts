@@ -10,7 +10,7 @@ import {INgRxMessageBusService} from "../../services/interfaces/ngrx-message-bus
 import {RatingViewModel} from "../../view-models/ratings/rating.view-model";
 import {LoadRatingsViewModel} from "../../view-models/ratings/load-ratings.view-model";
 import {AddRatingViewModel} from "../../view-models/ratings/add-rating.view-model";
-import {IMessageModalsService} from "../shared/mesage-modal/message-modals-service.interface";
+import {IMessageModalsService} from "../shared/message-modal/message-modals-service.interface";
 
 /* @ngInject */
 export class RatingManagementController implements IController {

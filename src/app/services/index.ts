@@ -7,6 +7,7 @@ import {StatesService} from "./implementations/state.service";
 import {CitiesService} from "./implementations/cities.service";
 import {LocationPickerModalsService} from "./implementations/location-picker-modal/location-picker-modals.service";
 import {RatingsService} from "./implementations/ratings.service";
+import {StickersService} from "./implementations/stickers.service";
 
 /* @ngInject */
 export class ServiceModule {
@@ -22,6 +23,7 @@ export class ServiceModule {
         ngModule.service('$messageBus', () => new NgRxMessageBusService(null));
         ngModule.service('$locationPickerModals', LocationPickerModalsService);
         ngModule.service('$ratings', RatingsService);
+        ngModule.service('$stickers', StickersService);
     }
 
     //#endregion

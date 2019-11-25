@@ -1,0 +1,91 @@
+<form novalidate
+      name="detailedStickerForm"
+      ng-submit="$event.preventDefault()">
+    <div class="modal-header">
+        <h5 class="modal-title">{{loadModalTitle()}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <!--Name-->
+        <div class="row">
+            <div class="col-12">
+                <label>{{'TITLE_NAME' | translate}}</label>
+                <div class="form-group">
+                    <input class="form-control"
+                           ng-required="true"
+                           name="name"
+                           ng-model="name.value">
+                </div>
+            </div>
+        </div>
+
+        <!--Update sticker image-->
+        <div class="row"
+             ng-if="initialModel && initialModel.id">
+            <div class="col-12">
+                <label>{{'TITLE_UPDATE_STICKER_IMAGE' | translate}}</label>
+                <div class="form-group">
+                    <select class="form-control"
+                            name="name"
+                            ng-model="photo.hasModified"
+                            ng-options="availableItem.value as availableItem.key | translate for availableItem in availableTrueFalseSelections">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!--Image-->
+        <div class="row">
+            <div class="col-12">
+                <label>{{'TITLE_IMAGE' | translate}}</label>
+                <div class="form-group">
+                    <div style="max-width: 100%">
+                        <img id="{{imageControlId}}"
+                             ng-show="selectedImageUrl && selectedImageUrl.length"
+                             style="display:block; max-width: 100%">
+
+                        <div style="height: 300px; background-color: grey"
+                             ng-show="!selectedImageUrl || !selectedImageUrl.length"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Picker-->
+        <div class="row">
+            <div class="col-12 text-center">
+
+                <input id="{{filePickerControlId}}"
+                       type="file"
+                       hidden
+                       accept="image/*"
+                       onchange="angular.element(this).scope().selectFile(this)">
+
+                <input hidden name="selectedImage"
+                       ng-required="true"
+                       ng-model="selectedImageUrl">
+
+                <button type="button"
+                        class="btn btn-outline-info" ng-click="clickSelectFile()">
+                    {{'TITLE_PICK_AN_IMAGE' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button"
+                class="btn btn-outline-primary"
+                ng-disabled="!detailedStickerForm.$valid"
+                ng-click="clickAddEditSticker()">
+            <span>{{'TITLE_OK' | translate}}</span>
+        </button>
+        <button type="button"
+                class="btn btn-outline-secondary"
+                ng-click="clickDismissModal()">
+            <span>{{'TITLE_CANCEL' | translate}}</span>
+        </button>
+    </div>
+</form>

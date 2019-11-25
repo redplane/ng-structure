@@ -9,6 +9,8 @@ import {CityModule} from "./city";
 import {UserManagementModule} from "./user/user-management";
 import {UserDetailModule} from "./user/user-management/user-detail";
 import {RatingModule} from "./rating";
+import {StickerModule} from "./sticker";
+import {PhraseModule} from "./phrase";
 
 export class PageModule {
 
@@ -24,6 +26,8 @@ export class PageModule {
         ngModule.config(($stateProvider: StateProvider) => new UserManagementModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new UserDetailModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new RatingModule($stateProvider));
+        ngModule.config(($stateProvider: StateProvider) => new StickerModule($stateProvider));
+        ngModule.config(($stateProvider: StateProvider) => new PhraseModule($stateProvider));
     }
 
     //#endregion
