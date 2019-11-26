@@ -4,7 +4,7 @@ export class LoadUserViewModel {
 
     //#region Properties
 
-    public ids: string[];
+    public ids?: string[];
 
     public pager: PagerViewModel;
 
@@ -12,7 +12,7 @@ export class LoadUserViewModel {
 
     //#region Constructor
 
-    public constructor(pager: PagerViewModel) {
+    public constructor(pager?: PagerViewModel) {
         this.pager = pager;
     }
 

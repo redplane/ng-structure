@@ -1,4 +1,4 @@
-import {IController, IQService} from "angular";
+import {IController, IPromise, IQService} from "angular";
 import {ICloudDeviceManagementScope} from "./cloud-device-management.scope";
 import {SearchResultViewModel} from "../../view-models/search-result.view-model";
 import {INgRxMessageBusService} from "../../services/interfaces/ngrx-message-bus-service.interface";
@@ -10,6 +10,10 @@ import {MessageEventNameConstant} from "../../constants/message-event-name.const
 import {LoadCloudDeviceViewModel} from "../../view-models/cloud-device/load-cloud-device.view-model";
 import {CloudDeviceViewModel} from "../../view-models/cloud-device/cloud-device.view-model";
 import {ICloudDevicesService} from "../../services/interfaces/cloud-devices-service.interface";
+import {IUsersService} from "../../services/interfaces/user-service.interface";
+import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
+import {UserViewModel} from "../../view-models/user/user.view-model";
+import {PagerViewModel} from "../../view-models/pager.view-model";
 
 export class CloudDeviceManagementController implements IController {
 
@@ -20,6 +24,7 @@ export class CloudDeviceManagementController implements IController {
                        protected $messageBus: INgRxMessageBusService,
                        protected $messageModals: IMessageModalsService,
                        protected $translate: angular.translate.ITranslateService,
+                       protected $users: IUsersService,
                        protected $q: IQService) {
         $scope.loadCloudDevicesCondition = new LoadCloudDeviceViewModel();
         $scope.loadCloudDevicesResult = new SearchResultViewModel<CloudDeviceViewModel>();
@@ -58,8 +63,7 @@ export class CloudDeviceManagementController implements IController {
         }
 
         this.$scope.loadingCloudDevices = true;
-        this.$cloudDevices
-            .loadCloudDevicesAsync(this.$scope.loadCloudDevicesCondition)
+        this._loadCloudDevicesAsync(this.$scope.loadCloudDevicesCondition)
             .then((loadCloudDevicesResult: SearchResultViewModel<CloudDeviceViewModel>) => {
                 this.$scope.loadCloudDevicesResult = loadCloudDevicesResult;
             })
@@ -124,14 +128,9 @@ export class CloudDeviceManagementController implements IController {
                 return this.$cloudDevices
                     .deleteCloudDeviceAsync(cloudDevice.deviceId)
                     .then(() => {
-                        this.$scope.loadingCloudDevices = true;
-                        return this.$cloudDevices
-                            .loadCloudDevicesAsync(this.$scope.loadCloudDevicesCondition)
-                            .finally(() => {
-                                this.$scope.loadingCloudDevices = false;
-                            });
+                        return this._loadCloudDevicesAsync(this.$scope.loadCloudDevicesCondition);
                     })
-                    .finally(() =>  {
+                    .finally(() => {
                         this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
                     });
             })
@@ -139,6 +138,46 @@ export class CloudDeviceManagementController implements IController {
                 this.$scope.loadCloudDevicesResult = loadCloudDevicesResult;
             });
     };
+
+    protected _loadCloudDevicesAsync = (condition: LoadCloudDeviceViewModel): IPromise<SearchResultViewModel<CloudDeviceViewModel>> => {
+
+        // Mark loading progress to be pending
+        this.$scope.loadingCloudDevices = true;
+
+        this.$scope.idToUser = {};
+
+        return this.$cloudDevices
+            .loadCloudDevicesAsync(condition)
+            .then((loadCloudDevicesResult: SearchResultViewModel<CloudDeviceViewModel>) => {
+                const devices = loadCloudDevicesResult.items;
+                if (!devices || !devices.length) {
+                    return loadCloudDevicesResult;
+                }
+
+                const userIds = devices.map(device => device.userId);
+                const loadUsersCondition = new LoadUserViewModel();
+                loadUsersCondition.ids = userIds;
+                loadUsersCondition.pager = new PagerViewModel(1, userIds.length);
+                return this.$users.loadUsersAsync(loadUsersCondition)
+                    .then((loadUsersResult: SearchResultViewModel<UserViewModel>) => {
+                        if (!loadUsersResult) {
+                            return loadCloudDevicesResult;
+                        }
+
+                        const idToUser: { [id: string]: UserViewModel } = {};
+                        for (const user of loadUsersResult.items) {
+                            idToUser[user.id] = user;
+                        }
+
+                        this.$scope.idToUser = idToUser;
+                        return loadCloudDevicesResult;
+                    })
+            })
+            .finally(() => {
+                this.$scope.loadingCloudDevices = false;
+            });
+    }
+
 
     //#endregion
 }
