@@ -1,0 +1,78 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{'TITLE_DEVICE_ID' | translate}}</th>
+                        <th class="text-center">{{'TITLE_USERNAME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="shouldCloudDevicesDisplayed()"
+                        ng-repeat="item in loadCloudDevicesResult.items"
+                        class="text-middle text-center">
+                        <td>
+                            <textarea class="form-control no-resizable"
+                                      ng-model="item.deviceId"
+                                      rows="3"
+                                      readonly></textarea>
+                        </td>
+                        <td class="text-center">
+                            {{idToUser[item.userId].username}}
+                        </td>
+                        <td class="text-center">
+                            <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td class="text-center">
+                            <i ng-if="item.lastModifiedTime != null">{{item.lastModifiedTime | amUtc |
+                                amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td class="text-center"
+                            ng-switch="item.availability == masterItemAvailabilities.available">
+
+                            <div class="form-group">
+                                <button class="btn btn-outline-danger"
+                                        ng-click="clickDeleteCloudDevice(item)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="!shouldCloudDevicesDisplayed()">
+                        <td class="text-center"
+                            colspan="5">
+                            <b class="text-danger">{{'MSG_NO_CLOUD_DEVICE_AVAILABLE' | translate}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="d-flex justify-content-center">
+                                <ul uib-pagination
+                                    items-per-page="loadStickersCondition.pager.records"
+                                    total-items="loadCloudDevicesResult.pager.totalRecords"
+                                    ng-model="loadCloudDevicesCondition.pager.page"
+                                    ng-change="clickReloadCloudDevices()"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="toolbar right bottom">
+    <div class="text-right">
+        <button class="btn btn-outline-secondary"
+                ng-click="clickReloadCloudDevices(1)">
+            <i class="fa fa-refresh"></i>
+        </button>
+    </div>
+</div>

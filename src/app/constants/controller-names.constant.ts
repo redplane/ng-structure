@@ -38,6 +38,8 @@ export class ControllerNamesConstant {
 
     public static cloudDeviceManagementControllerName = 'cloudDeviceManagementController';
 
+    public static appointmentManagementControllerName = 'appointmentManagementController';
+
     //#endregion
 
 }

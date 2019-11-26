@@ -10,6 +10,7 @@ import {RatingsService} from "./implementations/ratings.service";
 import {StickersService} from "./implementations/stickers.service";
 import {PhrasesService} from "./implementations/phrases.service";
 import {CloudDevicesService} from "./implementations/cloud-devices.service";
+import {AppointmentsService} from "./implementations/appointments.service";
 
 /* @ngInject */
 export class ServiceModule {
@@ -28,6 +29,7 @@ export class ServiceModule {
         ngModule.service('$stickers', StickersService);
         ngModule.service('$phrases', PhrasesService);
         ngModule.service('$cloudDevices', CloudDevicesService);
+        ngModule.service('$appointments', AppointmentsService);
     }
 
     //#endregion

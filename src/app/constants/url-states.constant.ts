@@ -66,6 +66,9 @@ export class UrlStatesConstant {
 
     public static cloudDeviceManagementModuleName = 'cloudDeviceManagement';
 
-    public static cloudDeviceManagementModuleUrl = '/cloud-device'
+    public static cloudDeviceManagementModuleUrl = '/cloud-device';
 
+    public static appointmentManagementModuleName = 'appointmentManagement';
+
+    public static appointmentManagementModuleUrl = '/appointment';
 }

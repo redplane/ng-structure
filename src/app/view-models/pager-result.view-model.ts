@@ -12,4 +12,15 @@ export class PagerResultViewModel {
 
     //#endregion
 
+    //#region Constructor
+
+    public constructor(totalRecords?: number, page?: number, pageRecords?: number, hasNext?: boolean) {
+        this.totalRecords = totalRecords;
+        this.page = page;
+        this.pageRecords = pageRecords;
+        this.hasNext = hasNext;
+    }
+
+    //#endregion
+
 }
