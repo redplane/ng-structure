@@ -62,6 +62,10 @@ export class UrlStatesConstant {
 
     public static phraseManagementModuleName = 'phraseManagementModule';
 
-    public static phraseManagementModuleUrl = '/phrase'
+    public static phraseManagementModuleUrl = '/phrase';
+
+    public static cloudDeviceManagementModuleName = 'cloudDeviceManagement';
+
+    public static cloudDeviceManagementModuleUrl = '/cloud-device'
 
 }

@@ -90,3 +90,7 @@ tr.text-center th {
 .ng-hide {
   display: none !important;
 }
+
+textarea.no-resizable {
+  resize: none;
+}

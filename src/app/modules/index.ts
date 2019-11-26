@@ -11,6 +11,7 @@ import {UserDetailModule} from "./user/user-management/user-detail";
 import {RatingModule} from "./rating";
 import {StickerModule} from "./sticker";
 import {PhraseModule} from "./phrase";
+import {CloudDeviceModule} from "./cloud-device";
 
 export class PageModule {
 
@@ -28,6 +29,7 @@ export class PageModule {
         ngModule.config(($stateProvider: StateProvider) => new RatingModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new StickerModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new PhraseModule($stateProvider));
+        ngModule.config(($stateProvider: StateProvider) => new CloudDeviceModule($stateProvider));
     }
 
     //#endregion

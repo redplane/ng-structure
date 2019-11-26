@@ -36,6 +36,8 @@ export class ControllerNamesConstant {
 
     public static phraseManagementControllerName = 'phraseManagementController';
 
+    public static cloudDeviceManagementControllerName = 'cloudDeviceManagementController';
+
     //#endregion
 
 }

@@ -86,6 +86,9 @@
   "TITLE_EDIT_PHRASE": "Edit phrase",
   "TITLE_AVAILABLE": "Available",
   "TITLE_UNAVAILABLE": "Unavailable",
+  "TITLE_CLOUD_DEVICES": "Cloud devices",
+  "TITLE_DEVICE_ID": "Device id",
+  "TITLE_DELETE_CLOUD_DEVICE": "Delete cloud device",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
@@ -102,6 +105,8 @@
   "MSG_NO_STICKER_AVAILABLE": "No sticker is available",
   "MSG_DELETE_STICKER": "Are you sure to delete the sticker: <b>{{name}}</b>",
   "MSG_DELETE_PHRASE": "Are you sure to delete the phrase: <b>{{text}}</b>",
-  "MSG_NO_PHRASE_AVAILABLE": "No phrase is available"
+  "MSG_NO_PHRASE_AVAILABLE": "No phrase is available",
+  "MSG_NO_CLOUD_DEVICE_AVAILABLE": "No cloud device is available",
+  "MSG_DELETE_CLOUD_DEVICE": "Are you sure to delete this cloud device ?"
 
 }
