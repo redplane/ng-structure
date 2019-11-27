@@ -31,7 +31,7 @@ export class PhraseManagementController implements IController {
         $scope.loadPhrasesResult = new SearchResultViewModel<PhraseViewModel>();
         $scope.masterItemAvailabilities = MasterItemAvailabilities;
 
-        $scope.shouldPhrasesDisplayed = this._shouldStickersDisplayed;
+        $scope.shouldPhrasesDisplayed = this._shouldPhrasesDisplayed;
         $scope.clickReloadPhrases = this._clickReloadPhrases;
         $scope.clickAddPhrase = this._clickAddPhrase;
         $scope.clickEditPhrase = this._clickEditPhrase;
@@ -51,7 +51,7 @@ export class PhraseManagementController implements IController {
 
     //#region Internal methods
 
-    protected _shouldStickersDisplayed = (): boolean => {
+    protected _shouldPhrasesDisplayed = (): boolean => {
         const loadPhrasesResult = this.$scope.loadPhrasesResult;
         if (!loadPhrasesResult) {
             return false;

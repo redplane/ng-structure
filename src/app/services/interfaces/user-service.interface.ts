@@ -6,12 +6,11 @@ import {SearchResultViewModel} from "../../view-models/search-result.view-model"
 import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
 import {DetailedUserViewModel} from "../../view-models/user/detailed-user.view-model";
 import {UserRoles} from "../../enums/user-roles.enum";
-import {IRegion} from "../../interfaces/region.interface";
 import {EditFoodVendorViewModel} from "../../view-models/user/edit-food-vendor.view-model";
 import {IFoodVendor} from "../../interfaces/food-vendor.interface";
 import {EditFoodDeliveryVendorModel} from "../../models/edit-food-delivery-vendor.model";
 import {IFoodDeliveryVendor} from "../../interfaces/food-delivery-vendor.interface";
-import {EditUserProfileViewModel} from "../../view-models/user/edit-user-profile.view-model";
+import {LoadFoodVendorViewModel} from "../../view-models/user/load-food-vendor.view-model";
 
 export interface IUsersService {
 
@@ -44,6 +43,9 @@ export interface IUsersService {
     * Load users asynchronously.
     * */
     loadUsersAsync(conditions: LoadUserViewModel): IPromise<SearchResultViewModel<UserViewModel>>;
+
+    // Load food vendors asynchronously.
+    loadFoodVendorsAsync(conditions: LoadFoodVendorViewModel): IPromise<SearchResultViewModel<UserViewModel>>;
 
     // Load detailed user asynchronously.
     loadDetailedUserAsync(id: string): IPromise<DetailedUserViewModel>;

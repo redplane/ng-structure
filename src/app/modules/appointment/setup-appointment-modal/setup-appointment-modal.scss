@@ -1,0 +1,12 @@
+.setup-appointment-popup {
+
+  div[uib-daypicker],
+  div[uib-monthpicker],
+  div[uib-yearpicker] {
+
+    table[role=grid] {
+      width: 100%;
+    }
+  }
+
+}

@@ -13,8 +13,8 @@ import {IFoodVendor} from "../../interfaces/food-vendor.interface";
 import {EditFoodDeliveryVendorModel} from "../../models/edit-food-delivery-vendor.model";
 import {IFoodDeliveryVendor} from "../../interfaces/food-delivery-vendor.interface";
 import {EditableFieldViewModel} from "../../view-models/editable-field.view-model";
-import {EditUserProfileViewModel} from "../../view-models/user/edit-user-profile.view-model";
 import * as uuid from 'uuid/v1';
+import {LoadFoodVendorViewModel} from "../../view-models/user/load-food-vendor.view-model";
 
 export class UsersService implements IUsersService {
 
@@ -198,6 +198,13 @@ export class UsersService implements IUsersService {
             .then((editFoodDeliveryVendorResponse: IHttpResponse<IFoodDeliveryVendor>) => {
                 return editFoodDeliveryVendorResponse.data;
             });
+    }
+
+    public loadFoodVendorsAsync(conditions: LoadFoodVendorViewModel): IPromise<SearchResultViewModel<UserViewModel>> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/food-vendor/search`;
+        return this.$http
+            .post<SearchResultViewModel<UserViewModel>>(fullUrl, conditions)
+            .then(m => m.data);
     }
 
     //#endregion

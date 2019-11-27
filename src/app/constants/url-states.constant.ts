@@ -71,4 +71,12 @@ export class UrlStatesConstant {
     public static appointmentManagementModuleName = 'appointmentManagement';
 
     public static appointmentManagementModuleUrl = '/appointment';
+
+    public static orderManagementModuleName = 'orderManagement';
+
+    public static orderManagementModuleUrl = '/food';
+
+    public static foodManagementModuleName = 'foodManagement';
+
+    public static foodManagementModuleUrl = '/food';
 }

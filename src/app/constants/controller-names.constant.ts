@@ -40,6 +40,10 @@ export class ControllerNamesConstant {
 
     public static appointmentManagementControllerName = 'appointmentManagementController';
 
+    public static orderManagementControllerName = 'orderManagementController';
+
+    public static foodManagementControllerName = 'foodManagementController';
+
     //#endregion
 
 }

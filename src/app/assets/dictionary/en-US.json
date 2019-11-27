@@ -90,6 +90,17 @@
   "TITLE_DEVICE_ID": "Device id",
   "TITLE_DELETE_CLOUD_DEVICE": "Delete cloud device",
   "TITLE_APPOINTMENTS": "Appointments",
+  "TITLE_FOOD_VENDOR": "Food vendor",
+  "TITLE_ADMIN": "Admin",
+  "TITLE_STATUS": "Status",
+  "TITLE_SETUP_APPOINTMENT": "Setup appointment",
+  "TITLE_APPOINTMENT_TIME": "Appointment time",
+  "TITLE_FOODS": "Foods",
+  "TITLE_PRICE": "Price",
+  "TITLE_DESCRIPTION": "Description",
+  "TITLE_INGREDIENT": "Ingredient",
+  "TITLE_TYPES": "Types",
+  "TITLE_MINIMUM_ORDER_QUANTITY": "Minimum order quantity",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
@@ -108,6 +119,8 @@
   "MSG_DELETE_PHRASE": "Are you sure to delete the phrase: <b>{{text}}</b>",
   "MSG_NO_PHRASE_AVAILABLE": "No phrase is available",
   "MSG_NO_CLOUD_DEVICE_AVAILABLE": "No cloud device is available",
-  "MSG_DELETE_CLOUD_DEVICE": "Are you sure to delete this cloud device ?"
+  "MSG_DELETE_CLOUD_DEVICE": "Are you sure to delete this cloud device ?",
+  "MSG_NO_APPOINTMENT_AVAILABLE": "No appointment is available",
+  "MSG_NO_FOOD_AVAILABLE": "No food is available"
 
 }

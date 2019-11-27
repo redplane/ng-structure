@@ -65,6 +65,10 @@ export class FaqMasterPageController implements IController {
         return this.$scope.loadingFaqs;
     };
 
+    public $onInit(): void {
+        this.ngOnFaqMasterPageLoaded();
+    }
+
     protected ngOnFaqMasterPageLoaded = (): void => {
 
         this.$scope.loadingFaqs = true;

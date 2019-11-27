@@ -13,6 +13,7 @@ import {StickerModule} from "./sticker";
 import {PhraseModule} from "./phrase";
 import {CloudDeviceModule} from "./cloud-device";
 import {AppointmentModule} from "./appointment";
+import {FoodModule} from "./food";
 
 export class PageModule {
 
@@ -32,6 +33,7 @@ export class PageModule {
         ngModule.config(($stateProvider: StateProvider) => new PhraseModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new CloudDeviceModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new AppointmentModule($stateProvider));
+        ngModule.config(($stateProvider: StateProvider) => new FoodModule($stateProvider));
     }
 
     //#endregion

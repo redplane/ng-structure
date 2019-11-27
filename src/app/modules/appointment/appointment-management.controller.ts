@@ -5,37 +5,33 @@ import {INgRxMessageBusService} from "../../services/interfaces/ngrx-message-bus
 import {IMessageModalsService} from "../shared/message-modal/message-modals-service.interface";
 import {IModalButton} from "../shared/message-modal/modal-button.interface";
 import {ModalButton} from "../shared/message-modal/modal-button";
-import {MessageChannelNameConstant} from "../../constants/message-channel-name.constant";
-import {MessageEventNameConstant} from "../../constants/message-event-name.constant";
-import {LoadCloudDeviceViewModel} from "../../view-models/cloud-device/load-cloud-device.view-model";
 import {CloudDeviceViewModel} from "../../view-models/cloud-device/cloud-device.view-model";
-import {ICloudDevicesService} from "../../services/interfaces/cloud-devices-service.interface";
 import {IUsersService} from "../../services/interfaces/user-service.interface";
-import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
-import {UserViewModel} from "../../view-models/user/user.view-model";
-import {PagerViewModel} from "../../view-models/pager.view-model";
 import {IAppointmentsService} from "../../services/implementations/appointments-service.interface";
 import {LoadAppointmentViewModel} from "../../view-models/appointment/load-appointment.view-model";
 import {DetailedAppointmentViewModel} from "../../view-models/appointment/detailed-appointment.view-model";
+import {SetupAppointmentModalService} from "./setup-appointment-modal/setup-appointment-modal.service";
+import {SetupAppointmentViewModel} from "../../view-models/appointment/setup-appointment.view-model";
 
 export class AppointmentManagementController implements IController {
 
     //#region Constructor
 
     public constructor(protected $scope: IAppointmentManagementScope,
-                       protected $cloudDevices: ICloudDevicesService,
                        protected $messageBus: INgRxMessageBusService,
                        protected $messageModals: IMessageModalsService,
                        protected $translate: angular.translate.ITranslateService,
                        protected $users: IUsersService,
                        protected $appointments: IAppointmentsService,
+                       protected $setupAppointmentModals: SetupAppointmentModalService,
                        protected $q: IQService) {
-        $scope.loadCloudDevicesCondition = new LoadCloudDeviceViewModel();
-        $scope.loadCloudDevicesResult = new SearchResultViewModel<CloudDeviceViewModel>();
+        $scope.loadAppointmentsCondition = new LoadAppointmentViewModel();
+        $scope.loadAppointmentsResult = new SearchResultViewModel<DetailedAppointmentViewModel>();
 
-        $scope.shouldCloudDevicesDisplayed = this._shouldCloudDevicesDisplayed;
-        $scope.clickReloadCloudDevices = this._clickReloadCloudDevices;
+        $scope.shouldAppointmentsDisplayed = this._shouldAppointmentsDisplayed;
+        $scope.clickReloadAppointments = this._clickReloadAppointments;
         $scope.clickDeleteCloudDevice = this._clickDeleteCloudDevice;
+        $scope.clickSetupAppointment = this._clickSetupAppointment;
     }
 
     //#endregion
@@ -43,15 +39,15 @@ export class AppointmentManagementController implements IController {
     //#region Methods
 
     public $onInit(): void {
-        this._clickReloadCloudDevices(1);
+        this._clickReloadAppointments(1);
     }
 
     //#endregion
 
     //#region Internal methods
 
-    protected _shouldCloudDevicesDisplayed = (): boolean => {
-        const loadItemsResult = this.$scope.loadCloudDevicesResult;
+    protected _shouldAppointmentsDisplayed = (): boolean => {
+        const loadItemsResult = this.$scope.loadAppointmentsResult;
         if (!loadItemsResult) {
             return false;
         }
@@ -60,20 +56,12 @@ export class AppointmentManagementController implements IController {
         return (items && items.length > 0);
     };
 
-    protected _clickReloadCloudDevices = (page?: number): void => {
+    protected _clickReloadAppointments = (page?: number): void => {
 
         if (page > 0) {
-            this.$scope.loadCloudDevicesCondition.pager.page = page;
+            this.$scope.loadAppointmentsCondition.pager.page = page;
         }
-
-        this.$scope.loadingCloudDevices = true;
-        this._loadCloudDevicesAsync(this.$scope.loadCloudDevicesCondition)
-            .then((loadCloudDevicesResult: SearchResultViewModel<CloudDeviceViewModel>) => {
-                this.$scope.loadCloudDevicesResult = loadCloudDevicesResult;
-            })
-            .finally(() => {
-                this.$scope.loadingCloudDevices = false;
-            });
+        this._loadAppointmentsAsync(this.$scope.loadAppointmentsCondition);
     };
 
     // protected _clickAddPhrase = (): void => {
@@ -125,60 +113,35 @@ export class AppointmentManagementController implements IController {
                 buttons: buttons
             })
             .then((mode: string) => {
+                return null;
+            });
+    };
 
-                // Display loading screen.
-                this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
-
-                return this.$cloudDevices
-                    .deleteCloudDeviceAsync(cloudDevice.deviceId)
-                    .then(() => {
-                        return this._loadCloudDevicesAsync(this.$scope.loadCloudDevicesCondition);
-                    })
-                    .finally(() => {
-                        this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
-                    });
+    protected _clickSetupAppointment = (): void => {
+        this.$setupAppointmentModals
+            .displaySetupAppointmentModalAsync()
+            .then((appointmentSetupModel: SetupAppointmentViewModel) => {
+                return this.$appointments
+                    .setupAppointmentAsync(appointmentSetupModel);
             })
-            .then((loadCloudDevicesResult: SearchResultViewModel<CloudDeviceViewModel>) => {
-                this.$scope.loadCloudDevicesResult = loadCloudDevicesResult;
+            .then(() => {
+                return this._loadAppointmentsAsync(this.$scope.loadAppointmentsCondition);
             });
     };
 
     protected _loadAppointmentsAsync = (condition: LoadAppointmentViewModel): IPromise<SearchResultViewModel<DetailedAppointmentViewModel>> => {
 
         // Mark loading progress to be pending
-        this.$scope.loadingCloudDevices = true;
-
-        this.$scope.idToUser = {};
+        this.$scope.loadingAppointments = true;
 
         return this.$appointments
             .loadDetailedAppointmentsAsync(condition)
             .then((loadDetailedAppointmentsResult: SearchResultViewModel<DetailedAppointmentViewModel>) => {
-                const devices = loadCloudDevicesResult.items;
-                if (!devices || !devices.length) {
-                    return loadCloudDevicesResult;
-                }
-
-                const userIds = devices.map(device => device.userId);
-                const loadUsersCondition = new LoadUserViewModel();
-                loadUsersCondition.ids = userIds;
-                loadUsersCondition.pager = new PagerViewModel(1, userIds.length);
-                return this.$users.loadUsersAsync(loadUsersCondition)
-                    .then((loadUsersResult: SearchResultViewModel<UserViewModel>) => {
-                        if (!loadUsersResult) {
-                            return loadCloudDevicesResult;
-                        }
-
-                        const idToUser: { [id: string]: UserViewModel } = {};
-                        for (const user of loadUsersResult.items) {
-                            idToUser[user.id] = user;
-                        }
-
-                        this.$scope.idToUser = idToUser;
-                        return loadCloudDevicesResult;
-                    })
+                this.$scope.loadAppointmentsResult = loadDetailedAppointmentsResult;
+                return loadDetailedAppointmentsResult;
             })
             .finally(() => {
-                this.$scope.loadingCloudDevices = false;
+                this.$scope.loadingAppointments = false;
             });
     }
 

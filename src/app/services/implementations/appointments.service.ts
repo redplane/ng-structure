@@ -10,6 +10,7 @@ import {UserViewModel} from "../../view-models/user/user.view-model";
 import {LoadUserViewModel} from "../../view-models/user/load-user.view-model";
 import {PagerViewModel} from "../../view-models/pager.view-model";
 import {IAppointmentsService} from "./appointments-service.interface";
+import {SetupAppointmentViewModel} from "../../view-models/appointment/setup-appointment.view-model";
 
 export class AppointmentsService extends UsersService implements IAppointmentsService {
 
@@ -81,6 +82,13 @@ export class AppointmentsService extends UsersService implements IAppointmentsSe
                     })
             })
     };
+
+    public setupAppointmentAsync(model: SetupAppointmentViewModel): IPromise<AppointmentViewModel> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/appointment/setup`;
+        return this.$http
+            .post<AppointmentViewModel>(fullUrl, model)
+            .then(m => m.data);
+    }
 
     //#endregion
 }

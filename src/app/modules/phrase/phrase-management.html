@@ -51,9 +51,6 @@
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
-
-
-
                         </td>
                     </tr>
                     <tr ng-if="!shouldPhrasesDisplayed()">
@@ -66,10 +63,10 @@
                         <td colspan="5">
                             <div class="d-flex justify-content-center">
                                 <ul uib-pagination
-                                    items-per-page="loadStickersCondition.pager.records"
-                                    total-items="loadStickersResult.pager.totalRecords"
-                                    ng-model="loadStickersCondition.pager.page"
-                                    ng-change="clickReloadStickers()"></ul>
+                                    items-per-page="loadPhrasesCondition.pager.records"
+                                    total-items="loadPhrasesResult.pager.totalRecords"
+                                    ng-model="loadPhrasesCondition.pager.page"
+                                    ng-change="clickReloadPhrases()"></ul>
                             </div>
                         </td>
                     </tr>
@@ -84,12 +81,12 @@
 <div class="toolbar right bottom">
     <div class="text-right">
         <button class="btn btn-outline-primary"
-                ng-click="clickAddSticker()">
+                ng-click="clickAddPhrase()">
             <i class="fa fa-plus"></i>
         </button>
 
         <button class="btn btn-outline-secondary"
-                ng-click="clickReloadStickers(1)">
+                ng-click="clickReloadPhrases(1)">
             <i class="fa fa-refresh"></i>
         </button>
     </div>

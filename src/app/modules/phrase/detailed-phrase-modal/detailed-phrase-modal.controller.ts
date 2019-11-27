@@ -1,4 +1,4 @@
-import {IController, IPromise, IQService} from "angular";
+import {IController, IQService} from "angular";
 import {IDetailedPhraseScope} from "./detailed-phrase-modal.scope";
 import {IModalInstanceService} from "angular-ui-bootstrap";
 import {KeyValueModel} from "../../../models/key-value.model";
@@ -28,6 +28,9 @@ export class DetailedPhraseModalController implements IController {
         if (detailedPhrase && detailedPhrase.id) {
             $scope.text = new EditableFieldViewModel<string>(detailedPhrase.text, false);
             $scope.availability = new EditableFieldViewModel<MasterItemAvailabilities>(detailedPhrase.availability, false);
+        } else {
+            $scope.text = new EditableFieldViewModel<string>('', false);
+            $scope.availability = new EditableFieldViewModel<MasterItemAvailabilities>(MasterItemAvailabilities.available, false);
         }
 
         $scope.loadModalTitle = this._loadModalTitle;
@@ -72,7 +75,6 @@ export class DetailedPhraseModalController implements IController {
 
         const addPhraseModel = new AddPhraseViewModel();
         addPhraseModel.text = this.$scope.text.value;
-        addPhraseModel.availability = this.$scope.availability.value;
 
         this.$uibModalInstance
             .close(addPhraseModel);

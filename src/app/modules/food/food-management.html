@@ -1,0 +1,95 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div style="overflow-x: auto;">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">{{'TITLE_NAME' | translate}}</th>
+                            <th class="text-center">{{'TITLE_PRICE' | translate}}</th>
+                            <th class="text-center">{{'TITLE_MINIMUM_ORDER_QUANTITY' | translate}}</th>
+                            <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
+                            <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
+                            <th class="text-center"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="shouldFoodsDisplayed()"
+                            ng-repeat="item in loadFoodsResult.items"
+                            class="text-middle text-center">
+                            <td ng-switch="item.availability == masterItemAvailabilities.available">
+                                <b ng-switch-when="true">
+                                    {{item.name}}
+                                </b>
+                                <del ng-switch-default>
+                                    {{item.name}}
+                                </del>
+                            </td>
+                            <td>
+                                {{item.price}}
+                            </td>
+                            <td>{{item.minimumOrderQuantity}}</td>
+                            <td>
+                                <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                            </td>
+                            <td>
+                                <i ng-if="item.lastModifiedTime != null">{{item.lastModifiedTime | amUtc |
+                                    amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                            </td>
+                            <td class="text-center"
+                                ng-switch="item.availability == masterItemAvailabilities.available">
+
+                                <div class="form-group">
+                                    <button class="btn btn-outline-info"
+                                            ng-switch-when="true"
+                                            ng-click="clickEditPhrase(item)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+
+                                    <button class="btn btn-outline-danger"
+                                            ng-click="clickDeleteFood(item)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="!shouldFoodsDisplayed()">
+                            <td class="text-center"
+                                colspan="5">
+                                <b class="text-danger">{{'MSG_NO_FOOD_AVAILABLE' | translate}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div class="d-flex justify-content-center">
+                                    <ul uib-pagination
+                                        items-per-page="loadPhrasesCondition.pager.records"
+                                        total-items="loadPhrasesResult.pager.totalRecords"
+                                        ng-model="loadPhrasesCondition.pager.page"
+                                        ng-change="clickReloadPhrases()"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="toolbar right bottom">
+    <div class="text-right">
+        <button class="btn btn-outline-primary"
+                ng-click="clickAddPhrase()">
+            <i class="fa fa-plus"></i>
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                ng-click="clickReloadPhrases(1)">
+            <i class="fa fa-refresh"></i>
+        </button>
+    </div>
+</div>
