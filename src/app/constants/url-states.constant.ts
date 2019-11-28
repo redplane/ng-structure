@@ -82,5 +82,5 @@ export class UrlStatesConstant {
 
     public static detailedFoodModuleName = 'detailedFood';
 
-    public static detailedFoodModuleUrl = '/food/:id'
+    public static detailedFoodModuleUrl = '/food/:foodId';
 }

@@ -1,16 +1,18 @@
+/* @ngInject */
 import {StateProvider} from "@uirouter/angularjs";
-import {IPromise, IQService, module} from 'angular';
-import {ILazyLoad} from "oclazyload";
 import {UrlStatesConstant} from "../../../constants/url-states.constant";
 import {ControllerNamesConstant} from "../../../constants/controller-names.constant";
-import {IFoodService} from "../../../services/interfaces/foods-service.interface";
+import {IPromise, IQService} from "angular";
+import {ILazyLoad} from "oclazyload";
+import {module} from 'angular';
+import {DetailedFoodController} from "./detailed-food.controller";
 import {FoodViewModel} from "../../../view-models/food/food.view-model";
-import {DetailedFoodStateParams} from "../../../models/route-params/detailed-food.state-params";
 import {LoadFoodViewModel} from "../../../view-models/food/load-food.view-model";
 import {PagerViewModel} from "../../../view-models/pager.view-model";
+import {DetailedFoodStateParams} from "../../../models/route-params/detailed-food.state-params";
+import {IFoodService} from "../../../services/interfaces/foods-service.interface";
 import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
 
-/* @ngInject */
 export class DetailedFoodModule {
 
     //#region Constructors
@@ -30,13 +32,15 @@ export class DetailedFoodModule {
                 }],
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
                 resolve: {
-
+                    /*
+                    * Load FAQ detail controller asynchronously.
+                    * */
                     loadController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
 
                         return $q((resolve) => {
                             require.ensure([], (require) => {
 
-                                require('../shared/message-modal');
+                                require('../../shared/message-modal');
 
                                 // load only controller module
                                 let ngModule = module('app.phrase', ['ngMessageModalModule']);
@@ -50,21 +54,30 @@ export class DetailedFoodModule {
                         });
                     }],
 
-                    detailedFood: ['$stateParams', '$foods', ($stateParams: DetailedFoodStateParams,
-                                                              $foods: IFoodService): IPromise<FoodViewModel> => {
-                        const loadFoodConditions = new LoadFoodViewModel();
-                        loadFoodConditions.ids = [$stateParams.id];
-                        loadFoodConditions.pager = new PagerViewModel(1, 1);
-                        return $foods
-                            .loadFoodsAsync(loadFoodConditions)
-                            .then((loadFoodsResult: SearchResultViewModel<FoodViewModel>) => {
-                                if (!loadFoodsResult || !loadFoodsResult.items) {
-                                    return null;
-                                }
+                    detailedFood: ['$q', '$ocLazyLoad',
+                        '$stateParams', '$foods', ($q: IQService,
+                                                   $ocLazyLoad: ILazyLoad,
+                                                   $stateParams: DetailedFoodStateParams,
+                                                   $foods: IFoodService): IPromise<FoodViewModel> => {
 
-                                return loadFoodsResult.items[0];
-                            });
-                    }]
+                            const loadFoodsCondition = new LoadFoodViewModel();
+                            loadFoodsCondition.ids = [$stateParams.foodId];
+                            loadFoodsCondition.pager = new PagerViewModel(1, 1);
+
+                            return $foods.loadFoodsAsync(loadFoodsCondition)
+                                .then((loadFoodsResult: SearchResultViewModel<FoodViewModel>) => {
+                                   if (!loadFoodsResult || !loadFoodsResult.items) {
+                                       return null;
+                                   }
+
+                                   const foods = loadFoodsResult.items;
+                                   if (!foods || !foods.length) {
+                                       return null;
+                                   }
+
+                                   return foods[0];
+                                });
+                        }]
                 }
             });
 

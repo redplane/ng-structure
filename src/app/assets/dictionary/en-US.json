@@ -101,6 +101,12 @@
   "TITLE_INGREDIENT": "Ingredient",
   "TITLE_TYPES": "Types",
   "TITLE_MINIMUM_ORDER_QUANTITY": "Minimum order quantity",
+  "TITLE_BREAKFAST": "Breakfast",
+  "TITLE_LUNCH": "Lunch",
+  "TITLE_DINNER": "Dinner",
+  "TITLE_ALACARTE": "Alacarte",
+  "TITLE_SET": "Set",
+  "TITLE_PROMOTION": "Promotion",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
@@ -121,6 +127,7 @@
   "MSG_NO_CLOUD_DEVICE_AVAILABLE": "No cloud device is available",
   "MSG_DELETE_CLOUD_DEVICE": "Are you sure to delete this cloud device ?",
   "MSG_NO_APPOINTMENT_AVAILABLE": "No appointment is available",
-  "MSG_NO_FOOD_AVAILABLE": "No food is available"
+  "MSG_NO_FOOD_AVAILABLE": "No food is available",
+  "MSG_NO_PROMOTION_AVAILABLE": "No promotion is available"
 
 }

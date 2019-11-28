@@ -1,5 +1,76 @@
 <div class="row">
     <div class="col-12">
-        
+        <div class="form-group">
+            <h3>{{detailedFood.name}}</h3>
+        </div>
+    </div>
+
+    <div ng-repeat="carouselItem in carouselItems" class="col-sm-4 col-xs-12">
+        <div class="form-group">
+            <img class="img-fluid" ng-src="{{carouselItem.image}}">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-dark">
+            <tbody>
+            <tr>
+                <th scope="row">{{'TITLE_PRICE' | translate}}</th>
+                <td>{{detailedFood.price}}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_DESCRIPTION' | translate}}</th>
+                <td>{{detailedFood.description}}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_INGREDIENT' | translate}}</th>
+                <td>{{detailedFood.ingredient}}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_TYPES' | translate}}</th>
+                <td>
+                    <span ng-repeat="foodType in detailedFood.types" class="badge badge-info">
+                        {{loadFoodTypeTitle(foodType) | translate}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_STATUS' | translate}}</th>
+                <td>
+                    <span class="badge badge-info">
+                        {{loadFoodStatusTitle(detailedFood.status) | translate}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_CATEGORY' | translate}}</th>
+                <td>
+                    <span class="badge badge-info">
+                        {{loadFoodCategoryTitle(detailedFood.category) | translate}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</th>
+                <td>{{detailedFood.assignedLocations}}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_MINIMUM_ORDER_QUANTITY' | translate}}</th>
+                <td>{{detailedFood.minimumOrderQuantity}}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{'TITLE_PROMOTION' | translate}}</th>
+                <td ng-switch="shouldPromotionValid(detailedFood.promotion)">
+                    <span style="text-decoration: line-through;"
+                          class="text-danger"
+                          ng-switch-when="false">
+                        {{'MSG_NO_PROMOTION_AVAILABLE' | translate}}
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

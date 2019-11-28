@@ -1,8 +1,17 @@
 export class DetailedFoodStateParams {
 
-    public id: string;
+    //#region Properties
 
-    public constructor(id?: string) {
-        this.id = id;
+    public foodId: string;
+
+    //#endregion
+
+    //#region Constructor
+
+    public constructor(foodId: string) {
+        this.foodId = foodId;
     }
+
+    //#endregion
+
 }
