@@ -10,6 +10,11 @@ import {FoodViewModel} from "../../view-models/food/food.view-model";
 import {IFoodService} from "../../services/interfaces/foods-service.interface";
 import {ValidationValueConstant} from "../../constants/validation-value.constant";
 import {PagerViewModel} from "../../view-models/pager.view-model";
+import {MessageChannelNameConstant} from "../../constants/message-channel-name.constant";
+import {MessageEventNameConstant} from "../../constants/message-event-name.constant";
+import {StateService} from "@uirouter/core";
+import {UrlStatesConstant} from "../../constants/url-states.constant";
+import {DetailedFoodStateParams} from "../../models/route-params/detailed-food.state-params";
 
 export class FoodManagementController implements IController {
 
@@ -20,6 +25,7 @@ export class FoodManagementController implements IController {
                        protected $messageBus: INgRxMessageBusService,
                        protected $messageModals: IMessageModalsService,
                        protected $translate: angular.translate.ITranslateService,
+                       protected $state: StateService,
                        protected $q: IQService) {
 
         $scope.loadFoodsCondition = new LoadFoodViewModel();
@@ -30,6 +36,7 @@ export class FoodManagementController implements IController {
 
         $scope.shouldFoodsDisplayed = this._shouldFoodsDisplayed;
         $scope.clickReloadFoods = this._clickReloadFoods;
+        $scope.clickEditFood = this._clickEditFood;
     }
 
     //#endregion
@@ -73,6 +80,18 @@ export class FoodManagementController implements IController {
             .finally(() => {
                 this.$scope.loadingFoods = false;
             });
+    };
+
+    protected _clickEditFood = (id: string): void => {
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        this.$state
+            .go(UrlStatesConstant.detailedFoodModuleName, new DetailedFoodStateParams(id))
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+            })
     };
 
     //#endregion

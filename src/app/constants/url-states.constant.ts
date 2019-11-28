@@ -79,4 +79,8 @@ export class UrlStatesConstant {
     public static foodManagementModuleName = 'foodManagement';
 
     public static foodManagementModuleUrl = '/food';
+
+    public static detailedFoodModuleName = 'detailedFood';
+
+    public static detailedFoodModuleUrl = '/food/:id'
 }

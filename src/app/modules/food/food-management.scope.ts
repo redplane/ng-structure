@@ -26,6 +26,8 @@ export interface IFoodManagementScope extends IScope {
 
     clickReloadFoods(page?: number): void;
 
+    clickEditFood(foodId: string): void;
+
     //#endregion
 
 }
