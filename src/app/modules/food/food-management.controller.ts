@@ -10,6 +10,11 @@ import {FoodViewModel} from "../../view-models/food/food.view-model";
 import {IFoodService} from "../../services/interfaces/foods-service.interface";
 import {ValidationValueConstant} from "../../constants/validation-value.constant";
 import {PagerViewModel} from "../../view-models/pager.view-model";
+import { StateService } from "@uirouter/angularjs";
+import {MessageChannelNameConstant} from "../../constants/message-channel-name.constant";
+import {MessageEventNameConstant} from "../../constants/message-event-name.constant";
+import {UrlStatesConstant} from "../../constants/url-states.constant";
+import {DetailedFoodStateParams} from "../../models/route-params/detailed-food.state-params";
 
 export class FoodManagementController implements IController {
 
@@ -20,6 +25,7 @@ export class FoodManagementController implements IController {
                        protected $messageBus: INgRxMessageBusService,
                        protected $messageModals: IMessageModalsService,
                        protected $translate: angular.translate.ITranslateService,
+                       protected $state: StateService,
                        protected $q: IQService) {
 
         $scope.loadFoodsCondition = new LoadFoodViewModel();
@@ -30,6 +36,7 @@ export class FoodManagementController implements IController {
 
         $scope.shouldFoodsDisplayed = this._shouldFoodsDisplayed;
         $scope.clickReloadFoods = this._clickReloadFoods;
+        $scope.clickEditFood = this._clickEditFood;
     }
 
     //#endregion
@@ -63,6 +70,19 @@ export class FoodManagementController implements IController {
         this._loadFoodsAsync(this.$scope.loadFoodsCondition)
             .then((loadFoodsResult: SearchResultViewModel<FoodViewModel>) => {
                 this.$scope.loadFoodsResult = loadFoodsResult;
+            });
+    };
+
+    protected _clickEditFood = (foodId: string): void => {
+
+        // Display loading screen.
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        this.$state
+            .go(UrlStatesConstant.detailedFoodModuleName, new DetailedFoodStateParams(foodId))
+            .finally(() => {
+                this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
     };
 

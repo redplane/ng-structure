@@ -3,6 +3,7 @@ import {UrlStatesConstant} from "../../constants/url-states.constant";
 import {IQService, module} from 'angular';
 import {ILazyLoad} from "oclazyload";
 import {ControllerNamesConstant} from "../../constants/controller-names.constant";
+import {DetailedFoodModule} from "./detailed-food";
 
 /* @ngInject */
 export class FoodModule {
@@ -10,6 +11,8 @@ export class FoodModule {
     //#region Constructors
 
     public constructor(private $stateProvider: StateProvider) {
+
+        new DetailedFoodModule($stateProvider);
 
         $stateProvider
             .state(UrlStatesConstant.foodManagementModuleName, {

@@ -44,6 +44,8 @@ export class ControllerNamesConstant {
 
     public static foodManagementControllerName = 'foodManagementController';
 
+    public static detailedFoodControllerName = 'detailedFoodController';
+
     //#endregion
 
 }
