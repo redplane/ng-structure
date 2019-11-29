@@ -26,8 +26,16 @@
                                     {{item.name}}
                                 </del>
                             </td>
-                            <td>
-                                {{item.price}}
+                            <td ng-switch="shouldPromotionValid(item.promotion)">
+
+                                <b class="text-success"
+                                   ng-switch-when="true">
+                                    {{item.promotion.discountPrice}}
+                                </b>
+
+                                <span ng-switch-default>
+                                    {{item.price}}
+                                </span>
                             </td>
                             <td>{{item.minimumOrderQuantity}}</td>
                             <td>

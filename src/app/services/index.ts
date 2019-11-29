@@ -3,7 +3,7 @@ import {IModule} from "angular";
 import {UsersService} from "./implementations/users.service";
 import {FaqService} from "./implementations/faq.service";
 import {NgRxMessageBusService} from "./implementations/ngrx-message-bus.service";
-import {StatesService} from "./implementations/state.service";
+import {StatesService} from "./implementations/states.service";
 import {CitiesService} from "./implementations/cities.service";
 import {LocationPickerModalsService} from "./implementations/location-picker-modal/location-picker-modals.service";
 import {RatingsService} from "./implementations/ratings.service";

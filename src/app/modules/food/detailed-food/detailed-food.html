@@ -1,76 +1,185 @@
-<div class="row">
-    <div class="col-12">
-        <div class="form-group">
-            <h3>{{detailedFood.name}}</h3>
+<div class="detailed-food">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <h3>{{detailedFood.name}}</h3>
+            </div>
+        </div>
+
+        <div ng-repeat="photoUrl in foodPhotos track by $index"
+             class="col-sm-4 col-xs-12">
+            <div class="food-carousel-item form-group position-relative">
+                <div class="food-photo-actions position-absolute t-0 r-0 b-0 l-0 d-flex justify-content-center align-items-end pb-50px">
+                    <button class="btn btn-info">
+                        <span class="fa fa-upload"></span>
+                    </button>
+                </div>
+                <img class="img-fluid food-photo"
+                     ng-src="{{photoUrl}}">
+            </div>
         </div>
     </div>
 
-    <div ng-repeat="carouselItem in carouselItems" class="col-sm-4 col-xs-12">
-        <div class="form-group">
-            <img class="img-fluid" ng-src="{{carouselItem.image}}">
-        </div>
-    </div>
-</div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-dark">
+                <tbody>
+                <tr>
+                    <th scope="row">{{'TITLE_PRICE' | translate}}</th>
+                    <td ng-switch="shouldPromotionValid(detailedFood.promotion)">
 
-<div class="row">
-    <div class="col-12">
-        <table class="table table-dark">
-            <tbody>
-            <tr>
-                <th scope="row">{{'TITLE_PRICE' | translate}}</th>
-                <td>{{detailedFood.price}}</td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_DESCRIPTION' | translate}}</th>
-                <td>{{detailedFood.description}}</td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_INGREDIENT' | translate}}</th>
-                <td>{{detailedFood.ingredient}}</td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_TYPES' | translate}}</th>
-                <td>
-                    <span ng-repeat="foodType in detailedFood.types" class="badge badge-info">
+                        <div ng-if="editorMode == editorModes.view">
+                            <div ng-switch-when="true">
+                                <span class="font-weight-bold font-xl">{{detailedFood.promotion.discountPrice}}</span>
+                                <span> </span>
+                                <span class="line-through badge badge-secondary">{{detailedFood.price}}</span>
+                            </div>
+
+                            <div ng-switch-default="">
+                                <span>{{detailedFood.price}}</span>
+                            </div>
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view">
+                            <input class="form-control"
+                                   name="price"
+                                   type="number"
+                                   min="0">
+                        </div>
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_DESCRIPTION' | translate}}</th>
+                    <td>
+                        <div ng-if="editorMode == editorModes.view">
+                            {{detailedFood.description}}
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view">
+                            <textarea name="description" class="form-control" rows="5"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_INGREDIENT' | translate}}</th>
+                    <td>
+                        <div ng-if="editorMode == editorModes.view">
+                            {{detailedFood.ingredient}}
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view">
+                            <textarea name="ingredient" class="form-control" rows="5"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_TYPES' | translate}}</th>
+                    <td>
+                    <span ng-repeat="foodType in detailedFood.types"
+                          class="badge badge-info mr-5px">
                         {{loadFoodTypeTitle(foodType) | translate}}
                     </span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_STATUS' | translate}}</th>
-                <td>
-                    <span class="badge badge-info">
-                        {{loadFoodStatusTitle(detailedFood.status) | translate}}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_STATUS' | translate}}</th>
+                    <td>
+                        <div ng-if="editorMode == editorModes.view">
+                            <span class="badge badge-info">
+                                {{loadFoodStatusTitle(detailedFood.status) | translate}}
+                            </span>
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view">
+                            <select name="status"
+                                    class="form-control"></select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_CATEGORY' | translate}}</th>
+                    <td>
+                        <div ng-if="editorMode == editorModes.view">
+                            <span class="badge badge-info mr-5px">
+                                {{loadFoodCategoryTitle(detailedFood.category) | translate}}
+                            </span>
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view">
+                            <select name="category"
+                                    class="form-control"></select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</th>
+                    <td>
+                    <span class="badge badge-info mr-5px"
+                          ng-repeat="assignedLocation in detailedFood.assignedLocations">
+                        {{idToStates[assignedLocation.stateId].name}} - {{idToCities[assignedLocation.cityId].name}}
                     </span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_CATEGORY' | translate}}</th>
-                <td>
-                    <span class="badge badge-info">
-                        {{loadFoodCategoryTitle(detailedFood.category) | translate}}
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</th>
-                <td>{{detailedFood.assignedLocations}}</td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_MINIMUM_ORDER_QUANTITY' | translate}}</th>
-                <td>{{detailedFood.minimumOrderQuantity}}</td>
-            </tr>
-            <tr>
-                <th scope="row">{{'TITLE_PROMOTION' | translate}}</th>
-                <td ng-switch="shouldPromotionValid(detailedFood.promotion)">
-                    <span style="text-decoration: line-through;"
-                          class="text-danger"
-                          ng-switch-when="false">
-                        {{'MSG_NO_PROMOTION_AVAILABLE' | translate}}
-                    </span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_MINIMUM_ORDER_QUANTITY' | translate}}</th>
+                    <td>
+                        <div ng-if="editorMode == editorModes.view">
+                            {{detailedFood.minimumOrderQuantity}}
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view">
+                            <input name="minimumOrderQuantity"
+                                   class="form-control"
+                                   type="number">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'TITLE_PROMOTION' | translate}}</th>
+                    <td>
+                        <div ng-if="editorMode == editorModes.view"
+                             ng-switch="shouldPromotionValid(detailedFood.promotion)">
+                            <span class="badge badge-success"
+                                  ng-switch-when="true">{{'TITLE_IN_PROMOTION' | translate}}</span>
+
+                            <span style="text-decoration: line-through;"
+                                  class="text-danger"
+                                  ng-switch-default>{{'MSG_NO_PROMOTION_AVAILABLE' | translate}}</span>
+                        </div>
+
+                        <div ng-if="editorMode !== editorModes.view">
+
+                            <div class="form-group">
+                                <select name="shouldPromotionEnabled"
+                                        class="form-control"></select>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="toolbar right bottom">
+        <div class="text-right">
+            <button class="btn btn-outline-primary"
+                    ng-if="shouldFoodAddable()"
+                    ng-click="clickAddCity()">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-outline-primary"
+                    ng-if="shouldFoodEditable() && editorMode == editorModes.view"
+                    ng-click="clickEnableEditMode()">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-outline-secondary"
+                    ng-click="clickReloadCities(1)">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
     </div>
 </div>

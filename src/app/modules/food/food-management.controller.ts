@@ -15,6 +15,7 @@ import {MessageChannelNameConstant} from "../../constants/message-channel-name.c
 import {MessageEventNameConstant} from "../../constants/message-event-name.constant";
 import {UrlStatesConstant} from "../../constants/url-states.constant";
 import {DetailedFoodStateParams} from "../../models/route-params/detailed-food.state-params";
+import {PromotionViewModel} from "../../view-models/promotion.view-model";
 
 export class FoodManagementController implements IController {
 
@@ -37,6 +38,7 @@ export class FoodManagementController implements IController {
         $scope.shouldFoodsDisplayed = this._shouldFoodsDisplayed;
         $scope.clickReloadFoods = this._clickReloadFoods;
         $scope.clickEditFood = this._clickEditFood;
+        $scope.shouldPromotionValid = $foods.shouldPromotionValid;
     }
 
     //#endregion

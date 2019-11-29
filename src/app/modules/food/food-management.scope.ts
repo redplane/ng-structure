@@ -5,6 +5,7 @@ import {PhraseViewModel} from "../../view-models/phrase/phrase.view-model";
 import {LoadPhrasesViewModel} from "../../view-models/phrase/load-phrases.view-model";
 import {FoodViewModel} from "../../view-models/food/food.view-model";
 import {LoadFoodViewModel} from "../../view-models/food/load-food.view-model";
+import {PromotionViewModel} from "../../view-models/promotion.view-model";
 
 export interface IFoodManagementScope extends IScope {
 
@@ -27,6 +28,8 @@ export interface IFoodManagementScope extends IScope {
     clickReloadFoods(page?: number): void;
 
     clickEditFood(foodId: string): void;
+
+    shouldPromotionValid(promotion: PromotionViewModel): boolean;
 
     //#endregion
 

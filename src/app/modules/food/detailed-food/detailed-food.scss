@@ -1,0 +1,7 @@
+.food-carousel-item .food-photo-actions {
+  visibility: collapse;
+}
+
+.food-carousel-item:not(:disabled):not(.disabled):hover .food-photo-actions {
+  visibility: visible;
+}

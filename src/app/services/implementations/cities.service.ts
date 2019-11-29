@@ -1,4 +1,4 @@
-import {ICitiesService} from "../interfaces/city-service.interface";
+import {ICitiesService} from "../interfaces/cities-service.interface";
 import {AddCityViewModel} from "../../view-models/city/add-city.view-model";
 import {CityViewModel} from "../../view-models/city/city.view-model";
 import {EditCityViewModel} from "../../view-models/city/edit-city.view-model";
@@ -60,9 +60,7 @@ export class CitiesService implements ICitiesService {
             .then((editCityResponse: IHttpResponse<CityViewModel>) => editCityResponse.data);
     };
 
-    /*
-    * Load cities asynchronously.
-    * */
+    // Load cities asynchronously.
     public loadCitiesAsync(condition: LoadCitiesViewModel): IPromise<SearchResultViewModel<CityViewModel>> {
         const fullUrl = `${this.appSettings.apiEndpoint}/api/city/search`;
         return this.$http

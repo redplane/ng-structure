@@ -5,6 +5,9 @@ import {FoodTypes} from "../../../enums/food-types.enum";
 import {FoodCategories} from "../../../enums/food-categories.enum";
 import {FoodStatuses} from "../../../enums/food-statuses.enum";
 import {PromotionViewModel} from "../../../view-models/promotion.view-model";
+import {StateViewModel} from "../../../view-models/states/state-view.model";
+import {CityViewModel} from "../../../view-models/city/city.view-model";
+import {EditorModes} from "../../../enums/edit-modes.enum";
 
 export interface IDetailedFoodScope extends IScope {
 
@@ -12,7 +15,15 @@ export interface IDetailedFoodScope extends IScope {
 
     detailedFood: FoodViewModel;
 
-    carouselItems: CarouselItem[];
+    foodPhotos: string[];
+
+    idToStates: {[id: string]: StateViewModel};
+
+    idToCities: {[id: string]: CityViewModel};
+
+    editorMode: EditorModes;
+
+    editorModes: typeof EditorModes;
 
     //#endregion
 
@@ -25,5 +36,12 @@ export interface IDetailedFoodScope extends IScope {
     loadFoodStatusTitle(foodStatus: FoodStatuses): string;
 
     shouldPromotionValid(promotion: PromotionViewModel): boolean;
+
+    shouldFoodAddable(): boolean;
+
+    shouldFoodEditable(): boolean;
+
+    clickEnableEditMode(): void;
+
     //#endregion
 }

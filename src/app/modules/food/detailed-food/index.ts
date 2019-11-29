@@ -27,7 +27,10 @@ export class DetailedFoodModule {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./detailed-food.html')));
+                        require.ensure([], () => {
+                            require('./detailed-food.scss');
+                            resolve(require('./detailed-food.html'));
+                        });
                     });
                 }],
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
