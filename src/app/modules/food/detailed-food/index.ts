@@ -44,9 +44,9 @@ export class DetailedFoodModule {
                             require.ensure([], (require) => {
 
                                 require('../../shared/message-modal');
+                                require('../../shared/location-picker-modal');
 
-                                // load only controller module
-                                let ngModule = module('app.phrase', ['ngMessageModalModule']);
+                                let ngModule = module('app.phrase', ['ngMessageModalModule', 'ngLocationPickerModalModule']);
                                 const {DetailedFoodController} = require('./detailed-food.controller');
 
                                 // Import controller file.

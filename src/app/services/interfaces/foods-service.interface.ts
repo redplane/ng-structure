@@ -6,6 +6,8 @@ import {FoodTypes} from "../../enums/food-types.enum";
 import {FoodCategories} from "../../enums/food-categories.enum";
 import {FoodStatuses} from "../../enums/food-statuses.enum";
 import {PromotionViewModel} from "../../view-models/promotion.view-model";
+import {KeyValueModel} from "../../models/key-value.model";
+import {FoodPromotionStatuses} from "../../enums/food-promotion-statuses.enum";
 
 export interface IFoodService {
 
@@ -20,6 +22,14 @@ export interface IFoodService {
     loadFoodStatusTitle(foodStatus: FoodStatuses): string;
 
     shouldPromotionValid(promotion: PromotionViewModel): boolean;
+
+    loadAvailableFoodStatusesAsync(): IPromise<KeyValueModel<FoodStatuses>[]>;
+
+    loadAvailableFoodCategories(): IPromise<KeyValueModel<FoodCategories>[]>;
+
+    loadAvailableFoodTypesAsync(): IPromise<KeyValueModel<FoodTypes>[]>;
+
+    loadAvailableFoodPromotionModesAsync(): IPromise<KeyValueModel<FoodPromotionStatuses>[]>;
 
     //#endregion
 

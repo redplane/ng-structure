@@ -5,3 +5,9 @@
 .food-carousel-item:not(:disabled):not(.disabled):hover .food-photo-actions {
   visibility: visible;
 }
+
+table.food-specs {
+  tbody tr th:first-child {
+    width: 250px;
+  }
+}

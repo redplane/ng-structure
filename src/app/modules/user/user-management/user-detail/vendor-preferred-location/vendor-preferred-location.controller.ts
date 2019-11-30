@@ -7,7 +7,7 @@ import {UserRoles} from "../../../../../enums/user-roles.enum";
 import {IAppSettings} from "../../../../../interfaces/app-setting.interface";
 import {IStatesService} from "../../../../../services/interfaces/states-service.interface";
 import {ICitiesService} from "../../../../../services/interfaces/cities-service.interface";
-import {LocationPickerModalsService} from "../../../../../services/implementations/location-picker-modal/location-picker-modals.service";
+import {LocationPickerModalsService} from "../../../../shared/location-picker-modal/location-picker-modals.service";
 import {AddAssignedLocationModel} from "../../../../../models/add-assigned-location.model";
 import {EditableFieldViewModel} from "../../../../../view-models/editable-field.view-model";
 import {INgRxMessageBusService} from "../../../../../services/interfaces/ngrx-message-bus-service.interface";

@@ -8,10 +8,15 @@ import {PromotionViewModel} from "../../../view-models/promotion.view-model";
 import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {CityViewModel} from "../../../view-models/city/city.view-model";
 import {EditorModes} from "../../../enums/edit-modes.enum";
+import {IDetailedFoodForm} from "../../../models/detailed-food-form.model";
+import {FoodPromotionStatuses} from "../../../enums/food-promotion-statuses.enum";
+import {IRegion} from "../../../interfaces/region.interface";
 
 export interface IDetailedFoodScope extends IScope {
 
     //#region Properties
+
+    initialDetailedFood: FoodViewModel;
 
     detailedFood: FoodViewModel;
 
@@ -24,6 +29,16 @@ export interface IDetailedFoodScope extends IScope {
     editorMode: EditorModes;
 
     editorModes: typeof EditorModes;
+
+    detailedFoodForm: IDetailedFoodForm;
+
+    availableFoodStatuses: FoodStatuses[];
+
+    availableFoodCategories: FoodCategories[];
+
+    availableFoodTypes: FoodTypes[];
+
+    availableFoodPromotionModes: FoodPromotionStatuses[];
 
     //#endregion
 
@@ -42,6 +57,10 @@ export interface IDetailedFoodScope extends IScope {
     shouldFoodEditable(): boolean;
 
     clickEnableEditMode(): void;
+
+    clickAddAssignedLocation(): void;
+
+    clickDeleteAssignedLocation(assignedLocation: IRegion): void;
 
     //#endregion
 }

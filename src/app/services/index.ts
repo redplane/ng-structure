@@ -5,7 +5,7 @@ import {FaqService} from "./implementations/faq.service";
 import {NgRxMessageBusService} from "./implementations/ngrx-message-bus.service";
 import {StatesService} from "./implementations/states.service";
 import {CitiesService} from "./implementations/cities.service";
-import {LocationPickerModalsService} from "./implementations/location-picker-modal/location-picker-modals.service";
+import {LocationPickerModalsService} from "../modules/shared/location-picker-modal/location-picker-modals.service";
 import {RatingsService} from "./implementations/ratings.service";
 import {StickersService} from "./implementations/stickers.service";
 import {PhrasesService} from "./implementations/phrases.service";

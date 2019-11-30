@@ -1,31 +1,35 @@
-import {INgModelController} from "angular";
+import {IFormController, INgModelController} from "angular";
 
-export class DetailedFoodForm {
+export interface IDetailedFoodForm extends IFormController {
 
     //#region Properties
 
-    public name: INgModelController;
+    name: INgModelController;
 
-    public price: INgModelController;
+    price: INgModelController;
 
-    public description: INgModelController;
+    description: INgModelController;
 
-    public ingredient: INgModelController;
+    ingredient: INgModelController;
 
-    public status: INgModelController;
+    status: INgModelController;
 
-    public category: INgModelController;
+    category: INgModelController;
 
-    public minimumOrderQuantity: INgModelController;
+    minimumOrderQuantity: INgModelController;
 
-    public shouldPromotionEnabled: INgModelController;
+    shouldPromotionEnabled: INgModelController;
 
-    public promotionStartTime: INgModelController;
+    promotionStartTime: INgModelController;
 
-    public promotionEndTime: INgModelController;
+    promotionEndTime: INgModelController;
 
-    public discountedPrice: INgModelController;
-    
+    discountedPrice: INgModelController;
+
+    types: INgModelController;
+
+    assignedLocations: INgModelController;
+
     //#endregion
 
 }

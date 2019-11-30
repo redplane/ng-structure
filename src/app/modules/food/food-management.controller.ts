@@ -97,17 +97,5 @@ export class FoodManagementController implements IController {
             });
     };
 
-    protected _clickEditFood = (id: string): void => {
-        this.$messageBus
-            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
-
-        this.$state
-            .go(UrlStatesConstant.detailedFoodModuleName, new DetailedFoodStateParams(id))
-            .finally(() => {
-                this.$messageBus
-                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
-            })
-    };
-
     //#endregion
 }

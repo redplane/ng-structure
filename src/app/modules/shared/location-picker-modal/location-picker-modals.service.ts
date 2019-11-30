@@ -1,9 +1,9 @@
 import {LocationPickerModalController} from "./location-picker-modal.controller";
 import {IPromise} from "angular";
 import {AddAssignedLocationModel} from "../../../models/add-assigned-location.model";
-import {ILocationPickerModalsService} from "../../interfaces/location-picker-modals-service.interface";
+import {ILocationPickerModalsService} from "../../../services/interfaces/location-picker-modals-service.interface";
 
-export class LocationPickerModalsService implements ILocationPickerModalsService{
+export class LocationPickerModalsService implements ILocationPickerModalsService {
 
     //#region Properties
 

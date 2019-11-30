@@ -1,4 +1,6 @@
-<div class="detailed-food">
+<form class="detailed-food"
+      novalidate
+      name="detailedFoodForm">
     <div class="row">
         <div class="col-12">
             <div class="form-group">
@@ -22,7 +24,7 @@
 
     <div class="row">
         <div class="col-12">
-            <table class="table table-dark">
+            <table class="table table-dark food-specs">
                 <tbody>
                 <tr>
                     <th scope="row">{{'TITLE_PRICE' | translate}}</th>
@@ -30,9 +32,9 @@
 
                         <div ng-if="editorMode == editorModes.view">
                             <div ng-switch-when="true">
-                                <span class="font-weight-bold font-xl">{{detailedFood.promotion.discountPrice}}</span>
+                                <span class="font-weight-bold font-xl">{{initialDetailedFood.promotion.discountPrice}}</span>
                                 <span> </span>
-                                <span class="line-through badge badge-secondary">{{detailedFood.price}}</span>
+                                <span class="line-through badge badge-secondary">{{initialDetailedFood.price}}</span>
                             </div>
 
                             <div ng-switch-default="">
@@ -44,21 +46,23 @@
                             <input class="form-control"
                                    name="price"
                                    type="number"
+                                   ng-model="detailedFood.price"
                                    min="0">
                         </div>
-
-
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">{{'TITLE_DESCRIPTION' | translate}}</th>
                     <td>
                         <div ng-if="editorMode == editorModes.view">
-                            {{detailedFood.description}}
+                            {{initialDetailedFood.description}}
                         </div>
 
                         <div ng-if="editorMode != editorModes.view">
-                            <textarea name="description" class="form-control" rows="5"></textarea>
+                            <textarea name="description"
+                                      ng-model="detailedFood.description"
+                                      class="form-control"
+                                      rows="5"></textarea>
                         </div>
                     </td>
                 </tr>
@@ -66,21 +70,46 @@
                     <th scope="row">{{'TITLE_INGREDIENT' | translate}}</th>
                     <td>
                         <div ng-if="editorMode == editorModes.view">
-                            {{detailedFood.ingredient}}
+                            {{initialDetailedFood.ingredient}}
                         </div>
 
                         <div ng-if="editorMode != editorModes.view">
-                            <textarea name="ingredient" class="form-control" rows="5"></textarea>
+                            <textarea name="ingredient"
+                                      ng-model="detailedFood.ingredient"
+                                      class="form-control"
+                                      rows="5"></textarea>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">{{'TITLE_TYPES' | translate}}</th>
                     <td>
-                    <span ng-repeat="foodType in detailedFood.types"
-                          class="badge badge-info mr-5px">
-                        {{loadFoodTypeTitle(foodType) | translate}}
-                    </span>
+                        <div ng-if="editorMode == editorModes.view">
+                            <span ng-repeat="foodType in initialDetailedFood.types"
+                                  class="badge badge-info mr-5px">
+                                {{loadFoodTypeTitle(foodType) | translate}}
+                            </span>
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view"
+                             class="d-flex align-items-start">
+
+                            <div class="btn-group btn-group-sm form-group mr-5px"
+                                 role="group"
+                                 ng-repeat="foodType in detailedFood.types">
+                                <button class="btn btn-outline-info" disabled>
+                                    {{loadFoodTypeTitle(foodType) | translate}}
+                                </button>
+                                <button class="btn btn-danger">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <span class="fa fa-plus"></span>
+                            </button>
+                        </div>
+
                     </td>
                 </tr>
                 <tr>
@@ -94,7 +123,9 @@
 
                         <div ng-if="editorMode != editorModes.view">
                             <select name="status"
-                                    class="form-control"></select>
+                                    class="form-control"
+                                    ng-model="detailedFood.status"
+                                    ng-options="availableFoodStatus.value as availableFoodStatus.key | translate for availableFoodStatus in availableFoodStatuses"></select>
                         </div>
                     </td>
                 </tr>
@@ -109,6 +140,8 @@
 
                         <div ng-if="editorMode != editorModes.view">
                             <select name="category"
+                                    ng-options="availableFoodCategory.value as availableFoodCategory.key | translate for availableFoodCategory in availableFoodCategories"
+                                    ng-model="detailedFood.category"
                                     class="form-control"></select>
                         </div>
                     </td>
@@ -116,22 +149,50 @@
                 <tr>
                     <th scope="row">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</th>
                     <td>
-                    <span class="badge badge-info mr-5px"
-                          ng-repeat="assignedLocation in detailedFood.assignedLocations">
-                        {{idToStates[assignedLocation.stateId].name}} - {{idToCities[assignedLocation.cityId].name}}
-                    </span>
+                        <div ng-if="editorMode == editorModes.view">
+                             <span class="badge badge-info mr-5px"
+                                   ng-repeat="assignedLocation in detailedFood.assignedLocations">
+                                {{idToStates[assignedLocation.stateId].name}} - {{idToCities[assignedLocation.cityId].name}}
+                             </span>
+                        </div>
+
+                        <div ng-if="editorMode != editorModes.view"
+                             class="d-flex align-items-start flex-wrap">
+                            <div class="btn-group btn-group-sm form-group mr-5px"
+                                 role="group"
+                                 ng-repeat="assignedLocation in detailedFood.assignedLocations">
+
+                                <button class="btn btn-outline-info" disabled>
+                                    {{idToStates[assignedLocation.stateId].name}} - {{idToCities[assignedLocation.cityId].name}}
+                                </button>
+                                <button class="btn btn-danger"
+                                        ng-click="clickDeleteAssignedLocation(assignedLocation)">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </div>
+
+                            <input hidden name="assignedLocations"
+                                   ng-model="detailedFood.assignedLocations[0].cityId"
+                                   ng-required="true">
+
+                            <button class="btn btn-primary"
+                                    ng-click="clickAddAssignedLocation()">
+                                <span class="fa fa-plus"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">{{'TITLE_MINIMUM_ORDER_QUANTITY' | translate}}</th>
                     <td>
                         <div ng-if="editorMode == editorModes.view">
-                            {{detailedFood.minimumOrderQuantity}}
+                            {{initialDetailedFood.minimumOrderQuantity}}
                         </div>
 
                         <div ng-if="editorMode != editorModes.view">
                             <input name="minimumOrderQuantity"
                                    class="form-control"
+                                   ng-model="detailedFood.minimumOrderQuantity"
                                    type="number">
                         </div>
                     </td>
@@ -140,7 +201,7 @@
                     <th scope="row">{{'TITLE_PROMOTION' | translate}}</th>
                     <td>
                         <div ng-if="editorMode == editorModes.view"
-                             ng-switch="shouldPromotionValid(detailedFood.promotion)">
+                             ng-switch="shouldPromotionValid(initialDetailedFood.promotion)">
                             <span class="badge badge-success"
                                   ng-switch-when="true">{{'TITLE_IN_PROMOTION' | translate}}</span>
 
@@ -153,6 +214,8 @@
 
                             <div class="form-group">
                                 <select name="shouldPromotionEnabled"
+                                        ng-model="detailedFood.promotion.status"
+                                        ng-options="availableFoodPromotionMode.value as availableFoodPromotionMode.key |translate for availableFoodPromotionMode in availableFoodPromotionModes"
                                         class="form-control"></select>
                             </div>
                         </div>
@@ -166,20 +229,30 @@
 
     <div class="toolbar right bottom">
         <div class="text-right">
+
             <button class="btn btn-outline-primary"
                     ng-if="shouldFoodAddable()"
                     ng-click="clickAddCity()">
                 <i class="fa fa-plus"></i>
             </button>
+
             <button class="btn btn-outline-primary"
                     ng-if="shouldFoodEditable() && editorMode == editorModes.view"
                     ng-click="clickEnableEditMode()">
                 <i class="fa fa-pencil"></i>
             </button>
+
+            <button class="btn btn-outline-primary"
+                    ng-if="shouldFoodEditable() && editorMode == editorModes.edit"
+                    ng-click="clickEnableEditMode()"
+                    ng-disabled="detailedFoodForm.$invalid || detailedFoodForm.$pristine">
+                <i class="fa fa-check"></i>
+            </button>
+
             <button class="btn btn-outline-secondary"
                     ng-click="clickReloadCities(1)">
                 <i class="fa fa-refresh"></i>
             </button>
         </div>
     </div>
-</div>
+</form>
