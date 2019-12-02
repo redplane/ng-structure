@@ -68,6 +68,9 @@ export class PhraseManagementController implements IController {
         }
 
         this.$scope.loadingPhrases = true;
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
         this.$phrases
             .loadPhrasesAsync(this.$scope.loadPhrasesCondition)
             .then((loadPhrasesResult: SearchResultViewModel<PhraseViewModel>) => {
@@ -75,6 +78,8 @@ export class PhraseManagementController implements IController {
             })
             .finally(() => {
                 this.$scope.loadingPhrases = false;
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
     };
 

@@ -1,4 +1,5 @@
 import {EditableFieldViewModel} from "../editable-field.view-model";
+import {MasterItemAvailabilities} from "../../enums/master-item-availabilities.enum";
 
 export class EditStateViewModel {
 
@@ -10,6 +11,8 @@ export class EditStateViewModel {
 
     public deliveryFee: EditableFieldViewModel<number>;
 
+    public availability: EditableFieldViewModel<MasterItemAvailabilities>;
+
     //#endregion
 
     //#region Constructor
@@ -18,6 +21,7 @@ export class EditStateViewModel {
         this.id = id;
         this.name = new EditableFieldViewModel<string>();
         this.deliveryFee = new EditableFieldViewModel<number>();
+        this.availability = new EditableFieldViewModel<MasterItemAvailabilities>();
     }
 
     //#endregion

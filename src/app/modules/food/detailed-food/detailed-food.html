@@ -2,22 +2,24 @@
       novalidate
       name="detailedFoodForm">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12"
+             ng-if="shoudFoodEditable()">
             <div class="form-group">
                 <h3>{{detailedFood.name}}</h3>
             </div>
         </div>
 
-        <div ng-repeat="photoUrl in foodPhotos track by $index"
+        <div ng-repeat="foodPhoto in foodPhotos track by $index"
              class="col-sm-4 col-xs-12">
             <div class="food-carousel-item form-group position-relative">
                 <div class="food-photo-actions position-absolute t-0 r-0 b-0 l-0 d-flex justify-content-center align-items-end pb-50px">
-                    <button class="btn btn-info">
+                    <button class="btn btn-info"
+                            ng-click="clickReplaceFoodPhoto($index)">
                         <span class="fa fa-upload"></span>
                     </button>
                 </div>
                 <img class="img-fluid food-photo"
-                     ng-src="{{photoUrl}}">
+                     ng-src="{{foodPhoto.preview}}">
             </div>
         </div>
     </div>
@@ -26,6 +28,15 @@
         <div class="col-12">
             <table class="table table-dark food-specs">
                 <tbody>
+                <tr ng-if="editorMode != editorModes.view">
+                    <th scope="row">{{'TITLE_NAME' | translate}}</th>
+                    <td>
+                        <input class="form-control"
+                               name="name"
+                               ng-model="detailedFood.name"
+                               ng-required="true">
+                    </td>
+                </tr>
                 <tr>
                     <th scope="row">{{'TITLE_PRICE' | translate}}</th>
                     <td ng-switch="shouldPromotionValid(detailedFood.promotion)">
@@ -96,16 +107,20 @@
 
                             <div class="btn-group btn-group-sm form-group mr-5px"
                                  role="group"
-                                 ng-repeat="foodType in detailedFood.types">
+                                 ng-repeat="foodType in detailedFood.types track by $index">
                                 <button class="btn btn-outline-info" disabled>
                                     {{loadFoodTypeTitle(foodType) | translate}}
                                 </button>
-                                <button class="btn btn-danger">
+                                <button class="btn btn-danger"
+                                        ng-click="clickDeleteFoodType(foodType)">
                                     <span class="fa fa-trash"></span>
                                 </button>
                             </div>
 
-                            <button class="btn btn-primary">
+                            <input hidden ng-model="detailedFood.types" name="types">
+
+                            <button class="btn btn-primary"
+                                    ng-click="clickAddFoodType()">
                                 <span class="fa fa-plus"></span>
                             </button>
                         </div>
@@ -193,6 +208,7 @@
                             <input name="minimumOrderQuantity"
                                    class="form-control"
                                    ng-model="detailedFood.minimumOrderQuantity"
+                                   min="0"
                                    type="number">
                         </div>
                     </td>
@@ -218,6 +234,63 @@
                                         ng-options="availableFoodPromotionMode.value as availableFoodPromotionMode.key |translate for availableFoodPromotionMode in availableFoodPromotionModes"
                                         class="form-control"></select>
                             </div>
+
+                            <div class="row"
+                                 ng-if="detailedFood.promotion.status == promotionStatuses.inPromotion">
+                                <div class="col-sm-4">
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-primary" type="button"
+                                                    ng-click="clickSelectPromotionStartDate()">
+                                                {{'TITLE_FROM' | translate}}
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control" readonly
+                                               value="{{detailedFood.promotion.startTime / 1000 | amFromUnix | amDateFormat:'DD/MM/YYYY HH:mm'}}">
+
+                                        <input hidden
+                                               ng-model="detailedFood.promotion.startTime"
+                                               ng-required="detailedFood.promotion.status == promotionStatuses.inPromotion"
+                                               name="promotionStartTime">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-primary"
+                                                    type="button"
+                                                    ng-disabled="detailedFoodForm.promotionStartTime.$invalid"
+                                                    ng-click="clickSelectPromotionEndDate()">
+                                                {{'TITLE_TO' | translate}}
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               ng-disabled="detailedFoodForm.promotionStartTime.$invalid"
+                                               value="{{detailedFood.promotion.endTime / 1000 | amFromUnix | amDateFormat:'DD/MM/YYYY HH:mm'}}">
+
+                                        <input hidden
+                                               ng-model="detailedFood.promotion.endTime"
+                                               ng-required="detailedFood.promotion.status == promotionStatuses.inPromotion"
+                                               name="promotionEndTime">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text">
+                                                {{'TITLE_DISCOUNT_PRICE' | translate}}
+                                            </label>
+                                        </div>
+                                        <input type="number"
+                                               class="form-control"
+                                               name="discountPrice"
+                                               ng-model="detailedFood.promotion.discountPrice"
+                                               min="0"
+                                               max="{{initialDetailedFood.price}}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </td>
@@ -232,8 +305,9 @@
 
             <button class="btn btn-outline-primary"
                     ng-if="shouldFoodAddable()"
-                    ng-click="clickAddCity()">
-                <i class="fa fa-plus"></i>
+                    ng-disabled="detailedFoodForm.$invalid || detailedFoodForm.$pristine"
+                    ng-click="clickSubmitFoodAdd()">
+                <i class="fa fa-check"></i>
             </button>
 
             <button class="btn btn-outline-primary"
@@ -244,9 +318,15 @@
 
             <button class="btn btn-outline-primary"
                     ng-if="shouldFoodEditable() && editorMode == editorModes.edit"
-                    ng-click="clickEnableEditMode()"
+                    ng-click="clickSubmitFoodEdit()"
                     ng-disabled="detailedFoodForm.$invalid || detailedFoodForm.$pristine">
                 <i class="fa fa-check"></i>
+            </button>
+
+            <button class="btn btn-outline-warning"
+                    ng-if="shouldFoodEditable() && editorMode == editorModes.edit"
+                    ng-click="clickCancelFoodEdit()">
+                <i class="fa fa-times"></i>
             </button>
 
             <button class="btn btn-outline-secondary"

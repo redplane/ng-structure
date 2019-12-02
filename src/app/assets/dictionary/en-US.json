@@ -109,6 +109,11 @@
   "TITLE_PROMOTION": "Promotion",
   "TITLE_IN_PROMOTION": "In promotion",
   "TITLE_ALL": "All",
+  "TITLE_FOOD_TYPE": "Food type",
+  "TITLE_SELECT_FOOD_TYPE": "Select food type",
+  "TITLE_FROM": "From",
+  "TITLE_TO": "To",
+  "TITLE_DISCOUNT_PRICE": "Discount price",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

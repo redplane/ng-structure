@@ -36,8 +36,8 @@
                         <td class="text-center"
                             ng-switch="item.availability == masterItemAvailabilities.available">
 
-                            <div ng-switch-when="true">
-                                <div class="form-group">
+                            <div>
+                                <div class="form-group" ng-switch-when="true">
                                     <button class="btn btn-outline-danger"
                                             ng-click="clickDeleteState(item.id)">
                                         <i class="fa fa-trash"></i>
@@ -67,7 +67,7 @@
                                     items-per-page="loadStatesConditions.pager.records"
                                     total-items="loadStatesResult.pager.totalRecords"
                                     ng-model="loadStatesConditions.pager.page"
-                                    ng-change="ngOnStateMasterPageLoaded()"></ul>
+                                    ng-change="clickReloadStates()"></ul>
                             </div>
                         </td>
                     </tr>

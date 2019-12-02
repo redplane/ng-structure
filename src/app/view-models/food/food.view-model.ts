@@ -35,4 +35,24 @@ export class FoodViewModel extends BaseEntity {
 
     //#endregion
 
+    //#region Constructor
+
+    public constructor(id:string) {
+        super(id);
+        this.name = '';
+        this.price = 0;
+        this.thumbnail = '';
+        this.description = '';
+        this.ingredient = '';
+        this.promotion = new PromotionViewModel();
+        this.photos = [].fill('https://via.placeholder.com/640x480', 0, 3);
+        this.types = [];
+        this.status = FoodStatuses.available;
+        this.category = FoodCategories.all;
+        this.assignedLocations = [];
+        this.minimumOrderQuantity = 0;
+    }
+
+    //#endregion
+
 }

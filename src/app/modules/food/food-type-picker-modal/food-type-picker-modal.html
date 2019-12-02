@@ -1,15 +1,39 @@
-<!-- Modal Header -->
-<div class="modal-header">
-    <h4 class="modal-title">{{'TITLE_SELECT_FOOD_TYPE' | translate}}</h4>
-    <button type="button"
-            class="close">&times;</button>
-</div>
+<form name="foodTypePickerForm"
+      novalidate>
+    <!-- Modal Header -->
+    <div class="modal-header">
+        <h4 class="modal-title">{{'TITLE_SELECT_FOOD_TYPE' | translate}}</h4>
+        <button type="button"
+                class="close" ng-click="clickDismissModal()">&times;</button>
+    </div>
 
-<!-- Modal body -->
-<div class="modal-body">
-</div>
+    <!-- Modal body -->
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <b>{{'TITLE_FOOD_TYPE' | translate}}</b>
+                    <select class="form-control"
+                            ng-model="model.selectedFoodType"
+                            ng-required="true"
+                            ng-options="availableFoodType.value as availableFoodType.key | translate for availableFoodType in availableFoodTypes"></select>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Modal footer -->
-<div class="modal-footer">
-    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-</div>
+    <div class="modal-footer justify-content-center">
+        <button type="button"
+                class="btn btn-primary"
+                ng-disabled="foodTypePickerForm.$invalid"
+                ng-click="clickSelectFoodType()">
+            {{'TITLE_OK' | translate}}
+        </button>
+        <button type="button"
+                class="btn btn-secondary"
+                ng-click="clickDismissModal()">
+            {{'TITLE_CANCEL' | translate}}
+        </button>
+    </div>
+
+</form>

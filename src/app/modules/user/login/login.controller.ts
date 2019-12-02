@@ -6,6 +6,9 @@ import {BasicLoginViewModel} from "../../../view-models/user/basic-login.view-mo
 import {LoginResultViewModel} from "../../../view-models/user/login-result.view-model";
 import {StorageKeyNameConstant} from "../../../constants/storage-key-name.constant";
 import {UrlStatesConstant} from "../../../constants/url-states.constant";
+import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-bus-service.interface";
+import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
+import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
 
 /* @ngInject */
 export class LoginController implements IController {
@@ -15,12 +18,11 @@ export class LoginController implements IController {
     public constructor(protected $scope: ILoginScope,
                        protected $state: StateService,
                        protected $users: IUsersService,
-                       protected $localForage: angular.localForage.ILocalForageService) {
+                       protected $localForage: angular.localForage.ILocalForageService,
+                       protected $messageBus: INgRxMessageBusService) {
 
         // Property initialize.
         this.$scope.loginModel = new BasicLoginViewModel();
-        this.$scope.loginModel.username = 'sodakoq@gmail.com';
-        this.$scope.loginModel.password = 'abcde12345-';
         this.$scope.shouldControlsAvailable = true;
 
         // Methods binding.
@@ -40,6 +42,9 @@ export class LoginController implements IController {
         // Disable all controls.
         this.$scope.shouldControlsAvailable = false;
 
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
         this.$users
             .basicLoginAsync(loginModel.username, loginModel.password)
             .then((basicLoginResult: LoginResultViewModel) => {
@@ -55,6 +60,8 @@ export class LoginController implements IController {
             })
             .finally(() => {
                 this.$scope.shouldControlsAvailable = true;
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
     }
 

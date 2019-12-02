@@ -20,8 +20,8 @@ export class DetailedFoodModule {
     public constructor(private $stateProvider: StateProvider) {
 
         $stateProvider
-            .state(UrlStatesConstant.detailedFoodModuleName, {
-                url: UrlStatesConstant.detailedFoodModuleUrl,
+            .state(UrlStatesConstant.addFoodModuleName, {
+                url: UrlStatesConstant.addFoodModuleUrl,
                 controller: ControllerNamesConstant.detailedFoodControllerName,
                 templateProvider: ['$q', ($q: IQService) => {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
@@ -45,8 +45,60 @@ export class DetailedFoodModule {
 
                                 require('../../shared/message-modal');
                                 require('../../shared/location-picker-modal');
+                                require('../food-type-picker-modal');
+                                require('../../shared/datetime-picker-modal');
+                                require('../../shared/photo-cropper-modal');
 
-                                let ngModule = module('app.phrase', ['ngMessageModalModule', 'ngLocationPickerModalModule']);
+                                let ngModule = module('app.phrase', ['ngMessageModalModule',
+                                    'ngLocationPickerModalModule', 'ngFoodTypePickerModalModule', 'ngDateTimePickerModalModule',
+                                'ngPhotoCropperModule']);
+                                const {DetailedFoodController} = require('./detailed-food.controller');
+
+                                // Import controller file.
+                                ngModule.controller(ControllerNamesConstant.detailedFoodControllerName, DetailedFoodController);
+                                $ocLazyLoad.inject(ngModule.name);
+                                resolve(ngModule.controller);
+                            })
+                        });
+                    }],
+
+                    detailedFood: () => null
+                }
+            });
+
+        $stateProvider
+            .state(UrlStatesConstant.editFoodModuleName, {
+                url: UrlStatesConstant.editFoodModuleUrl,
+                controller: ControllerNamesConstant.detailedFoodControllerName,
+                templateProvider: ['$q', ($q: IQService) => {
+                    // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
+                    return $q((resolve) => {
+                        // lazy load the view
+                        require.ensure([], () => {
+                            require('./detailed-food.scss');
+                            resolve(require('./detailed-food.html'));
+                        });
+                    });
+                }],
+                parent: UrlStatesConstant.authenticatedLayoutModuleName,
+                resolve: {
+                    /*
+                    * Load FAQ detail controller asynchronously.
+                    * */
+                    loadController: ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+
+                        return $q((resolve) => {
+                            require.ensure([], (require) => {
+
+                                require('../../shared/message-modal');
+                                require('../../shared/location-picker-modal');
+                                require('../food-type-picker-modal');
+                                require('../../shared/datetime-picker-modal');
+                                require('../../shared/photo-cropper-modal');
+
+                                let ngModule = module('app.phrase', ['ngMessageModalModule',
+                                    'ngLocationPickerModalModule', 'ngFoodTypePickerModalModule', 'ngDateTimePickerModalModule',
+                                    'ngPhotoCropperModule']);
                                 const {DetailedFoodController} = require('./detailed-food.controller');
 
                                 // Import controller file.
@@ -69,16 +121,16 @@ export class DetailedFoodModule {
 
                             return $foods.loadFoodsAsync(loadFoodsCondition)
                                 .then((loadFoodsResult: SearchResultViewModel<FoodViewModel>) => {
-                                   if (!loadFoodsResult || !loadFoodsResult.items) {
-                                       return null;
-                                   }
+                                    if (!loadFoodsResult || !loadFoodsResult.items) {
+                                        return null;
+                                    }
 
-                                   const foods = loadFoodsResult.items;
-                                   if (!foods || !foods.length) {
-                                       return null;
-                                   }
+                                    const foods = loadFoodsResult.items;
+                                    if (!foods || !foods.length) {
+                                        return null;
+                                    }
 
-                                   return foods[0];
+                                    return foods[0];
                                 });
                         }]
                 }

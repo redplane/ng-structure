@@ -19,7 +19,7 @@ export class StateModule {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./master-page/state-master-page.html')));
+                        require.ensure([], () => resolve(require('./state-management.html')));
                     });
                 }],
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
@@ -32,19 +32,14 @@ export class StateModule {
                         return $q((resolve) => {
                             require.ensure([], (require) => {
 
-                                // load only controller module
-                                let ngModule = module('app.states-master-page', []);
-                                const {StateMasterPageController} = require('./master-page/state-master-page.controller.ts');
+                                require('./detailed-state-modal');
 
-                                // // Lazy load faq detail.
-                                const {StateDetailDirective} = require('./state-detail');
-                                const {StateDetailController} = require('./state-detail/state-detail.controller');
-                                ngModule = ngModule.directive('stateDetail',
-                                    ($q: IQService, $compile: ICompileService) => new StateDetailDirective($q, $compile));
+                                // load only controller module
+                                let ngModule = module('app.states', ['ngDetailedStateModalModule']);
+                                const {StateManagementController} = require('./state-management.controller');
 
                                 // Import controller file.
-                                ngModule.controller(ControllerNamesConstant.stateMasterPageControllerName, StateMasterPageController);
-                                ngModule.controller(ControllerNamesConstant.stateDetailControllerName, StateDetailController);
+                                ngModule.controller(ControllerNamesConstant.stateMasterPageControllerName, StateManagementController);
                                 $ocLazyLoad.inject( ngModule.name);
                                 resolve(ngModule.controller);
                             })

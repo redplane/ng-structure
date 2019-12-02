@@ -5,6 +5,7 @@ import {StateViewModel} from "../../../view-models/states/state-view.model";
 import {IPromise, IScope} from "angular";
 import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
 import {KeyValueModel} from "../../../models/key-value.model";
+import {EditorModes} from "../../../enums/edit-modes.enum";
 
 export interface ICityDetailScope extends ng.ui.bootstrap.IModalScope, IScope {
 
@@ -12,17 +13,19 @@ export interface ICityDetailScope extends ng.ui.bootstrap.IModalScope, IScope {
 
     $resolve: ICityDetailResolver;
 
-    inEditMode: boolean;
+    editorMode: EditorModes;
+
+    editorModes: typeof EditorModes;
 
     /*
     * Model for adding faq.
     * */
-    cityModel: CityViewModel;
+    detailedCity: CityViewModel;
 
     /*
     * Original states model.
     * */
-    originalCityModel: CityViewModel;
+    initialDetailedCity: CityViewModel;
 
     /*
     * Add edit city form.

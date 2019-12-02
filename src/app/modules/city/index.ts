@@ -19,7 +19,7 @@ export class CityModule {
                     // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                     return $q((resolve) => {
                         // lazy load the view
-                        require.ensure([], () => resolve(require('./master-page/city-master-page.html')));
+                        require.ensure([], () => resolve(require('./city-management.html')));
                     });
                 }],
                 parent: UrlStatesConstant.authenticatedLayoutModuleName,
@@ -33,23 +33,19 @@ export class CityModule {
                             require.ensure([], (require) => {
 
                                 // load only controller module
-                                let ngModule = module('app.city-master-page', []);
-                                const {CityMasterPageController} = require('./master-page/city-master-page.controller');
+                                let ngModule = module('app.city', ['ngDetailedCityModalModule']);
+                                const {CityManagementController} = require('./city-management.controller');
 
                                 // // Lazy load faq detail.
-                                const {CityDetailDirective} = require('./city-detail');
+                                require('./detailed-city-modal');
                                 const {CityFilterDirective} = require('./city-filter');
 
-                                const {CityDetailController} = require('./city-detail/city-detail.controller');
-                                ngModule = ngModule.directive('cityDetail',
-                                    ($q: IQService, $compile: ICompileService) => new CityDetailDirective($q, $compile));
 
                                 ngModule = ngModule.directive('cityFilter',
                                     ($q: IQService, $compile: ICompileService) => new CityFilterDirective($q, $compile));
 
                                 // Import controller file.
-                                ngModule.controller(ControllerNamesConstant.cityMasterPageControllerName, CityMasterPageController);
-                                ngModule.controller(ControllerNamesConstant.cityDetailControllerName, CityDetailController);
+                                ngModule.controller(ControllerNamesConstant.cityMasterPageControllerName, CityManagementController);
                                 $ocLazyLoad.inject( ngModule.name);
                                 resolve(ngModule.controller);
                             })

@@ -24,7 +24,7 @@ export interface IDetailedFoodForm extends IFormController {
 
     promotionEndTime: INgModelController;
 
-    discountedPrice: INgModelController;
+    discountPrice: INgModelController;
 
     types: INgModelController;
 

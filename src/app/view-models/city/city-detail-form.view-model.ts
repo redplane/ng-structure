@@ -9,6 +9,8 @@ export class CityDetailFormViewModel {
     * */
     public name: INgModelController;
 
+    public availability: INgModelController;
+
     //#endregion
 
 }

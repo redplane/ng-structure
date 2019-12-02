@@ -80,7 +80,11 @@ export class UrlStatesConstant {
 
     public static foodManagementModuleUrl = '/food';
 
-    public static detailedFoodModuleName = 'detailedFood';
+    public static editFoodModuleName = 'editFood';
 
-    public static detailedFoodModuleUrl = '/food/:foodId';
+    public static editFoodModuleUrl = '/edit-food/:foodId';
+
+    public static addFoodModuleName = 'addFood';
+
+    public static addFoodModuleUrl = '/add-food';
 }

@@ -64,18 +64,18 @@
                         </tr>
                         <tr ng-if="!shouldFoodsDisplayed()">
                             <td class="text-center"
-                                colspan="5">
+                                colspan="6">
                                 <b class="text-danger">{{'MSG_NO_FOOD_AVAILABLE' | translate}}</b>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6">
                                 <div class="d-flex justify-content-center">
                                     <ul uib-pagination
                                         items-per-page="loadPhrasesCondition.pager.records"
-                                        total-items="loadPhrasesResult.pager.totalRecords"
-                                        ng-model="loadPhrasesCondition.pager.page"
-                                        ng-change="clickReloadPhrases()"></ul>
+                                        total-items="loadFoodsResult.pager.totalRecords"
+                                        ng-model="loadFoodsCondition.pager.page"
+                                        ng-change="clickReloadFoods()"></ul>
                                 </div>
                             </td>
                         </tr>
@@ -91,12 +91,12 @@
 <div class="toolbar right bottom">
     <div class="text-right">
         <button class="btn btn-outline-primary"
-                ng-click="clickAddPhrase()">
+                ng-click="clickAddFood()">
             <i class="fa fa-plus"></i>
         </button>
 
         <button class="btn btn-outline-secondary"
-                ng-click="clickReloadPhrases(1)">
+                ng-click="clickReloadFoods(1)">
             <i class="fa fa-refresh"></i>
         </button>
     </div>

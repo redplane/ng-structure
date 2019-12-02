@@ -1,26 +1,28 @@
 import {IController, IPromise, IQService} from "angular";
-import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
-import {PagerViewModel} from "../../../view-models/pager.view-model";
-import {ValidationValueConstant} from "../../../constants/validation-value.constant";
+import {SearchResultViewModel} from "../../view-models/search-result.view-model";
+import {PagerViewModel} from "../../view-models/pager.view-model";
+import {ValidationValueConstant} from "../../constants/validation-value.constant";
 import {IModalService} from "angular-ui-bootstrap";
-import {UiService} from "../../../services/implementations/ui.service";
-import {INgRxMessageBusService} from "../../../services/interfaces/ngrx-message-bus-service.interface";
-import {MessageChannelNameConstant} from "../../../constants/message-channel-name.constant";
-import {MessageEventNameConstant} from "../../../constants/message-event-name.constant";
-import {LoadStatesViewModel} from "../../../view-models/states/load-states.view-model";
-import {IStatesService} from "../../../services/interfaces/states-service.interface";
-import {EditStateViewModel} from "../../../view-models/states/edit-state.view-model";
-import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
-import {ICityMasterPageScope} from "./city-master-page.scope";
-import {CityViewModel} from "../../../view-models/city/city.view-model";
-import {ICitiesService} from "../../../services/interfaces/cities-service.interface";
-import {AddCityViewModel} from "../../../view-models/city/add-city.view-model";
-import {LoadCitiesViewModel} from "../../../view-models/city/load-cities.view-model";
-import {StateViewModel} from "../../../view-models/states/state-view.model";
-import {ICityDetailResolver} from "../../../interfaces/resolvers/city-detail.resolver";
+import {UiService} from "../../services/implementations/ui.service";
+import {INgRxMessageBusService} from "../../services/interfaces/ngrx-message-bus-service.interface";
+import {MessageChannelNameConstant} from "../../constants/message-channel-name.constant";
+import {MessageEventNameConstant} from "../../constants/message-event-name.constant";
+import {LoadStatesViewModel} from "../../view-models/states/load-states.view-model";
+import {IStatesService} from "../../services/interfaces/states-service.interface";
+import {EditStateViewModel} from "../../view-models/states/edit-state.view-model";
+import {MasterItemAvailabilities} from "../../enums/master-item-availabilities.enum";
+import {ICityManagementScope} from "./city-management.scope";
+import {CityViewModel} from "../../view-models/city/city.view-model";
+import {ICitiesService} from "../../services/interfaces/cities-service.interface";
+import {AddCityViewModel} from "../../view-models/city/add-city.view-model";
+import {LoadCitiesViewModel} from "../../view-models/city/load-cities.view-model";
+import {StateViewModel} from "../../view-models/states/state-view.model";
+import {ICityDetailResolver} from "../../interfaces/resolvers/city-detail.resolver";
+import {DetailedCityModalService} from "./detailed-city-modal/detailed-city-modal.service";
+import {EditCityViewModel} from "../../view-models/city/edit-city.view-model";
 
 /* @ngInject */
-export class CityMasterPageController implements IController {
+export class CityManagementController implements IController {
 
     //#region Properties
 
@@ -32,13 +34,14 @@ export class CityMasterPageController implements IController {
     /*
     * Initialize controller with injectors.
     * */
-    public constructor(protected $scope: ICityMasterPageScope,
+    public constructor(protected $scope: ICityManagementScope,
                        protected $uibModal: IModalService,
                        protected $ui: UiService,
                        protected $states: IStatesService,
                        protected $cities: ICitiesService,
                        protected $messageBus: INgRxMessageBusService,
                        protected $translate: angular.translate.ITranslateService,
+                       protected $detailedCityModals: DetailedCityModalService,
                        protected $q: IQService) {
 
         // Properties binding.
@@ -115,18 +118,8 @@ export class CityMasterPageController implements IController {
     * */
     protected clickAddCity = (): void => {
 
-        const modalResult = this.$uibModal
-            .open({
-                component: 'cityDetail',
-                size: 'lg',
-                backdrop: 'static',
-                resolve: {
-                    city: () => null,
-                    states: () => this.$scope.states
-                }
-            }).result;
-
-        modalResult
+        const modalResult = this.$detailedCityModals
+            .displayAddCityModalAsync()
             .then((model: AddCityViewModel) => {
                 // Display loading ui.
                 this.$messageBus
@@ -157,7 +150,7 @@ export class CityMasterPageController implements IController {
         this.$messageBus
             .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
 
-        this.$states.deleteStateAsync(stateId)
+        this.$cities.deleteCityAsync(stateId)
             .then(() => {
                 // Reload faqs.
                 return this.loadCitiesAsync(this.$scope.loadCitiesConditions);
@@ -176,23 +169,13 @@ export class CityMasterPageController implements IController {
     * */
     protected clickEditCity = (city: CityViewModel): void => {
 
-        const modalResult = this.$uibModal
-            .open({
-                component: 'cityDetail',
-                size: 'lg',
-                backdrop: 'static',
-                resolve: {
-                    city: () => city,
-                    states: () => this.$scope.states
-                }
-            }).result;
-
-        modalResult
-            .then((model: EditStateViewModel) => {
+        const modalResult = this.$detailedCityModals
+            .displayEditCityModalAsync(city)
+            .then((model: EditCityViewModel) => {
                 // Display loading ui.
                 this.$messageBus
                     .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
-                return this.$cities.editCityAsync(model.id, model);
+                return this.$cities.editCityAsync(city.id, model);
             })
             .then(() => {
                 const message = this.$translate.instant('MSG_ADDED_CITY_SUCCESSFULLY');

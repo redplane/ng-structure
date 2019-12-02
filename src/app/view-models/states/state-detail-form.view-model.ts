@@ -8,6 +8,8 @@ export class StateDetailFormViewModel {
 
     public deliveryFee: INgModelController;
 
+    public availability: INgModelController;
+
     //#endregion
 
 }

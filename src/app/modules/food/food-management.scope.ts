@@ -31,6 +31,8 @@ export interface IFoodManagementScope extends IScope {
 
     shouldPromotionValid(promotion: PromotionViewModel): boolean;
 
+    clickAddFood(): void;
+
     //#endregion
 
 }

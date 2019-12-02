@@ -1,0 +1,74 @@
+<form novalidate
+      name="addEditStateForm">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-switch="editorMode == editorModes.edit">
+            <span ng-switch-when="true">{{'TITLE_EDIT_STATE' | translate:{ name: initialDetailedState.name} }}</span>
+            <span ng-switch-default>{{'TITLE_ADD_STATE' | translate}}</span>
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <!--Name-->
+        <div class="row">
+            <div class="col-12">
+                <b>{{'TITLE_STATE_NAME' | translate}}</b>
+                <div class="form-group">
+
+                    <input name="name"
+                           class="form-control"
+                           ng-model="detailedState.name"
+                           ng-required="true">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Delivery fee-->
+        <div class="row">
+            <div class="col-12">
+                <b>{{'TITLE_DELIVERY_FEE' | translate}}</b>
+                <div class="form-group">
+
+                    <input name="deliveryFee"
+                           class="form-control"
+                           type="number"
+                           min="0"
+                           max="100"
+                           ng-model="detailedState.deliveryFee"
+                           ng-required="true">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Availability-->
+        <div class="row"
+             ng-if="editorMode == editorModes.edit">
+            <div class="col-12">
+                <b>{{'TITLE_AVAILABILITY' | translate}}</b>
+                <div class="form-group">
+
+                    <select name="availability"
+                            class="form-control"
+                            ng-model="detailedState.availability"
+                            ng-options="availability.value as availability.key | translate for availability in availabilities"
+                            ng-required="true"></select>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer justify-content-center">
+        <button class="btn btn-outline-primary"
+                ng-click="clickOk(addEditStateForm)"
+                ng-disabled="addEditStateForm.$invalid || !addEditStateForm.$dirty">
+            {{'TITLE_OK' | translate}}
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                ng-click="clickCancel()">
+            {{'TITLE_CANCEL' | translate}}
+        </button>
+    </div>
+</form>

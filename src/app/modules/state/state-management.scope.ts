@@ -1,7 +1,7 @@
-import {SearchResultViewModel} from "../../../view-models/search-result.view-model";
-import {LoadStatesViewModel} from "../../../view-models/states/load-states.view-model";
-import {StateViewModel} from "../../../view-models/states/state-view.model";
-import {MasterItemAvailabilities} from "../../../enums/master-item-availabilities.enum";
+import {SearchResultViewModel} from "../../view-models/search-result.view-model";
+import {LoadStatesViewModel} from "../../view-models/states/load-states.view-model";
+import {StateViewModel} from "../../view-models/states/state-view.model";
+import {MasterItemAvailabilities} from "../../enums/master-item-availabilities.enum";
 
 export interface IStateMasterPageScope {
 

@@ -11,6 +11,7 @@ import {EditorModes} from "../../../enums/edit-modes.enum";
 import {IDetailedFoodForm} from "../../../models/detailed-food-form.model";
 import {FoodPromotionStatuses} from "../../../enums/food-promotion-statuses.enum";
 import {IRegion} from "../../../interfaces/region.interface";
+import {ImageItem} from "../../../models/image-item";
 
 export interface IDetailedFoodScope extends IScope {
 
@@ -20,7 +21,7 @@ export interface IDetailedFoodScope extends IScope {
 
     detailedFood: FoodViewModel;
 
-    foodPhotos: string[];
+    foodPhotos: ImageItem[];
 
     idToStates: {[id: string]: StateViewModel};
 
@@ -29,6 +30,8 @@ export interface IDetailedFoodScope extends IScope {
     editorMode: EditorModes;
 
     editorModes: typeof EditorModes;
+
+    promotionStatuses: typeof FoodPromotionStatuses;
 
     detailedFoodForm: IDetailedFoodForm;
 
@@ -61,6 +64,22 @@ export interface IDetailedFoodScope extends IScope {
     clickAddAssignedLocation(): void;
 
     clickDeleteAssignedLocation(assignedLocation: IRegion): void;
+
+    clickAddFoodType(): void;
+
+    clickDeleteFoodType(type: FoodTypes): void;
+
+    clickSelectPromotionStartDate(): void;
+
+    clickSelectPromotionEndDate(): void;
+
+    clickCancelFoodEdit(): void;
+
+    clickReplaceFoodPhoto(photoId: number): void;
+
+    clickSubmitFoodEdit(): void;
+
+    clickSubmitFoodAdd(): void;
 
     //#endregion
 }

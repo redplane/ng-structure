@@ -38,6 +38,7 @@ export class FoodManagementController implements IController {
         $scope.shouldFoodsDisplayed = this._shouldFoodsDisplayed;
         $scope.clickReloadFoods = this._clickReloadFoods;
         $scope.clickEditFood = this._clickEditFood;
+        $scope.clickAddFood = this._clickAddFood;
         $scope.shouldPromotionValid = $foods.shouldPromotionValid;
     }
 
@@ -69,9 +70,16 @@ export class FoodManagementController implements IController {
             this.$scope.loadFoodsCondition.pager.page = page;
         }
 
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
         this._loadFoodsAsync(this.$scope.loadFoodsCondition)
             .then((loadFoodsResult: SearchResultViewModel<FoodViewModel>) => {
                 this.$scope.loadFoodsResult = loadFoodsResult;
+            })
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
     };
 
@@ -82,10 +90,21 @@ export class FoodManagementController implements IController {
             .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
 
         this.$state
-            .go(UrlStatesConstant.detailedFoodModuleName, new DetailedFoodStateParams(foodId))
+            .go(UrlStatesConstant.editFoodModuleName, new DetailedFoodStateParams(foodId))
             .finally(() => {
                 this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
+    };
+
+    protected _clickAddFood = (): void => {
+        // Display loading screen.
+        this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        this.$state
+            .go(UrlStatesConstant.addFoodModuleName)
+            .finally(() => {
+                this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
+            })
     };
 
     protected _loadFoodsAsync = (condition: LoadFoodViewModel): IPromise<SearchResultViewModel<FoodViewModel>> => {
