@@ -5,7 +5,6 @@ import {IRatingsService} from "../../services/interfaces/ratings-service.interfa
 import {MessageChannelNameConstant} from "../../constants/message-channel-name.constant";
 import {MessageEventNameConstant} from "../../constants/message-event-name.constant";
 import {SearchResultViewModel} from "../../view-models/search-result.view-model";
-import {FaqViewModel} from "../../view-models/faq/faq.view-model";
 import {INgRxMessageBusService} from "../../services/interfaces/ngrx-message-bus-service.interface";
 import {RatingViewModel} from "../../view-models/ratings/rating.view-model";
 import {LoadRatingsViewModel} from "../../view-models/ratings/load-ratings.view-model";

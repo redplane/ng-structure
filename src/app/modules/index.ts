@@ -14,6 +14,7 @@ import {PhraseModule} from "./phrase";
 import {CloudDeviceModule} from "./cloud-device";
 import {AppointmentModule} from "./appointment";
 import {FoodModule} from "./food";
+import {MailTemplateModule} from "./mail-template";
 
 export class PageModule {
 
@@ -34,6 +35,7 @@ export class PageModule {
         ngModule.config(($stateProvider: StateProvider) => new CloudDeviceModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new AppointmentModule($stateProvider));
         ngModule.config(($stateProvider: StateProvider) => new FoodModule($stateProvider));
+        ngModule.config(($stateProvider: StateProvider) => new MailTemplateModule($stateProvider));
     }
 
     //#endregion

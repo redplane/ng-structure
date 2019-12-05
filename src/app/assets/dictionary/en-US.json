@@ -114,6 +114,9 @@
   "TITLE_FROM": "From",
   "TITLE_TO": "To",
   "TITLE_DISCOUNT_PRICE": "Discount price",
+  "TITLE_MAIL_TEMPLATES": "Mail templates",
+  "TITLE_SUBJECT": "Subject",
+  "TITLE_KIND": "Kind",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",
@@ -135,6 +138,7 @@
   "MSG_DELETE_CLOUD_DEVICE": "Are you sure to delete this cloud device ?",
   "MSG_NO_APPOINTMENT_AVAILABLE": "No appointment is available",
   "MSG_NO_FOOD_AVAILABLE": "No food is available",
-  "MSG_NO_PROMOTION_AVAILABLE": "No promotion is available"
+  "MSG_NO_PROMOTION_AVAILABLE": "No promotion is available",
+  "MSG_NO_MAIL_TEMPLATE_AVAILABLE": "No mail template is available"
 
 }

@@ -13,6 +13,7 @@ import {CloudDevicesService} from "./implementations/cloud-devices.service";
 import {AppointmentsService} from "./implementations/appointments.service";
 import {FoodsService} from "./implementations/foods.service";
 import {FilesService} from "./implementations/files.service";
+import {MailTemplatesService} from "./implementations/mail-templates.service";
 
 /* @ngInject */
 export class ServiceModule {
@@ -34,6 +35,7 @@ export class ServiceModule {
         ngModule.service('$appointments', AppointmentsService);
         ngModule.service('$foods', FoodsService);
         ngModule.service('$files', FilesService);
+        ngModule.service('$mailTemplates', MailTemplatesService);
     }
 
     //#endregion

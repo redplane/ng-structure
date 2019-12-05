@@ -1,0 +1,102 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{'TITLE_NAME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_SUBJECT' | translate}}</th>
+                        <th class="text-center">{{'TITLE_DESCRIPTION' | translate}}</th>
+                        <th class="text-center">{{'TITLE_KIND' | translate}}</th>
+                        <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
+                        <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="shouldMailTemplatesDisplayed()"
+                        ng-repeat="item in loadMailTemplatesResult.items"
+                        class="text-middle text-center">
+                        <td ng-switch="item.availability == masterItemAvailabilities.available">
+                            <b ng-switch-when="true">
+                                {{item.name}}
+                            </b>
+                            <del ng-switch-default>
+                                {{item.name}}
+                            </del>
+                        </td>
+                        <td>
+                            {{item.subject}}
+                        </td>
+                        <td>
+                            {{item.description}}
+                        </td>
+                        <td ng-switch="item.kind">
+                            <span ng-switch-when="mailTemplateKinds.html" class="fa fa-html5"></span>
+                            <span ng-switch-default class="fa fa-file-text"></span>
+                        </td>
+                        <td>
+                            <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td>
+                            <i>{{item.lastModifiedTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
+                        </td>
+                        <td class="text-center"
+                            ng-switch="item.availability == masterItemAvailabilities.available">
+
+                            <div class="form-group"
+                                 ng-switch-when="true">
+                                <button class="btn btn-outline-danger"
+                                        ng-click="clickDeleteMailTemplate(item)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-outline-info"
+                                        ng-click="clickEditCity(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr ng-if="!shouldMailTemplatesDisplayed()">
+                        <td class="text-center"
+                            colspan="7">
+                            <b class="text-danger">{{'MSG_NO_MAIL_TEMPLATE_AVAILABLE' | translate}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            <div class="d-flex justify-content-center">
+                                <ul uib-pagination
+                                    items-per-page="loadCitiesConditions.pager.records"
+                                    total-items="loadCitiesResult.pager.totalRecords"
+                                    ng-model="loadCitiesConditions.pager.page"
+                                    ng-change="clickReloadCities()"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="toolbar right bottom">
+    <div class="text-right">
+        <button class="btn btn-outline-primary"
+                ng-click="clickAddMailTemplate()">
+            <i class="fa fa-plus"></i>
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                ng-click="clickReloadMailTemplates(1)">
+            <i class="fa fa-refresh"></i>
+        </button>
+    </div>
+</div>

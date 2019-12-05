@@ -87,4 +87,8 @@ export class UrlStatesConstant {
     public static addFoodModuleName = 'addFood';
 
     public static addFoodModuleUrl = '/add-food';
+
+    public static mailTemplateModuleName = 'mailTemplate';
+
+    public static mailTemplateModuleUrl = '/mail-template';
 }
