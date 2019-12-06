@@ -48,6 +48,8 @@ export class ControllerNamesConstant {
 
     public static mailTemplateControllerName = 'mailTemplateController';
 
+    public static detailedMailTemplateControllerName = 'detailedMailTemplateController';
+
     //#endregion
 
 }

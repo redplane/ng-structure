@@ -8,9 +8,13 @@ export interface IMailTemplatesService {
 
     //#region Methods
 
-    editMailTemplateAsync(id: string, model: EditMailTemplateViewModel): IPromise<MailTemplateViewModel>
+    editMailTemplateAsync(id: string, model: EditMailTemplateViewModel): IPromise<MailTemplateViewModel>;
+
+    loadMailTemplateByIdAsync(id: string): IPromise<MailTemplateViewModel>;
 
     loadMailTemplatesAsync(condition: LoadMailTemplateViewModel): IPromise<SearchResultViewModel<MailTemplateViewModel>>;
+
+    loadAvailableMailTemplatesAsync(): IPromise<string[]>;
 
     //#endregion
 

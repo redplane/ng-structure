@@ -13,6 +13,9 @@ import {IMessageModalsService} from "../shared/message-modal/message-modals-serv
 import {ModalButton} from "../shared/message-modal/modal-button";
 import {EditMailTemplateViewModel} from "../../view-models/mail-templates/edit-mail-template.view-model";
 import {EditableFieldViewModel} from "../../view-models/editable-field.view-model";
+import { StateService } from "@uirouter/angularjs";
+import {UrlStatesConstant} from "../../constants/url-states.constant";
+import {DetailedMailTemplateStateParams} from "../../models/route-params/detailed-mail-template.state-params";
 
 /* @ngInject */
 export class MailTemplateManagementController implements IController {
@@ -28,6 +31,7 @@ export class MailTemplateManagementController implements IController {
                        protected $messageBus: INgRxMessageBusService,
                        protected $messageModals: IMessageModalsService,
                        protected $translate: angular.translate.ITranslateService,
+                       protected $state: StateService,
                        protected $q: IQService) {
 
         $scope.loadMailTemplatesResult = new SearchResultViewModel<MailTemplateViewModel>();
@@ -39,6 +43,7 @@ export class MailTemplateManagementController implements IController {
         $scope.shouldMailTemplatesDisplayed = this._shouldMailTemplatesDisplayed;
         $scope.clickReloadMailTemplates = this._clickReloadMailTemplates;
         $scope.clickDeleteMailTemplate = this._clickDeleteMailTemplate;
+        $scope.clickEditMailTemplate = this._clickEditMailTemplate;
     }
 
     //#endregion
@@ -118,6 +123,19 @@ export class MailTemplateManagementController implements IController {
                     .finally(() => {
                         this.$messageBus.addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
                     });
+            });
+    };
+
+    protected _clickEditMailTemplate = (id: string): void => {
+        // Display loading screen.
+        this.$messageBus
+            .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, true);
+
+        this.$state
+            .go(UrlStatesConstant.editMailTemplateModuleName, new DetailedMailTemplateStateParams(id))
+            .finally(() => {
+                this.$messageBus
+                    .addMessage(MessageChannelNameConstant.ui, MessageEventNameConstant.toggleFullScreenLoader, false);
             });
     };
 

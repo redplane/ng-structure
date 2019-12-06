@@ -29,5 +29,7 @@ export interface IMailTemplateManagementScope extends IScope {
 
     clickDeleteMailTemplate(mailTemplate: MailTemplateViewModel): void;
 
+    clickEditMailTemplate(id: string): void;
+
     //#endregion
 }

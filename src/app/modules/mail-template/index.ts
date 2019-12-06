@@ -3,6 +3,7 @@ import {UrlStatesConstant} from "../../constants/url-states.constant";
 import {ICompileService, IQService, module} from 'angular';
 import {ILazyLoad} from "oclazyload";
 import {ControllerNamesConstant} from "../../constants/controller-names.constant";
+import {DetailedMailTemplateModule} from "./detailed-mail-template";
 
 /* @ngInject */
 export class MailTemplateModule {
@@ -10,6 +11,8 @@ export class MailTemplateModule {
     //#region Constructors
 
     public constructor(private $stateProvider: StateProvider) {
+
+        new DetailedMailTemplateModule($stateProvider);
 
         $stateProvider
             .state(UrlStatesConstant.mailTemplateModuleName, {
@@ -27,7 +30,7 @@ export class MailTemplateModule {
                     /*
                     * Load FAQ detail controller asynchronously.
                     * */
-                    loadFaqMasterPageController:  ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
+                    loadController:  ['$q', '$ocLazyLoad', ($q: IQService, $ocLazyLoad: ILazyLoad) => {
 
                         return $q((resolve) => {
                             require.ensure([], (require) => {

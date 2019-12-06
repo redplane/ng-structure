@@ -91,4 +91,12 @@ export class UrlStatesConstant {
     public static mailTemplateModuleName = 'mailTemplate';
 
     public static mailTemplateModuleUrl = '/mail-template';
+
+    public static addMailTemplateModuleName = 'addMailTemplate';
+
+    public static addMailTemplateModuleUrl = '/add-mail-template';
+
+    public static editMailTemplateModuleName = 'editMailTemplate';
+
+    public static editMailTemplateModuleUrl = '/edit-mail-template/:id';
 }
