@@ -8,7 +8,6 @@
                         <th class="text-center">{{'TITLE_NAME' | translate}}</th>
                         <th class="text-center">{{'TITLE_SUBJECT' | translate}}</th>
                         <th class="text-center">{{'TITLE_DESCRIPTION' | translate}}</th>
-                        <th class="text-center">{{'TITLE_KIND' | translate}}</th>
                         <th class="text-center">{{'TITLE_CREATED_TIME' | translate}}</th>
                         <th class="text-center">{{'TITLE_LAST_MODIFIED_TIME' | translate}}</th>
                         <th class="text-center"></th>
@@ -31,10 +30,6 @@
                         </td>
                         <td>
                             {{item.description}}
-                        </td>
-                        <td>
-                            <span ng-if="item.kind == mailTemplateKinds.html" class="fa fa-html5"></span>
-                            <span ng-if="item.kind == mailTemplateKinds.text" class="fa fa-file-text"></span>
                         </td>
                         <td>
                             <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>

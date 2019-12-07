@@ -35,11 +35,7 @@ export class MailTemplatesService implements IMailTemplatesService {
         };
 
         for (const key of keys) {
-
-            if (model[key] && model[key].hasModified) {
-                data.append(`${key}[value]`, model[key].value);
-                data.append(`${key}[hasModified]`, 'true');
-            }
+            data.append(`${key}`, `${model[key]}`);
         }
 
         return this.$http
