@@ -3,7 +3,6 @@ import {SearchResultViewModel} from "../../view-models/search-result.view-model"
 import {MailTemplateViewModel} from "../../view-models/mail-templates/mail-template.view-model";
 import {LoadMailTemplateViewModel} from "../../view-models/mail-templates/load-mail-template.view-model";
 import {MasterItemAvailabilities} from "../../enums/master-item-availabilities.enum";
-import {MailTemplateKinds} from "../../enums/mail-template-kinds.enum";
 
 export interface IMailTemplateManagementScope extends IScope {
 
@@ -17,8 +16,6 @@ export interface IMailTemplateManagementScope extends IScope {
 
     masterItemAvailabilities: typeof MasterItemAvailabilities;
 
-    mailTemplateKinds: typeof MailTemplateKinds;
-
     //#endregion
 
     //#region Methods
@@ -30,6 +27,8 @@ export interface IMailTemplateManagementScope extends IScope {
     clickDeleteMailTemplate(mailTemplate: MailTemplateViewModel): void;
 
     clickEditMailTemplate(id: string): void;
+
+    clickAddMailTemplate(): void;
 
     //#endregion
 }

@@ -10,6 +10,7 @@
     "@babel/preset-env": "^7.5.0",
     "@types/angular-localforage": "^1.2.36",
     "@types/angular-ui-bootstrap": "^0.13.47",
+    "@types/lodash": "^4.14.149",
     "@types/node": "^12.0.12",
     "@types/webpack": "^4.4.34",
     "@types/webpack-dev-server": "^3.1.6",
@@ -54,6 +55,7 @@
     "@coreui/coreui": "^2.1.12",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@types/angular": "^1.6.54",
+    "@types/angular-sanitize": "^1.7.0",
     "@types/angular-translate": "^2.16.0",
     "@types/jquery": "^3.3.30",
     "@types/oclazyload": "^0.0.32",
@@ -77,6 +79,7 @@
     "rxjs": "^6.5.2",
     "tinymce": "^5.0.11",
     "ui-bootstrap4": "^3.0.6",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "lodash": "^4.17.15"
   }
 }

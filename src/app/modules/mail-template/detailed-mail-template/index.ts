@@ -6,6 +6,7 @@ import {ControllerNamesConstant} from "../../../constants/controller-names.const
 import {Ng1StateDeclaration} from "@uirouter/angularjs/lib/interface";
 import {IMailTemplatesService} from "../../../services/interfaces/mail-templates-service.interface";
 import {DetailedMailTemplateStateParams} from "../../../models/route-params/detailed-mail-template.state-params";
+import {cloneDeep}  from 'lodash'
 
 /* @ngInject */
 export class DetailedMailTemplateModule {
@@ -21,7 +22,10 @@ export class DetailedMailTemplateModule {
                 // We have to inject $q service manually due to some reasons that ng-annotate cannot add $q service in production mode.
                 return $q((resolve) => {
                     // lazy load the view
-                    require.ensure([], () => resolve(require('./detailed-mail-template.html')));
+                    require.ensure([], () => {
+                        require('./detailed-mail-template.scss');
+                        resolve(require('./detailed-mail-template.html'));
+                    });
                 });
             }],
             parent: UrlStatesConstant.authenticatedLayoutModuleName,
@@ -34,10 +38,20 @@ export class DetailedMailTemplateModule {
                     return $q((resolve) => {
                         require.ensure([], (require) => {
 
+                            // Message modal.
                             require('../../shared/message-modal');
+                            require('../../shared/html-import-modal');
+
+                            // Import angular-sanitize & textAngular module.
+                            require('tinymce/tinymce');
+                            require('tinymce/themes/silver');
+                            require('angular-ui-tinymce/dist/tinymce.min');
+                            require('tinymce/skins/ui/oxide/skin.css');
 
                             // load only controller module
-                            let ngModule = module('app.detailed-mail-template', ['ngMessageModalModule']);
+                            let ngModule = module('app.detailed-mail-template', [
+                                'ngMessageModalModule', 'ui.tinymce', 'ngHtmlImportModalModule'
+                            ]);
                             const {DetailedMailTemplateController} = require('./detailed-mail-template.controller');
 
                             // Import controller file.
@@ -52,11 +66,11 @@ export class DetailedMailTemplateModule {
             }
         };
 
-        const addMailTemplateStateDefinition = {...detailedMailTemplateStateDefinition};
+        const addMailTemplateStateDefinition = cloneDeep(detailedMailTemplateStateDefinition);
         addMailTemplateStateDefinition.url = UrlStatesConstant.addMailTemplateModuleUrl;
         addMailTemplateStateDefinition.resolve['detailedMailTemplate'] = () => null;
 
-        const editMailTemplateStateDefinition = {...detailedMailTemplateStateDefinition};
+        const editMailTemplateStateDefinition = cloneDeep(detailedMailTemplateStateDefinition);
         editMailTemplateStateDefinition.url = UrlStatesConstant.editMailTemplateModuleUrl;
         editMailTemplateStateDefinition.resolve['detailedMailTemplate'] = [
             '$stateParams', '$mailTemplates',

@@ -1,5 +1,6 @@
 import {EditableFieldViewModel} from "../editable-field.view-model";
 import {MasterItemAvailabilities} from "../../enums/master-item-availabilities.enum";
+import {MailTemplateKinds} from "../../enums/mail-template-kinds.enum";
 
 export class EditMailTemplateViewModel {
 
@@ -11,7 +12,7 @@ export class EditMailTemplateViewModel {
 
     content: EditableFieldViewModel<string>;
 
-    kind: EditableFieldViewModel<MasterItemAvailabilities>;
+    kind: EditableFieldViewModel<MailTemplateKinds>;
 
     availability: EditableFieldViewModel<MasterItemAvailabilities>;
 

@@ -6,6 +6,8 @@ import {SearchResultViewModel} from "../../view-models/search-result.view-model"
 import {MailTemplateViewModel} from "../../view-models/mail-templates/mail-template.view-model";
 import {EditMailTemplateViewModel} from "../../view-models/mail-templates/edit-mail-template.view-model";
 import {PagerViewModel} from "../../view-models/pager.view-model";
+import {KeyValueModel} from "../../models/key-value.model";
+import {AddMailTemplateViewModel} from "../../view-models/mail-templates/add-mail-template.view-model";
 
 export class MailTemplatesService implements IMailTemplatesService {
 
@@ -13,17 +15,42 @@ export class MailTemplatesService implements IMailTemplatesService {
 
     public constructor(protected $http: IHttpService,
                        protected $q: IQService,
-                       protected appSettings: IAppSettings) {
+                       protected appSettings: IAppSettings,
+                       protected $sanitize: ng.sanitize.ISanitizeService) {
     }
 
     //#endregion
 
     //#region Methods
 
+    public addMailTemplateAsync(model: AddMailTemplateViewModel): IPromise<MailTemplateViewModel> {
+        const fullUrl = `${this.appSettings.apiEndpoint}/api/mail-template`;
+        const keys = ['name', 'subject', 'content', 'availability', 'description'];
+        const data = new FormData();
+
+        let httpRequestOptions = {
+            headers: {
+                'Content-Type': undefined
+            }
+        };
+
+        for (const key of keys) {
+
+            if (model[key] && model[key].hasModified) {
+                data.append(`${key}[value]`, model[key].value);
+                data.append(`${key}[hasModified]`, 'true');
+            }
+        }
+
+        return this.$http
+            .post<MailTemplateViewModel>(fullUrl, data, httpRequestOptions)
+            .then(m => m.data);
+    }
+
     public editMailTemplateAsync(id: string, model: EditMailTemplateViewModel):  IPromise<MailTemplateViewModel> {
 
         const fullUrl = `${this.appSettings.apiEndpoint}/api/mail-template/${id}`;
-        const keys = ['name', 'subject', 'content', 'kind', 'availability', 'description'];
+        const keys = ['name', 'subject', 'content', 'availability', 'description'];
         const data = new FormData();
 
         let httpRequestOptions = {
@@ -81,6 +108,15 @@ export class MailTemplatesService implements IMailTemplatesService {
         return this.$http
             .get<string[]>(fullUrl)
             .then(m => m.data);
+    }
+
+    public loadAvailableMailTemplateKindsAsync(): IPromise<KeyValueModel<MailTemplateKinds>[]> {
+        const items: KeyValueModel<MailTemplateKinds>[] = [];
+        items.push(new KeyValueModel<MailTemplateKinds>('TITLE_TEXT', MailTemplateKinds.text));
+        items.push(new KeyValueModel<MailTemplateKinds>('TITLE_HTML', MailTemplateKinds.html));
+
+        return this.$q
+            .resolve(items);
     }
 
     //#endregion

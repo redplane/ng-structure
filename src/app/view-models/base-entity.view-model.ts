@@ -18,6 +18,7 @@ export class BaseEntity {
 
     public constructor(id: string) {
         this.id = id;
+        this.availability = MasterItemAvailabilities.available;
     }
 
     //#endregion

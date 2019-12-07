@@ -117,6 +117,9 @@
   "TITLE_MAIL_TEMPLATES": "Mail templates",
   "TITLE_SUBJECT": "Subject",
   "TITLE_KIND": "Kind",
+  "TITLE_HTML": "HTML",
+  "TITLE_CONTENT": "Content",
+  "TITLE_IMPORT_HTML_CONTENT": "Import HTML content",
 
   "MSG_NO_FAQ_AVAILABLE": "No FAQ available",
   "MSG_NO_STATE_AVAILABLE": "No state available",

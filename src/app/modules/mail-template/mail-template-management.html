@@ -32,9 +32,9 @@
                         <td>
                             {{item.description}}
                         </td>
-                        <td ng-switch="item.kind">
-                            <span ng-switch-when="mailTemplateKinds.html" class="fa fa-html5"></span>
-                            <span ng-switch-default class="fa fa-file-text"></span>
+                        <td>
+                            <span ng-if="item.kind == mailTemplateKinds.html" class="fa fa-html5"></span>
+                            <span ng-if="item.kind == mailTemplateKinds.text" class="fa fa-file-text"></span>
                         </td>
                         <td>
                             <i>{{item.createdTime | amUtc | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}</i>
