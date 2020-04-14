@@ -1,5 +1,6 @@
 <form class="detailed-mail-template"
       novalidate
+      ng-submit="$event.preventDefault()"
       name="detailedMailTemplateForm">
 
     <div class="row">
@@ -11,274 +12,103 @@
         </div>
     </div>
 
+    <div class="row"
+         ng-if="editorMode != editorModes.view">
+        <div class="col-sm-3">
+            <b>{{'TITLE_NAME' | translate}}</b>
+        </div>
+        <div class="col-sm-9">
+            <div class="form-group">
+                <select class="form-control"
+                        name="name"
+                        ng-model="detailedMailTemplate.name"
+                        ng-disabled="shouldAvailableMailTemplateNameDisabled()"
+                        ng-options="availableMailTemplateName as availableMailTemplateName for availableMailTemplateName in availableMailTemplateNames"
+                        ng-required="true"></select>
+                </td>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-12">
-            <table class="table table-dark">
-                <tbody>
-                <tr ng-if="editorMode != editorModes.view">
-                    <th scope="row">{{'TITLE_NAME' | translate}}</th>
-                    <td>
-                        <select class="form-control"
-                                name="name"
-                                ng-model="detailedMailTemplate.name"
-                                ng-disabled="shouldAvailableMailTemplateNameDisabled()"
-                                ng-options="availableMailTemplateName as availableMailTemplateName for availableMailTemplateName in availableMailTemplateNames"
-                                ng-required="true"></select>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_SUBJECT' | translate}}</th>
-                    <td ng-switch="editorMode">
+        <div class="col-sm-3">
+            <b>{{'TITLE_SUBJECT' | translate}}</b>
+        </div>
+        <div class="col-sm-9">
+            <div class="form-group">
+                <input class="form-control"
+                       name="subject"
+                       ng-required="editorMode != editorModes.view"
+                       ng-disabled="editorMode == editorModes.view"
+                       ng-model="detailedMailTemplate.subject"
+                       min="0">
+            </div>
+        </div>
+    </div>
 
-                        <div ng-switch-when="editorModes.view">
-                            {{initialDetailedMailTemplate.subject}}
-                        </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <b>{{'TITLE_DESCRIPTION' | translate}}</b>
+        </div>
+        <div class="col-sm-9">
+            <div class="form-group">
+                <textarea class="form-control"
+                          name="description"
+                          ng-disabled="editorMode == editorModes.view"
+                          ng-model="detailedMailTemplate.description"
+                          rows="5"></textarea>
+            </div>
+        </div>
+    </div>
 
-                        <div ng-switch-default="">
-                            <input class="form-control"
-                                   name="subject"
-                                   ng-required="true"
-                                   ng-model="detailedMailTemplate.subject"
-                                   min="0">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_DESCRIPTION' | translate}}</th>
-                    <td ng-switch="editorMode">
-                        <div ng-switch-when="editorModes.view">
-                            {{initialDetailedMailTemplate.description}}
-                        </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <b>{{'TITLE_CONTENT' | translate}}</b>
+        </div>
+        <div class="col-sm-9">
+            <div class="form-group">
+                <uib-tabset justified="true">
+                    <uib-tab index="0" heading="{{'TITLE_EDITOR' | translate}}">
 
-                        <div ng-switch-default="">
+                        <div class="form-group">
                             <textarea class="form-control"
-                                      name="description"
-                                      ng-model="detailedMailTemplate.description"
-                                      ng-required="true"></textarea>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_INGREDIENT' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view">
-                            {{initialDetailedFood.ingredient}}
+                                      name="content"
+                                      ui-tinymce="{'height': '500px'}"
+                                      ng-required="editorMode != editorModes.view"
+                                      ng-disabled="editorMode == editorModes.view"
+                                      ng-model="detailedMailTemplate.content"></textarea>
                         </div>
 
-                        <div ng-if="editorMode != editorModes.view">
-                            <textarea name="ingredient"
-                                      ng-model="detailedFood.ingredient"
-                                      class="form-control"
-                                      rows="5"></textarea>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_TYPES' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view">
-                            <span ng-repeat="foodType in initialDetailedFood.types"
-                                  class="badge badge-info mr-5px">
-                                {{loadFoodTypeTitle(foodType) | translate}}
-                            </span>
-                        </div>
-
-                        <div ng-if="editorMode != editorModes.view"
-                             class="d-flex align-items-start">
-
-                            <div class="btn-group btn-group-sm form-group mr-5px"
-                                 role="group"
-                                 ng-repeat="foodType in detailedFood.types track by $index">
-                                <button class="btn btn-outline-info" disabled>
-                                    {{loadFoodTypeTitle(foodType) | translate}}
-                                </button>
-                                <button class="btn btn-danger"
-                                        ng-click="clickDeleteFoodType(foodType)">
-                                    <span class="fa fa-trash"></span>
-                                </button>
-                            </div>
-
-                            <input hidden ng-model="detailedFood.types" name="types">
-
+                        <div class="d-flex justify-content-center">
                             <button class="btn btn-primary"
-                                    ng-click="clickAddFoodType()">
-                                <span class="fa fa-plus"></span>
+                                    ng-click="clickImportContent()">
+                                <span class="fa fa-upload"></span> <span>{{'TITLE_IMPORT_HTML_CONTENT' | translate}}</span>
                             </button>
                         </div>
 
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_STATUS' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view">
-                            <span class="badge badge-info">
-                                {{loadFoodStatusTitle(detailedFood.status) | translate}}
-                            </span>
+                    </uib-tab>
+                    <uib-tab index="1" heading="{{'TITLE_PREVIEW' | translate}}">
+                        <div class="form-group" ng-bind-html="detailedMailTemplate.content">
                         </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
 
-                        <div ng-if="editorMode != editorModes.view">
-                            <select name="status"
-                                    class="form-control"
-                                    ng-model="detailedFood.status"
-                                    ng-options="availableFoodStatus.value as availableFoodStatus.key | translate for availableFoodStatus in availableFoodStatuses"></select>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_CATEGORY' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view">
-                            <span class="badge badge-info mr-5px">
-                                {{loadFoodCategoryTitle(detailedFood.category) | translate}}
-                            </span>
-                        </div>
-
-                        <div ng-if="editorMode != editorModes.view">
-                            <select name="category"
-                                    ng-options="availableFoodCategory.value as availableFoodCategory.key | translate for availableFoodCategory in availableFoodCategories"
-                                    ng-model="detailedFood.category"
-                                    class="form-control"></select>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_ASSIGNED_LOCATIONS' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view">
-                             <span class="badge badge-info mr-5px"
-                                   ng-repeat="assignedLocation in detailedFood.assignedLocations">
-                                {{idToStates[assignedLocation.stateId].name}} - {{idToCities[assignedLocation.cityId].name}}
-                             </span>
-                        </div>
-
-                        <div ng-if="editorMode != editorModes.view"
-                             class="d-flex align-items-start flex-wrap">
-                            <div class="btn-group btn-group-sm form-group mr-5px"
-                                 role="group"
-                                 ng-repeat="assignedLocation in detailedFood.assignedLocations">
-
-                                <button class="btn btn-outline-info" disabled>
-                                    {{idToStates[assignedLocation.stateId].name}} -
-                                    {{idToCities[assignedLocation.cityId].name}}
-                                </button>
-                                <button class="btn btn-danger"
-                                        ng-click="clickDeleteAssignedLocation(assignedLocation)">
-                                    <span class="fa fa-trash"></span>
-                                </button>
-                            </div>
-
-                            <input hidden name="assignedLocations"
-                                   ng-model="detailedFood.assignedLocations[0].cityId"
-                                   ng-required="true">
-
-                            <button class="btn btn-primary"
-                                    ng-click="clickAddAssignedLocation()">
-                                <span class="fa fa-plus"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_MINIMUM_ORDER_QUANTITY' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view">
-                            {{initialDetailedFood.minimumOrderQuantity}}
-                        </div>
-
-                        <div ng-if="editorMode != editorModes.view">
-                            <input name="minimumOrderQuantity"
-                                   class="form-control"
-                                   ng-model="detailedFood.minimumOrderQuantity"
-                                   min="0"
-                                   type="number">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">{{'TITLE_PROMOTION' | translate}}</th>
-                    <td>
-                        <div ng-if="editorMode == editorModes.view"
-                             ng-switch="shouldPromotionValid(initialDetailedFood.promotion)">
-                            <span class="badge badge-success"
-                                  ng-switch-when="true">{{'TITLE_IN_PROMOTION' | translate}}</span>
-
-                            <span style="text-decoration: line-through;"
-                                  class="text-danger"
-                                  ng-switch-default>{{'MSG_NO_PROMOTION_AVAILABLE' | translate}}</span>
-                        </div>
-
-                        <div ng-if="editorMode !== editorModes.view">
-
-                            <div class="form-group">
-                                <select name="shouldPromotionEnabled"
-                                        ng-model="detailedFood.promotion.status"
-                                        ng-options="availableFoodPromotionMode.value as availableFoodPromotionMode.key |translate for availableFoodPromotionMode in availableFoodPromotionModes"
-                                        class="form-control"></select>
-                            </div>
-
-                            <div class="row"
-                                 ng-if="detailedFood.promotion.status == promotionStatuses.inPromotion">
-                                <div class="col-sm-4">
-                                    <div class="input-group form-group">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-primary" type="button"
-                                                    ng-click="clickSelectPromotionStartDate()">
-                                                {{'TITLE_FROM' | translate}}
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control" readonly
-                                               value="{{detailedFood.promotion.startTime / 1000 | amFromUnix | amDateFormat:'DD/MM/YYYY HH:mm'}}">
-
-                                        <input hidden
-                                               ng-model="detailedFood.promotion.startTime"
-                                               ng-required="detailedFood.promotion.status == promotionStatuses.inPromotion"
-                                               name="promotionStartTime">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="input-group form-group">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-primary"
-                                                    type="button"
-                                                    ng-disabled="detailedFoodForm.promotionStartTime.$invalid"
-                                                    ng-click="clickSelectPromotionEndDate()">
-                                                {{'TITLE_TO' | translate}}
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control"
-                                               readonly
-                                               ng-disabled="detailedFoodForm.promotionStartTime.$invalid"
-                                               value="{{detailedFood.promotion.endTime / 1000 | amFromUnix | amDateFormat:'DD/MM/YYYY HH:mm'}}">
-
-                                        <input hidden
-                                               ng-model="detailedFood.promotion.endTime"
-                                               ng-required="detailedFood.promotion.status == promotionStatuses.inPromotion"
-                                               name="promotionEndTime">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="input-group form-group">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text">
-                                                {{'TITLE_DISCOUNT_PRICE' | translate}}
-                                            </label>
-                                        </div>
-                                        <input type="number"
-                                               class="form-control"
-                                               name="discountPrice"
-                                               ng-model="detailedFood.promotion.discountPrice"
-                                               min="0"
-                                               max="{{initialDetailedFood.price}}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-sm-3">
+            <b>{{'TITLE_AVAILABILITY' | translate}}</b>
+        </div>
+        <div class="col-sm-9">
+            <div class="form-group">
+                <select name="availability"
+                        class="form-control"
+                        ng-required="editorMode != editorModes.view"
+                        ng-disabled="editorMode == editorModes.view"
+                        ng-model="detailedMailTemplate.availability"
+                        ng-options="availableAvailability.value as availableAvailability.key | translate for availableAvailability in availableAvailabilities"></select>
+            </div>
         </div>
     </div>
 
@@ -286,22 +116,16 @@
         <div class="text-right">
 
             <button class="btn btn-outline-primary"
-                    ng-if="shouldFoodAddable()"
-                    ng-disabled="detailedFoodForm.$invalid || detailedFoodForm.$pristine"
-                    ng-click="clickSubmitFoodAdd()">
+                    ng-if="shouldMailTemplateAddable()"
+                    ng-disabled="detailedMailTemplateForm.$invalid || detailedMailTemplateForm.$pristine"
+                    ng-click="clickSubmitMailTemplateAdd()">
                 <i class="fa fa-check"></i>
             </button>
 
             <button class="btn btn-outline-primary"
-                    ng-if="shouldFoodEditable() && editorMode == editorModes.view"
-                    ng-click="clickEnableEditMode()">
-                <i class="fa fa-pencil"></i>
-            </button>
-
-            <button class="btn btn-outline-primary"
-                    ng-if="shouldFoodEditable() && editorMode == editorModes.edit"
-                    ng-click="clickSubmitFoodEdit()"
-                    ng-disabled="detailedFoodForm.$invalid || detailedFoodForm.$pristine">
+                    ng-if="shouldMailTemplateEditable() && editorMode == editorModes.edit"
+                    ng-click="clickSubmitMailTemplateEdit()"
+                    ng-disabled="detailedMailTemplateForm.$invalid || detailedMailTemplateForm.$pristine">
                 <i class="fa fa-check"></i>
             </button>
 
@@ -312,7 +136,7 @@
             </button>
 
             <button class="btn btn-outline-secondary"
-                    ng-click="clickReloadCities(1)">
+                    ng-click="clickReloadModel()">
                 <i class="fa fa-refresh"></i>
             </button>
         </div>
